@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Cloud Dancer Blueprint — Design Tokens
+   AGENTS.md §28 Color / §27 Typography / §26 Layout
+
+   구조
+     1. @theme          정적 팔레트 · 타이포 · 간격 · 컨테이너
+     2. @theme inline   색맥락 별칭 (bg-hue-wash / text-hue-deep …)
+     3. 색맥락 기본값 + .hue-* 스코프
+     4. 다크 테마 — 파스텔 토큰 18개만 재정의
+     5. @layer base
+
+   색 사용 규칙 (AGENTS.md §28.4 / §28.5)
+     - 한 섹션에 한 계열. .hue-* 클래스를 섹션에 하나만 건다.
+     - tint 면 위에 올릴 수 있는 것: ink / ink-2 / hue-deep 세 가지뿐.
+       ink-3는 tint 위에서 3.5:1로 떨어지므로 지면과 wash 위에서만.
+     - 파스텔은 언제나 단색 면. 그라디언트 금지.
+   ========================================================================== */
+
+@theme {
+  /* ---- Ground : PANTONE 11-4201 TCX Cloud Dancer -------------------- */
+  --color-paper: #f0eee9;
+  --color-paper-raised: #f7f6f2;
+  --color-paper-sunk: #e7e4dc;
+  --color-deep-ground: #22201b;
+
+  /* ---- deep-ground 위의 상수 색 -------------------------------------
+     Contact / Footer 지면은 라이트·다크 양쪽에서 모두 어둡다. 따라서 그 위에
+     올라가는 색은 테마를 따라 뒤집히면 안 된다. 아래 8개는 두 테마에서 값이
+     같고, 다크 블록에서 재정의하지 않는다.                                 */
+  --color-deep-ink: #f0eee9; /* ← Cloud Dancer 가 여기서는 잉크다 */
+  --color-deep-ink-2: #9b968b;
+
+  /* 사이트를 닫는 색표본 스트립. 팔레트를 보여주는 물건이므로 고정한다. */
+  --color-strip-blue: #c9d8e2;
+  --color-strip-sage: #cbd6c4;
+  --color-strip-mauve: #d6ccda;
+  --color-strip-clay: #e0d0c6;
+  --color-strip-blush: #e5cfd2;
+  --color-strip-butter: #e7dfc2;
+
+  /* ---- Ink : 지면 온도에 맞춘 warm neutral --------------------------- */
+  --color-ink: #1e1c18;
+  --color-ink-2: #57544c;
+  --color-ink-3: #6e6a62;
+  --color-rule: #dcd8cf;
+  --color-rule-strong: #c6c1b6;
+
+  /* ---- Powdered Pastels : 6계열 × wash / tint / deep ------------------
+     deep 6종은 Cloud Dancer 위에서 6.3:1 ~ 7.0:1 로 튜닝되어 있다.
+     편차 0.7 이내 — 색맥락이 바뀌어도 링크·수치의 무게가 흔들리지 않는다.
+     이 범위를 벗어나는 색을 팔레트에 추가하지 않는다.                     */
+
+  /* 시스템 기본값 · syu-likelion */
+  --color-blue-wash: #e6edf2;
+  --color-blue-tint: #c9d8e2;
+  --color-blue-deep: #38566b; /* 6.7:1 */
+
+  /* Teaching · 삼육대 어디야 */
+  --color-sage-wash: #e7ede3;
+  --color-sage-tint: #cbd6c4;
+  --color-sage-deep: #4a5b41; /* 6.3:1 */
+
+  /* Oshi Calendar 전용 */
+  --color-mauve-wash: #ede8f0;
+  --color-mauve-tint: #d6ccda;
+  --color-mauve-deep: #5a4a63; /* 7.0:1 */
+
+  /* Skills · CCTV Scheduler */
+  --color-clay-wash: #f0e8e2;
+  --color-clay-tint: #e0d0c6;
+  --color-clay-deep: #6b4a3a; /* 6.8:1 */
+
+  /* About */
+  --color-blush-wash: #f2e7e9;
+  --color-blush-tint: #e5cfd2;
+  --color-blush-deep: #6e4450; /* 7.0:1 */
+
+  /* Experience */
+  --color-butter-wash: #f1ede0;
+  --color-butter-tint: #e7dfc2;
+  --color-butter-deep: #62522c; /* 6.6:1 */
+
+  /* ---- Typography ---------------------------------------------------
+     sans = 말, mono = 사실. 모노는 수치 · 메타 · 라벨 · 다이어그램 전용.  */
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", ui-monospace, "Cascadia Mono", "SF Mono",
+    Consolas, monospace;
+
+  --text-display: clamp(2rem, 5.6vw, 3.375rem);
+  --text-display--line-height: 1.16;
+  --text-display--letter-spacing: -0.04em;
+  --text-display--font-weight: 700;
+
+  --text-h2: clamp(1.5rem, 3.4vw, 2rem);
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.4;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h3--font-weight: 600;
+
+  /* 한글 본문은 1.6이면 답답하다 */
+  --text-body: 1rem;
+  --text-body--line-height: 1.8;
+
+  --text-small: 0.84375rem; /* 13.5px */
+  --text-small--line-height: 1.7;
+
+  --text-label: 0.6875rem; /* 11px */
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.14em;
+
+  --text-metric: clamp(1.75rem, 4vw, 2.5rem);
+  --text-metric--line-height: 1;
+  --text-metric--letter-spacing: -0.03em;
+  --text-metric--font-weight: 600;
+
+  /* ---- Spacing : 8px 배수. 이 외의 값은 쓰지 않는다 ------------------- */
+  --spacing-section: 4.5rem; /* 72  — mobile */
+  --spacing-section-md: 6.5rem; /* 104 — tablet */
+  --spacing-section-lg: 8.75rem; /* 140 — desktop */
+  --spacing-section-xl: 10rem; /* 160 — wide */
+  --spacing-gutter: 1.25rem; /* 20  — mobile */
+  --spacing-gutter-md: 2.5rem; /* 40  — tablet */
+  --spacing-gutter-lg: 4rem; /* 64  — desktop */
+
+  /* ---- Containers ---------------------------------------------------- */
+  --container-shell: 70rem; /* 1120 — 기본 컨테이너 */
+  --container-shell-wide: 75rem; /* 1200 — ≥1440 */
+  --container-break: 67.5rem; /* 1080 — Case Study breakout */
+  --container-case: 45rem; /*  720 — Case Study 본문 */
+  --container-measure: 66ch; /*       본문 measure */
+}
+
+/* --------------------------------------------------------------------------
+   2. 색맥락 별칭
+   @theme inline 이므로 유틸리티가 --hue-* 를 직접 참조한다.
+   따라서 bg-hue-wash / text-hue-deep 은 감싸고 있는 .hue-* 를 따라간다.
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-hue-wash: var(--hue-wash);
+  --color-hue-tint: var(--hue-tint);
+  --color-hue-deep: var(--hue-deep);
+}
+
+/* --------------------------------------------------------------------------
+   3. 색맥락 스코프 — 이 7블록이 시스템의 핵심
+   섹션에 클래스 하나를 걸면 하위 전체의 색 결정이 그 계열 안에서만 이뤄진다.
+   -------------------------------------------------------------------------- */
+:root {
+  --hue-wash: var(--color-blue-wash);
+  --hue-tint: var(--color-blue-tint);
+  --hue-deep: var(--color-blue-deep);
+}
+
+.hue-blue {
+  --hue-wash: var(--color-blue-wash);
+  --hue-tint: var(--color-blue-tint);
+  --hue-deep: var(--color-blue-deep);
+}
+.hue-sage {
+  --hue-wash: var(--color-sage-wash);
+  --hue-tint: var(--color-sage-tint);
+  --hue-deep: var(--color-sage-deep);
+}
+.hue-mauve {
+  --hue-wash: var(--color-mauve-wash);
+  --hue-tint: var(--color-mauve-tint);
+  --hue-deep: var(--color-mauve-deep);
+}
+.hue-clay {
+  --hue-wash: var(--color-clay-wash);
+  --hue-tint: var(--color-clay-tint);
+  --hue-deep: var(--color-clay-deep);
+}
+.hue-blush {
+  --hue-wash: var(--color-blush-wash);
+  --hue-tint: var(--color-blush-tint);
+  --hue-deep: var(--color-blush-deep);
+}
+.hue-butter {
+  --hue-wash: var(--color-butter-wash);
+  --hue-tint: var(--color-butter-tint);
+  --hue-deep: var(--color-butter-deep);
+}
+
+/* --------------------------------------------------------------------------
+   4. 다크 테마 — 반전이 아니라 역할 교체 (AGENTS.md §28.7)
+   Cloud Dancer 가 지면에서 잉크로 올라오고, 낮에는 대비 때문에 텍스트가 될 수
+   없던 파스텔 원색이 deep 자리를 가져간다. deep 6종은 9:1 ~ 10:1 로 재조정.
+
+   세 가지 상태를 모두 처리한다.
+     · 시스템 다크 (data-theme 없음)  → @media 블록
+     · 명시적 라이트                   → :not([data-theme="light"]) 로 제외
+     · 명시적 다크                     → [data-theme="dark"] 블록이 최종 승리
+
+   .hue-* 스코프와 컴포넌트 CSS 는 손대지 않는다. 여기 토큰만 바뀐다.
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-paper: #171613;
+    --color-paper-raised: #1f1e1a;
+    --color-paper-sunk: #100f0d;
+    --color-deep-ground: #0c0b09;
+
+    --color-ink: #f0eee9; /* ← Cloud Dancer */
+    --color-ink-2: #a8a398;
+    --color-ink-3: #8b8779;
+    --color-rule: #2e2c27;
+    --color-rule-strong: #423f38;
+
+    --color-blue-wash: #191f24;
+    --color-blue-tint: #2c3d49;
+    --color-blue-deep: #a8c4d6;
+
+    --color-sage-wash: #1a1f19;
+    --color-sage-tint: #313c2e;
+    --color-sage-deep: #b3c6a8;
+
+    --color-mauve-wash: #1f1b23;
+    --color-mauve-tint: #3a3242;
+    --color-mauve-deep: #c4b4ce;
+
+    --color-clay-wash: #221b17;
+    --color-clay-tint: #40332b;
+    --color-clay-deep: #d4b3a0;
+
+    --color-blush-wash: #231a1d;
+    --color-blush-tint: #432e34;
+    --color-blush-deep: #d9afb8;
+
+    --color-butter-wash: #201d14;
+    --color-butter-tint: #3b3520;
+    --color-butter-deep: #d2c48e;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-paper: #171613;
+  --color-paper-raised: #1f1e1a;
+  --color-paper-sunk: #100f0d;
+  --color-deep-ground: #0c0b09;
+
+  --color-ink: #f0eee9;
+  --color-ink-2: #a8a398;
+  --color-ink-3: #8b8779;
+  --color-rule: #2e2c27;
+  --color-rule-strong: #423f38;
+
+  --color-blue-wash: #191f24;
+  --color-blue-tint: #2c3d49;
+  --color-blue-deep: #a8c4d6;
+
+  --color-sage-wash: #1a1f19;
+  --color-sage-tint: #313c2e;
+  --color-sage-deep: #b3c6a8;
+
+  --color-mauve-wash: #1f1b23;
+  --color-mauve-tint: #3a3242;
+  --color-mauve-deep: #c4b4ce;
+
+  --color-clay-wash: #221b17;
+  --color-clay-tint: #40332b;
+  --color-clay-deep: #d4b3a0;
+
+  --color-blush-wash: #231a1d;
+  --color-blush-tint: #432e34;
+  --color-blush-deep: #d9afb8;
+
+  --color-butter-wash: #201d14;
+  --color-butter-tint: #3b3520;
+  --color-butter-deep: #d2c48e;
+}
+
+/* --------------------------------------------------------------------------
+   5. Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    /* 한글은 단어 중간에서 끊지 않는다. 긴 URL 등은 예외적으로 흘린다. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-text-size-adjust: 100%;
+    /* 단일 페이지 내비게이션용. reduced-motion 에서는 아래에서 auto 로 되돌린다. */
+    scroll-behavior: smooth;
+  }
+
+  /* sticky header 아래로 앵커 타깃이 숨지 않게 한다 */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.025em;
+  }
+
+  /* 수치는 언제나 자릿수가 맞아야 한다 */
+  :is(code, kbd, samp, pre) {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 포커스링은 그 섹션의 색을 따라간다 */
+  :focus-visible {
+    outline: 2px solid var(--hue-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--hue-tint);
+    color: var(--color-ink);
+  }
+
+  /* AGENTS.md §29 — 목적 없는 모션은 전부 끈다 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   6. Section Reveal (AGENTS.md §29)
+
+   IntersectionObserver 대신 scroll-driven animation 을 쓴다.
+   JS 로 만들면 초기 상태가 opacity:0 이어야 하고, 스크립트가 실패하거나 늦게
+   뜨는 순간 본문이 통째로 사라진다. CSS 로 하면 미지원 브라우저에서는 그냥
+   처음부터 보이는 상태가 된다 — 실패해도 읽는 데 지장이 없다.
+
+   대상은 뷰포트보다 작은 요소로 한정한다. 섹션 전체에 걸면 entry 구간이
+   섹션 높이만큼 길어져서, 다 읽고 나서야 페이드가 끝나는 이상한 모션이 된다.
+   그래서 SectionHeader · figure · 수치 묶음에만 붙인다.
+
+   끄려면 이 블록과 data-reveal 속성만 지우면 된다.
+   ========================================================================== */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
