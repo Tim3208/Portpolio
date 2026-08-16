@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { OtherProjects } from "@/components/home/OtherProjects";
 import { Container } from "@/components/layout/Container";
 import { HueScope } from "@/components/layout/HueScope";
 import { ProjectCover } from "@/components/project/ProjectCover";
@@ -146,6 +147,8 @@ export function FeaturedProjects() {
           ))}
         </ul>
       </Container>
+
+      <OtherProjects />
     </section>
   );
 }

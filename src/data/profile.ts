@@ -27,7 +27,7 @@ export const PROFILE = {
 export const HERO_METRICS = [
   { value: "148", label: "운영 서비스 가입 사용자" },
   { value: "200", label: "모집 당일 최대 조회 수" },
-  { value: "123", label: "캠퍼스 장소 데이터" },
+  { value: "81", label: "커뮤니티 스크랩" },
   { value: "27", label: "프론트엔드 교육 인원" },
 ] as const;
 

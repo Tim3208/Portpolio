@@ -140,3 +140,67 @@ export const PROJECTS: readonly Project[] = [
 
 export const FEATURED_PROJECT = PROJECTS[0];
 export const SUPPORTING_PROJECTS = PROJECTS.slice(1);
+
+/**
+ * Case Study 로 풀지 않는 나머지 작업들.
+ *
+ * §8 의 대표 4개와 같은 자리에 두지 않는다. 저 넷은 문제 정의부터 운영까지
+ * 설명할 것이 있어서 상세 페이지를 갖지만, 여기 있는 것들은 "무엇을 만들었고
+ * 무엇이 되는가"까지가 확인된 전부다. 그래서 필드도 그만큼만 둔다 — 기간,
+ * 기술, 수치는 확인되지 않았으므로 아예 자리를 만들지 않는다 (§39).
+ */
+export type OtherProject = {
+  name: string;
+  /** 약칭만으로 무엇인지 알 수 없을 때만 풀어 쓴다 */
+  fullName?: string;
+  /** 무엇을 하는 것인가 — 한 문장 */
+  summary: string;
+  /** 핵심 기능. 이 목록은 기능을 알리는 것이 목적이므로 나열해도 된다. */
+  features: readonly string[];
+  /** 확인된 역할만 적는다. 모르면 비운다. */
+  role?: string;
+};
+
+export const OTHER_PROJECTS: readonly OtherProject[] = [
+  {
+    name: "세미콜론",
+    fullName: "컴퓨터공학부 학회 페이지",
+    summary: "학회 소개와 내부 운영을 한 페이지에서 다루는 학회 사이트",
+    features: ["학회 소개", "학회비 납부자 체크", "회의록 작성"],
+    role: "Frontend · Design · Backend",
+  },
+  {
+    name: "길맛로드",
+    summary: "길거리 푸드트럭 정보를 모아 보여주는 사이트",
+    features: ["푸드트럭 정보 제공", "푸드트럭 제보", "좋아요 · 리뷰"],
+    role: "Frontend · Design",
+  },
+  {
+    name: "LA",
+    summary: "지역별 축제 · 행사 정보를 모아 AI 요약과 함께 보여주는 서비스",
+    features: ["지역별 축제 · 행사 정보 수집", "AI 요약 · 코멘트", "AI 채팅"],
+    role: "Frontend · Design",
+  },
+  {
+    name: "ReadUp",
+    summary: "기사를 직접 요약해 보고 AI에게 채점받는 독해력 향상 서비스",
+    features: ["기사 읽고 직접 요약", "AI 채점 · 피드백"],
+    role: "Frontend · Design",
+  },
+  {
+    name: "두사타",
+    fullName: "두유는 사랑을 타고",
+    summary: "동아리 박람회에서 선보인, 웹과 오프라인을 잇는 작품",
+    features: [
+      "자기를 어필하는 한두 문장을 포스트잇으로 게시",
+      "마음에 든 포스트잇을 가져가 뒷면 연락처로 연락",
+    ],
+    role: "Frontend · Design",
+  },
+  {
+    name: "Pret",
+    summary: "텍스트와 아스키 아트만으로 화면을 구성한 웹 RPG",
+    features: ["Pretext 라이브러리 기반 화면 디자인", "웹에서 진행하는 RPG"],
+    role: "Frontend",
+  },
+];
