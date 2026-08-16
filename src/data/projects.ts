@@ -159,6 +159,14 @@ export type OtherProject = {
   features: readonly string[];
   /** 확인된 역할만 적는다. 모르면 비운다. */
   role?: string;
+  /**
+   * 확인 가능한 결과물로 가는 링크. 둘 다 있으면 배포된 사이트를 우선한다 —
+   * 실제로 동작하는 것을 보는 편이 저장소를 여는 것보다 앞서기 때문이다.
+   */
+  links?: {
+    service?: string;
+    github?: string;
+  };
 };
 
 export const OTHER_PROJECTS: readonly OtherProject[] = [
@@ -168,24 +176,31 @@ export const OTHER_PROJECTS: readonly OtherProject[] = [
     summary: "학회 소개와 내부 운영을 한 페이지에서 다루는 학회 사이트",
     features: ["학회 소개", "학회비 납부자 체크", "회의록 작성"],
     role: "Frontend · Design · Backend",
+    links: { service: "https://semicolon-psi-blush.vercel.app/" },
   },
   {
     name: "길맛로드",
     summary: "길거리 푸드트럭 정보를 모아 보여주는 사이트",
     features: ["푸드트럭 정보 제공", "푸드트럭 제보", "좋아요 · 리뷰"],
     role: "Frontend · Design",
+    links: { github: "https://github.com/iyeonggyu0/FoodMap" },
   },
   {
     name: "LA",
     summary: "지역별 축제 · 행사 정보를 모아 AI 요약과 함께 보여주는 서비스",
     features: ["지역별 축제 · 행사 정보 수집", "AI 요약 · 코멘트", "AI 채팅"],
     role: "Frontend · Design",
+    links: { github: "https://github.com/Tim3208/LA" },
   },
   {
     name: "ReadUp",
     summary: "기사를 직접 요약해 보고 AI에게 채점받는 독해력 향상 서비스",
     features: ["기사 읽고 직접 요약", "AI 채점 · 피드백"],
     role: "Frontend · Design",
+    links: {
+      github:
+        "https://github.com/Likelion-Ganjiton/ReadUp-Frontend/tree/develop",
+    },
   },
   {
     name: "두사타",
@@ -196,11 +211,24 @@ export const OTHER_PROJECTS: readonly OtherProject[] = [
       "마음에 든 포스트잇을 가져가 뒷면 연락처로 연락",
     ],
     role: "Frontend · Design",
+    links: { github: "https://github.com/Tim3208/dusata" },
   },
   {
     name: "Pret",
     summary: "텍스트와 아스키 아트만으로 화면을 구성한 웹 RPG",
     features: ["Pretext 라이브러리 기반 화면 디자인", "웹에서 진행하는 RPG"],
     role: "Frontend",
+    links: { service: "https://tim3208.github.io/Pret/" },
+  },
+  {
+    name: "MathGraph",
+    summary: "수학 문제에 등장하는 그래프를 직접 그리는 그래프 제작 도구",
+    features: [
+      "점 · 선분 · 보조선 추가",
+      "축 표시",
+      "문제 풀이에 필요한 그래프를 빠르게 작성",
+    ],
+    role: "Frontend · Design",
+    links: { service: "https://tim3208.github.io/math-graph/" },
   },
 ];
