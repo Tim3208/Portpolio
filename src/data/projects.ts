@@ -55,7 +55,7 @@ export const PROJECTS: readonly Project[] = [
     role: "Frontend Developer",
     team: "FE 2 · BE 2 · Design 1",
     status: "운영 · 유지보수 중",
-    hue: "blue",
+    hue: "mocha",
     technologies: ["Next.js", "TypeScript", "React", "Axios"],
     metrics: [
       { value: "148", label: "가입 사용자" },
@@ -108,7 +108,7 @@ export const PROJECTS: readonly Project[] = [
     role: "공동 기획 · Frontend Developer",
     team: "3인",
     status: "개발 중 · Preview 배포",
-    hue: "mauve",
+    hue: "plum",
     technologies: ["React", "TypeScript", "Supabase", "Tailwind CSS"],
     // 확인된 수치가 없다. 카드에 숫자를 만들어 넣지 않는다.
     links: {
@@ -132,7 +132,7 @@ export const PROJECTS: readonly Project[] = [
     period: "2023.09 — 2024.06",
     role: "기획 · 개발",
     team: "1인 프로젝트",
-    hue: "clay",
+    hue: "terracotta",
     technologies: ["Vanilla JavaScript", "HTML", "CSS", "LocalStorage"],
     coverWithheld: "보안상 화면 비공개",
   },

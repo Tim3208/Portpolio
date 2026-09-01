@@ -18,7 +18,10 @@ export function Teaching() {
   return (
     <section className="hue-sage bg-hue-wash py-section md:py-section-md">
       <Container>
-        <p className="font-mono text-label uppercase text-hue-deep">Teaching</p>
+        {/* 이 탭의 유일한 섹션이라 eyebrow 가 곧 h1 이다 (스타일은 그대로) */}
+        <h1 className="font-mono text-label uppercase text-hue-deep">
+          Teaching
+        </h1>
 
         <blockquote className="mt-6">
           <p className="max-w-[22ch] text-display sm:max-w-[26ch]">

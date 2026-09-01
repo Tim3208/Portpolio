@@ -10,7 +10,7 @@ import { AWARDS } from "@/data/awards";
  */
 export function Awards() {
   return (
-    <section className="hue-blue py-section md:py-section-md">
+    <section className="hue-mocha py-section md:py-section-md">
       <Container>
         <SectionHeader eyebrow="Awards" title="수상" />
 

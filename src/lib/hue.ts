@@ -1,17 +1,17 @@
 /**
  * 색맥락 (AGENTS.md §28.3 / §28.4)
  *
- * 파스텔 6계열. 한 섹션에는 한 계열만 활성화된다.
+ * 흙빛 6계열. 한 섹션에는 한 계열만 활성화된다.
  * 프로젝트 색은 `Project.hue` 로 데이터에 두어 홈 카드 → 상세 Hero →
  * Navigation 이 같은 색을 공유하게 한다. JSX 에 색을 하드코딩하지 않는다.
  */
 export const HUES = [
-  "blue",
+  "mocha",
+  "terracotta",
+  "wheat",
   "sage",
-  "mauve",
-  "clay",
+  "plum",
   "blush",
-  "butter",
 ] as const;
 
 export type Hue = (typeof HUES)[number];
@@ -23,20 +23,20 @@ export type Hue = (typeof HUES)[number];
  * 오타가 런타임까지 살아남는다.
  */
 export const HUE_CLASS: Record<Hue, string> = {
-  blue: "hue-blue",
+  mocha: "hue-mocha",
+  terracotta: "hue-terracotta",
+  wheat: "hue-wheat",
   sage: "hue-sage",
-  mauve: "hue-mauve",
-  clay: "hue-clay",
+  plum: "hue-plum",
   blush: "hue-blush",
-  butter: "hue-butter",
 };
 
 /** 각 계열이 어디에 배정되어 있는지 — AGENTS.md §28.3 표와 동일하게 유지한다. */
 export const HUE_LABEL: Record<Hue, string> = {
-  blue: "Powder Blue",
-  sage: "Powder Sage",
-  mauve: "Powder Mauve",
-  clay: "Powder Clay",
-  blush: "Powder Blush",
-  butter: "Powder Butter",
+  mocha: "Earth Mocha",
+  terracotta: "Earth Terracotta",
+  wheat: "Earth Wheat",
+  sage: "Earth Sage",
+  plum: "Earth Plum",
+  blush: "Earth Blush",
 };

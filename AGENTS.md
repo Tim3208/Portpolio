@@ -112,34 +112,32 @@ Hero에서 다음 문구를 주요 후보로 사용한다.
 
 # 5. 사이트 전체 구조
 
-기본 구조는 **Single Page Homepage + Project Case Study Detail Pages**로 구성한다.
-
-예상 라우트:
-
-```text
-/
-├─ Hero
-├─ About
-├─ Featured Projects
-├─ Experience
-├─ Teaching
-├─ Awards
-├─ Skills
-└─ Contact
-
-/projects/syu-likelion
-/projects/eodiya
-/projects/oshi-calendar
-/projects/cctv-scheduler
-```
-
-필요하면 프로젝트 데이터 구조를 기반으로 동적 라우팅을 사용할 수 있다.
-
-예:
+사이트 전체가 **하나의 브라우저 창** 안에서 열린다 (§48.1). 카테고리는 그 창의
+탭이고, 탭은 흉내가 아니라 **실제 라우트**다 — 탭을 누르면 창 안 주소창의 경로가
+진짜로 바뀐다. 주소가 바뀌지 않으면 주소창이 거짓말을 하게 되고 연출 전체가
+무너지므로, 탭을 클라이언트 상태로 구현하지 않는다.
 
 ```text
-/projects/[slug]
+/                      Home      Hero → About
+/work                  Work      Featured Projects (+ Other Projects)
+/career                Career    Experience → Awards → Skills
+/teaching              Teaching  Teaching
+
+/projects/[slug]                 Case Study — 다섯 번째 탭으로 열린다
+├─ syu-likelion
+├─ eodiya
+├─ oshi-calendar
+└─ cctv-scheduler
 ```
+
+**Contact 는 탭이 아니다.** Contact + Footer 는 하나의 닫는 블록이라 어느 탭에서
+나가든 같은 마무리를 만나야 한다. 그래서 layout 에 상주하고, 크롬바의 Contact
+링크는 모든 라우트에 존재하는 `#contact` 를 가리킨다.
+
+각 탭은 h1 을 정확히 하나 가진다. 탭이 라우트로 갈라져 있으므로 페이지마다
+최상위 제목이 필요하다 (`SectionHeader` 의 `level` prop).
+
+탭 목록의 단일 출처는 `src/lib/tabs.ts` 다. sitemap 도 이 배열에서 나온다.
 
 ---
 
@@ -1398,7 +1396,7 @@ Hero Heading은 큰 크기를 사용해도 되지만 화면을 의미 없이 가
 
 # 28. Color
 
-이 프로젝트의 팔레트는 **PANTONE Cloud Dancer 지면 + Powdered Pastels**로 확정한다.
+이 프로젝트의 팔레트는 **PANTONE Cloud Dancer 지면 + Earthen Pastels + Accent 하나**로 확정한다.
 
 기존의 "Neutral Palette + 1 Accent Color" 방침은 이 항목으로 대체한다.
 
@@ -1409,10 +1407,18 @@ Hero Heading은 큰 크기를 사용해도 되지만 화면을 의미 없이 가
 지면은 PANTONE 11-4201 TCX Cloud Dancer 하나다.
 
 ```text
---paper         #F0EEE9   Cloud Dancer / 사이트 전체 지면
+--paper         #F0EEE9   Cloud Dancer / 창 안쪽 지면
 --paper-raised  #F7F6F2   지면보다 밝게 띄운 면
 --paper-sunk    #E7E4DC   지면보다 눌러 내린 면 (코드, Before 블록)
 --deep-ground   #22201B   Contact 반전 블록
+```
+
+창 프레임 전용 면색 세 가지가 여기 붙는다 (§48.1).
+
+```text
+--desk          #E6E2DA   창 바깥 지면. body 배경이 이것이다
+--chrome        #EAE7E0   크롬바 — paper 보다 한 단 눌린 면
+--omnibox       #F2F0EC   주소창 — 크롬 위로 떠오르는 면
 ```
 
 순백(`#FFFFFF`)은 사용하지 않는다.
@@ -1431,7 +1437,7 @@ Cloud Dancer는 강조에 쓸 수 없는 오프화이트이므로 **Accent가 �
 --rule-strong   #C6C1B6   강조 Hairline
 ```
 
-## 28.3 Powdered Pastels — 6계열 × 3단 램프
+## 28.3 Earthen Pastels — 6계열 × 3단 램프
 
 파스텔은 배경 장식이 아니라 **텍스트·링크·버튼까지 담당하는 정식 팔레트**다.
 
@@ -1445,18 +1451,22 @@ deep   그 색맥락 안의 잉크 — 링크, 버튼, 수치, 섹션 번호, �
 
 | 계열 | wash | tint | deep | 배정 |
 |---|---|---|---|---|
-| Powder Blue | `#E6EDF2` | `#C9D8E2` | `#38566B` | 시스템 기본값 · syu-likelion |
-| Powder Sage | `#E7EDE3` | `#CBD6C4` | `#4A5B41` | Teaching · 삼육대 어디야 |
-| Powder Mauve | `#EDE8F0` | `#D6CCDA` | `#5A4A63` | Oshi Calendar 전용 |
-| Powder Clay | `#F0E8E2` | `#E0D0C6` | `#6B4A3A` | Skills · CCTV Scheduler |
-| Powder Blush | `#F2E7E9` | `#E5CFD2` | `#6E4450` | About |
-| Powder Butter | `#F1EDE0` | `#E7DFC2` | `#62522C` | Experience |
+| Earth Mocha | `#F2EDEA` | `#E2D5CD` | `#6C4D3A` | 시스템 기본값 · syu-likelion |
+| Earth Terracotta | `#F3EBEA` | `#E3CFCC` | `#78463E` | Skills · CCTV Scheduler |
+| Earth Wheat | `#F3F0EA` | `#E3DCCC` | `#60522F` | Experience |
+| Earth Sage | `#EEF1EC` | `#D6DFD0` | `#46583B` | Teaching · 삼육대 어디야 |
+| Earth Plum | `#F1ECEF` | `#DDD2DA` | `#674A5E` | Oshi Calendar 전용 |
+| Earth Blush | `#F2EBED` | `#DFD0D3` | `#714850` | About |
 
-`deep` 6종은 Cloud Dancer 위에서 **6.3 : 1 ~ 7.0 : 1** 범위로 튜닝되어 있다.
+`deep` 6종은 Cloud Dancer 위에서 **6.56 : 1 ~ 6.66 : 1** 범위로 튜닝되어 있다.
 
-편차가 0.7 이내이므로 색맥락이 바뀌어도 링크와 수치의 시각적 무게가 흔들리지 않는다.
+편차가 0.1 이내이므로 색맥락이 바뀌어도 링크와 수치의 시각적 무게가 흔들리지 않는다.
 
-이 대비 범위를 벗어나는 색을 팔레트에 추가하지 않는다.
+`tint` 면 위에서도 `deep` 은 5.12 : 1 ~ 5.64 : 1 을 지킨다 (§28.5).
+
+이 대비 범위를 벗어나는 색을 팔레트에 추가하지 않는다. 색을 새로 넣거나 바꿀 때는
+`#F0EEE9` 와 `#171613` 양쪽에 대해 대비를 실제로 계산해서 이 범위 안에 들어오는지
+확인한다 — 눈대중으로 맞추면 계열마다 무게가 어긋난다.
 
 ## 28.4 색맥락 규칙 — 한 섹션에 한 계열
 
@@ -1466,7 +1476,7 @@ deep   그 색맥락 안의 잉크 — 링크, 버튼, 수치, 섹션 번호, �
 통째로 교체되고, 해당 섹션의 모든 색 결정은 **그 계열 안에서만** 이뤄진다.
 
 ```text
-.hue-blue { --hue-wash: …; --hue-tint: …; --hue-deep: …; }
+.hue-mocha { --hue-wash: …; --hue-tint: …; --hue-deep: …; }
 ```
 
 여섯 색이 한 화면에 모이는 곳은 **Contact 하단 색표본 스트립과 OG 이미지** 두 군데뿐이다.
@@ -1504,21 +1514,74 @@ Cloud Dancer가 지면에서 잉크로 올라오고, 낮에는 대비 때문에 
 파스텔 원색이 밤에는 `deep` 자리를 가져간다.
 
 ```text
---paper      #171613
---ink        #F0EEE9   ← Cloud Dancer
+--paper           #171613
+--ink             #F0EEE9   ← Cloud Dancer
 
-blue-deep    #A8C4D6
-sage-deep    #B3C6A8
-mauve-deep   #C4B4CE
-clay-deep    #D4B3A0
-blush-deep   #D9AFB8
-butter-deep  #D2C48E
+mocha-deep        #CEB7AB
+terracotta-deep   #D2B6B1
+wheat-deep        #C8BA9B
+sage-deep         #B0C1A7
+plum-deep         #C9B7C3
+blush-deep        #CDB6BB
 ```
 
-다크에서도 `deep` 6종은 9 : 1 ~ 10 : 1로 다시 맞춘다.
+다크에서도 `deep` 6종은 9.44 : 1 ~ 9.54 : 1로 다시 맞춘다.
+
+창 프레임도 같은 방식으로 역할을 바꾼다. 어두운 지면에서는 드롭섀도우가 읽히지
+않으므로, 창을 띄우던 그림자가 **1px 링**으로 교체된다.
+
+```text
+--desk            #0F0E0C
+--chrome          #1C1B17
+--omnibox         #232019
+--accent          #B98D77   ← 어두운 면 위에서 보이도록 한 단계 밝게
+--window-shadow   0 0 0 1px #423F38, 0 24px 60px -24px rgb(0 0 0 / .7)
+```
 
 `@media (prefers-color-scheme: dark)`와 `:root[data-theme="dark"]` 두 블록에서
-**18개 파스텔 토큰만** 재정의하고, `.hue-*` 스코프와 컴포넌트 CSS는 손대지 않는다.
+**18개 파스텔 토큰 + 창 프레임 5개만** 재정의하고, `.hue-*` 스코프와 컴포넌트
+CSS는 손대지 않는다.
+
+### 테마 상태는 셋이다
+
+```text
+data-theme 없음      시스템 설정을 따름 (기본)
+data-theme="light"   라이트로 고정
+data-theme="dark"    다크로 고정
+```
+
+"속성 없음 = 시스템"이 CSS의 전제다. 다크 블록이 `:root:not([data-theme="light"])`
+로 쓰여 있어서, 시스템 상태에서는 속성을 **비워두어야** OS 설정을 따라간다.
+시스템 상태를 없애고 라이트/다크 둘로만 만들지 않는다 — 밤에 OS를 다크로 바꿔도
+이 사이트만 계속 밝은 채로 남는다.
+
+`next-themes` 를 쓰지 않는 이유가 여기 있다. 그쪽은 시스템 상태에서도 resolved
+값을 써넣어 이 전제를 깨뜨린다. 대신 `<body>` 첫 자식의 동기 스크립트가 첫 페인트
+전에 속성을 붙이고(`src/lib/theme.ts`), 토글은 DOM 을 단일 출처로 삼아 읽는다.
+
+## 28.8 Accent — 장식면 전용
+
+브랜드 포인트 색은 `#A47864` 하나다.
+
+```text
+--accent   #A47864   라이트
+           #B98D77   다크
+```
+
+**이 색 위에는 글자를 올리지 않고, 이 색으로 글자를 쓰지도 않는다.**
+
+```text
+#A47864 글자 / #F0EEE9 지면   3.32 : 1   ← 본문 4.5 미달
+#F0EEE9 글자 / #A47864 면     3.32 : 1   ← 버튼 글자로도 미달
+```
+
+쓸 수 있는 곳은 글자가 닿지 않는 면뿐이다 — 탭 활성 라인, 신호등, 식별 바, 보더.
+
+텍스트·링크·버튼 배경이 필요하면 **`--mocha-deep` (`#6C4D3A`, 6.56 : 1)** 을 쓴다.
+버튼은 `bg-mocha-deep` + `text-paper` 조합으로 6.56 : 1 을 확보한다.
+
+Tailwind 가 `text-accent` 유틸리티를 자동으로 만들어내는 것은 막을 수 없다.
+리뷰에서 `grep "text-accent\|border-accent"` 로 걸러낸다.
 
 ---
 
@@ -1555,11 +1618,28 @@ Animation은 목적이 있을 때만 사용한다.
 
 - 지나치게 큰 Heading 제한
 - Case Study Image Stack
-- Navigation 단순화
 - Horizontal Overflow 방지
-- Touch Target 확보
+- Touch Target 확보 (탭·버튼·링크 모두 `min-h-11`)
 
 를 신경 쓴다.
+
+창 프레임은 좁은 화면에서 다음처럼 줄어든다 (§48.1).
+
+```text
+데스크 여백    8px → 24px(≥768) → 40px(≥1024)
+크롬 구성      1행 48px : 탭 + 테마 토글
+               2행 92px : 신호등·탭 / 주소창·Contact·GitHub·토글  (≥768)
+신호등·주소창  좁은 화면에서는 감춘다
+```
+
+모바일 여백을 0으로 만들지 않는다 — 8px 이 남아 있어야 "창"으로 읽히고, 0이면
+그냥 깨진 것처럼 보인다. 주소창을 감추는 이유는 진짜 주소창이 바로 위에 있어서
+정보가 사라지지 않기 때문이고, 2행짜리 sticky 는 모바일에서 본문을 너무 가린다.
+
+**탭바는 모바일에서도 감추지 않는다.** 라우트가 넷으로 갈라져 있어 탭이 곧
+내비게이션이다. 넘치면 가로로 스크롤하고, 활성 탭은 `scrollIntoView` 로 보이는
+자리에 끌어온다. 햄버거 메뉴는 만들지 않는다 — 항상 보이는 링크 넷이 focus trap
+없이 같은 일을 한다.
 
 `삼육대 어디야`가 모바일 중심 서비스였던 만큼 포트폴리오 자체도 Mobile UX가 나쁘지 않아야 한다.
 
@@ -1621,44 +1701,47 @@ content/
 ```text
 src/
 ├─ app/
-│  ├─ page.tsx
-│  └─ projects/
-│     └─ [slug]/
-│        └─ page.tsx
+│  ├─ layout.tsx          BrowserFrame + Contact + Footer 를 소유
+│  ├─ page.tsx            Home 탭
+│  ├─ work/page.tsx       Work 탭
+│  ├─ career/page.tsx     Career 탭
+│  ├─ teaching/page.tsx   Teaching 탭
+│  └─ projects/[slug]/page.tsx
 │
 ├─ components/
+│  ├─ browser/            창 프레임 (§48.1)
+│  │  ├─ BrowserFrame     server — 데스크 여백 + 창 셸
+│  │  ├─ BrowserChrome    server — sticky 크롬바, 데이터 조립
+│  │  ├─ TrafficLights    server — 장식 점 셋
+│  │  ├─ TabStrip         client — usePathname
+│  │  ├─ AddressBar       client — usePathname
+│  │  └─ TabPending       client — useLinkStatus
+│  │
 │  ├─ layout/
-│  │  ├─ Header
-│  │  ├─ Footer
-│  │  └─ Container
+│  │  ├─ Footer           창 하단을 닫는다
+│  │  ├─ Container
+│  │  ├─ HueScope
+│  │  └─ ThemeToggle      client
 │  │
-│  ├─ home/
-│  │  ├─ Hero
-│  │  ├─ About
-│  │  ├─ ProjectSection
-│  │  ├─ Experience
-│  │  ├─ Teaching
-│  │  ├─ Awards
-│  │  └─ Contact
-│  │
-│  ├─ project/
-│  │  ├─ ProjectHero
-│  │  ├─ ProjectMeta
-│  │  ├─ Metric
-│  │  ├─ CaseStudySection
-│  │  ├─ ImageBlock
-│  │  └─ ProjectNavigation
-│  │
+│  ├─ home/               탭들이 나눠 쓰는 섹션 컴포넌트
+│  ├─ project/            Case Study 전용
 │  └─ ui/
 │
 ├─ data/
-│  ├─ projects.ts
-│  ├─ experiences.ts
-│  └─ skills.ts
+├─ lib/
+│  ├─ tabs.ts             탭 단일 출처
+│  ├─ theme.ts            테마 상수 + 첫 페인트 스크립트
+│  ├─ hue.ts · sections.ts · site.ts · og.ts
 │
-└─ public/
-   └─ projects/
+└─ public/projects/
 ```
+
+**사이트 헤더는 없다.** 그 역할은 창의 크롬바가 가져갔다.
+
+클라이언트 컴포넌트는 잎사귀 넷(`TabStrip` · `AddressBar` · `TabPending` ·
+`ThemeToggle`)뿐이다. `BrowserChrome` 이 서버에서 데이터를 다 조립해 내려보내므로
+`PROJECTS`(Case Study 본문 전체)가 클라이언트 번들에 실리지 않는다 — 탭 라벨 넷을
+위해 그걸 보낼 이유가 없다.
 
 프로젝트 구조는 실제 구현 상황에 따라 변경 가능하다.
 
@@ -1896,7 +1979,7 @@ UI 전체를 무리하게 영어로 바꾸지 않는다.
 2. Global Style
 3. Typography
 4. Container
-5. Header/Footer
+5. BrowserFrame / 크롬바 / Footer
 
 ## Phase 2 — Homepage
 
@@ -2092,7 +2175,7 @@ AI가 자동 생성한 포트폴리오처럼 보이지 않도록 다음 패턴�
 - 보라색/파란색 Gradient 남발
 - 수십 개의 Pill Badge
 - Glassmorphism 남발
-- 모든 요소에 `rounded-2xl`
+- **콘텐츠 요소**에 큰 radius 남용 (`rounded-2xl` 을 아무 데나)
 - 모든 Section이 같은 Layout
 - 의미 없는 "Innovative / Passionate / Creative" Copy
 - Emoji 남발
@@ -2109,6 +2192,37 @@ AI가 자동 생성한 포트폴리오처럼 보이지 않도록 다음 패턴�
 - Whitespace
 
 를 활용한다.
+
+## 48.1 창 프레임 — 위 규칙의 유일한 예외
+
+이 사이트는 브라우저 창 하나가 데스크 위에 떠 있는 모습으로 열린다. 그 연출에
+필요한 만큼만 큰 radius 와 그림자를 허용한다.
+
+```text
+--radius-window   16px   창 하나
+--radius-panel    10px   탭 · 주소창
+--radius-chip      6px   토글 · 작은 컨트롤
+--window-shadow          창 하나. 다크에서는 1px 링으로 교체된다
+```
+
+**radius 는 정확히 이 3단, 그림자는 정확히 이 하나뿐이다.** 넷은 모두 창 프레임과
+크롬 컨트롤 전용이고, 콘텐츠 요소는 종전대로 `rounded-xs`(2px)와 hairline 을
+유지한다. 이 예외가 두 번째 요소로 번지는 순간 §48 이 말하는 안티패턴이 된다.
+
+구현에서 지켜야 하는 것 두 가지.
+
+- **창 셸에 `overflow-*` / `transform` / `filter` 를 걸지 않는다.** 셋 중 무엇이든
+  걸리면 그 요소가 스크롤 컨테이너나 containing block 이 되어 크롬바의 sticky 가
+  조용히 죽는다. 창 하단의 둥근 모서리는 Footer 가 `rounded-b-window` 로 닫는다.
+- **`--window-shadow` 는 `@theme` 이 아니라 `:root` 에 둔다.** `@theme` 의
+  `--shadow-*` 는 값이 유틸리티에 인라인되어 `:root` 로 방출되지 않으므로 다크
+  오버라이드가 통째로 무시된다. 소비는 `shadow-(--window-shadow)` 로 한다 — 이
+  문법만 `var()` 참조를 유지한다.
+
+크롬에 뒤로/앞으로/새로고침 버튼은 두지 않는다. 동작시키려면 브라우저가 이미
+하고 있는 일을 다시 구현해야 하고, 동작하지 않게 두면 위 목록의 "의미 없는
+장식"이 된다. 같은 이유로 주소창은 `<input>` 이 아니라 `<p>` 이고, 신호등은
+`<button>` 이 아니라 `aria-hidden` 인 `<div>` 다.
 
 ---
 

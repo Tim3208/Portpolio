@@ -4,12 +4,12 @@ import { GITHUB_URL } from "@/lib/sections";
 
 /** 사이트를 닫는 색표본 스트립. 여섯 색이 한 화면에 모이는 유일한 자리다 (§28.4). */
 const STRIP = [
-  "bg-strip-blue",
+  "bg-strip-mocha",
+  "bg-strip-terracotta",
+  "bg-strip-wheat",
   "bg-strip-sage",
-  "bg-strip-mauve",
-  "bg-strip-clay",
+  "bg-strip-plum",
   "bg-strip-blush",
-  "bg-strip-butter",
 ];
 
 /**
@@ -20,7 +20,10 @@ const STRIP = [
  */
 export function Footer() {
   return (
-    <footer className="bg-deep-ground">
+    // 창의 마지막 요소라 하단 두 모서리를 여기서 닫는다. 색표본 스트립이
+    // 모서리 밖으로 삐져나오지 않도록 overflow-clip 이 함께 필요하다.
+    // (창 셸 자체에는 overflow 를 걸 수 없다 — BrowserFrame 주석 참고)
+    <footer className="overflow-clip rounded-b-window bg-deep-ground">
       <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-10">
         <p className="font-mono text-small text-deep-ink-2">
           © 2026 박정우 — Web / Frontend Developer

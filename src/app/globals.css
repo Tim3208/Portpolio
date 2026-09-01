@@ -2,20 +2,21 @@
 
 /* ==========================================================================
    Cloud Dancer Blueprint — Design Tokens
-   AGENTS.md §28 Color / §27 Typography / §26 Layout
+   AGENTS.md §28 Color / §27 Typography / §26 Layout / §48.1 창 프레임
 
    구조
-     1. @theme          정적 팔레트 · 타이포 · 간격 · 컨테이너
+     1. @theme          정적 팔레트 · 타이포 · 간격 · 컨테이너 · 창 프레임
      2. @theme inline   색맥락 별칭 (bg-hue-wash / text-hue-deep …)
-     3. 색맥락 기본값 + .hue-* 스코프
-     4. 다크 테마 — 파스텔 토큰 18개만 재정의
+     3. 색맥락 기본값 + .hue-* 스코프 + @theme 밖 커스텀 프로퍼티
+     4. 다크 테마 — 흙빛 토큰 18개 + 창 프레임 5개 재정의
      5. @layer base
 
-   색 사용 규칙 (AGENTS.md §28.4 / §28.5)
+   색 사용 규칙 (AGENTS.md §28.4 / §28.5 / §28.8)
      - 한 섹션에 한 계열. .hue-* 클래스를 섹션에 하나만 건다.
      - tint 면 위에 올릴 수 있는 것: ink / ink-2 / hue-deep 세 가지뿐.
        ink-3는 tint 위에서 3.5:1로 떨어지므로 지면과 wash 위에서만.
      - 파스텔은 언제나 단색 면. 그라디언트 금지.
+     - --color-accent 는 장식면 전용. 전경색으로 쓰지 않는다 (§28.8).
    ========================================================================== */
 
 @theme {
@@ -33,12 +34,12 @@
   --color-deep-ink-2: #9b968b;
 
   /* 사이트를 닫는 색표본 스트립. 팔레트를 보여주는 물건이므로 고정한다. */
-  --color-strip-blue: #c9d8e2;
-  --color-strip-sage: #cbd6c4;
-  --color-strip-mauve: #d6ccda;
-  --color-strip-clay: #e0d0c6;
-  --color-strip-blush: #e5cfd2;
-  --color-strip-butter: #e7dfc2;
+  --color-strip-mocha: #e2d5cd;
+  --color-strip-terracotta: #e3cfcc;
+  --color-strip-wheat: #e3dccc;
+  --color-strip-sage: #d6dfd0;
+  --color-strip-plum: #ddd2da;
+  --color-strip-blush: #dfd0d3;
 
   /* ---- Ink : 지면 온도에 맞춘 warm neutral --------------------------- */
   --color-ink: #1e1c18;
@@ -47,40 +48,60 @@
   --color-rule: #dcd8cf;
   --color-rule-strong: #c6c1b6;
 
-  /* ---- Powdered Pastels : 6계열 × wash / tint / deep ------------------
-     deep 6종은 Cloud Dancer 위에서 6.3:1 ~ 7.0:1 로 튜닝되어 있다.
-     편차 0.7 이내 — 색맥락이 바뀌어도 링크·수치의 무게가 흔들리지 않는다.
+  /* ---- Earthen Pastels : 6계열 × wash / tint / deep -------------------
+     deep 6종은 Cloud Dancer 위에서 6.56:1 ~ 6.66:1 로 튜닝되어 있다.
+     편차 0.1 이내 — 색맥락이 바뀌어도 링크·수치의 무게가 흔들리지 않는다.
+     tint 위에서도 deep 은 5.12:1 ~ 5.64:1 을 지킨다 (§28.5).
      이 범위를 벗어나는 색을 팔레트에 추가하지 않는다.                     */
 
   /* 시스템 기본값 · syu-likelion */
-  --color-blue-wash: #e6edf2;
-  --color-blue-tint: #c9d8e2;
-  --color-blue-deep: #38566b; /* 6.7:1 */
-
-  /* Teaching · 삼육대 어디야 */
-  --color-sage-wash: #e7ede3;
-  --color-sage-tint: #cbd6c4;
-  --color-sage-deep: #4a5b41; /* 6.3:1 */
-
-  /* Oshi Calendar 전용 */
-  --color-mauve-wash: #ede8f0;
-  --color-mauve-tint: #d6ccda;
-  --color-mauve-deep: #5a4a63; /* 7.0:1 */
+  --color-mocha-wash: #f2edea;
+  --color-mocha-tint: #e2d5cd;
+  --color-mocha-deep: #6c4d3a; /* 6.56:1 */
 
   /* Skills · CCTV Scheduler */
-  --color-clay-wash: #f0e8e2;
-  --color-clay-tint: #e0d0c6;
-  --color-clay-deep: #6b4a3a; /* 6.8:1 */
-
-  /* About */
-  --color-blush-wash: #f2e7e9;
-  --color-blush-tint: #e5cfd2;
-  --color-blush-deep: #6e4450; /* 7.0:1 */
+  --color-terracotta-wash: #f3ebea;
+  --color-terracotta-tint: #e3cfcc;
+  --color-terracotta-deep: #78463e; /* 6.60:1 */
 
   /* Experience */
-  --color-butter-wash: #f1ede0;
-  --color-butter-tint: #e7dfc2;
-  --color-butter-deep: #62522c; /* 6.6:1 */
+  --color-wheat-wash: #f3f0ea;
+  --color-wheat-tint: #e3dccc;
+  --color-wheat-deep: #60522f; /* 6.60:1 */
+
+  /* Teaching · 삼육대 어디야 */
+  --color-sage-wash: #eef1ec;
+  --color-sage-tint: #d6dfd0;
+  --color-sage-deep: #46583b; /* 6.66:1 */
+
+  /* Oshi Calendar 전용 */
+  --color-plum-wash: #f1ecef;
+  --color-plum-tint: #ddd2da;
+  --color-plum-deep: #674a5e; /* 6.66:1 */
+
+  /* About */
+  --color-blush-wash: #f2ebed;
+  --color-blush-tint: #dfd0d3;
+  --color-blush-deep: #714850; /* 6.60:1 */
+
+  /* ---- Accent : 브랜드 포인트 (AGENTS.md §28.8) ----------------------
+     #A47864 는 Cloud Dancer 위에서 3.32:1 이고, 이 면 위에 올린 흰 글자도
+     3.32:1 이다. 즉 전경색으로도 버튼 배경으로도 쓸 수 없다.
+     글자가 올라가지 않는 장식면에만 쓴다 — 탭 활성 라인, 식별 바, 신호등.
+     텍스트·링크·버튼 배경이 필요하면 --color-mocha-deep (6.56:1) 을 쓴다. */
+  --color-accent: #a47864;
+
+  /* ---- Browser Frame : 창 연출 전용 면색 ------------------------------ */
+  --color-desk: #e6e2da; /* 창 바깥 지면 */
+  --color-chrome: #eae7e0; /* 크롬바 — paper 보다 한 단 눌림 */
+  --color-omnibox: #f2f0ec; /* 주소창 — 크롬 위로 떠오름 */
+
+  /* ---- Radius : 창 프레임 전용 3단 (AGENTS.md §48.1) ------------------
+     콘텐츠 요소는 계속 rounded-xs(2px) 를 쓴다. 이 3단이 콘텐츠로 번지면
+     §48 이 금지한 "모든 요소에 둥근 카드" 가 된다.                        */
+  --radius-window: 1rem; /* 16 — 창 하나 */
+  --radius-panel: 0.625rem; /* 10 — 탭 · 주소창 */
+  --radius-chip: 0.375rem; /*  6 — 토글 · 작은 컨트롤 */
 
   /* ---- Typography ---------------------------------------------------
      sans = 말, mono = 사실. 모노는 수치 · 메타 · 라벨 · 다이어그램 전용.  */
@@ -131,9 +152,14 @@
   --spacing-gutter-md: 2.5rem; /* 40  — tablet */
   --spacing-gutter-lg: 4rem; /* 64  — desktop */
 
+  /* 창 프레임 치수. 아래 미디어쿼리에서 값만 바꾸면 p-frame · top-frame ·
+     h-frame 이 전부 따라온다 — 마크업에 반응형 변형을 뿌리지 않는다. */
+  --spacing-frame: 0.5rem; /*  8  — 창 바깥 여백 */
+  --spacing-chrome: 3rem; /* 48  — 크롬바 높이 (모바일 1행) */
+
   /* ---- Containers ---------------------------------------------------- */
+  --container-window: 84rem; /* 1344 — 창 최대 폭 */
   --container-shell: 70rem; /* 1120 — 기본 컨테이너 */
-  --container-shell-wide: 75rem; /* 1200 — ≥1440 */
   --container-break: 67.5rem; /* 1080 — Case Study breakout */
   --container-case: 45rem; /*  720 — Case Study 본문 */
   --container-measure: 66ch; /*       본문 measure */
@@ -155,40 +181,66 @@
    섹션에 클래스 하나를 걸면 하위 전체의 색 결정이 그 계열 안에서만 이뤄진다.
    -------------------------------------------------------------------------- */
 :root {
-  --hue-wash: var(--color-blue-wash);
-  --hue-tint: var(--color-blue-tint);
-  --hue-deep: var(--color-blue-deep);
+  --hue-wash: var(--color-mocha-wash);
+  --hue-tint: var(--color-mocha-tint);
+  --hue-deep: var(--color-mocha-deep);
+
+  /* 창 섀도우는 @theme 이 아니라 여기 둔다.
+     @theme 의 --shadow-* 는 유틸리티에 값이 인라인되어 :root 로 방출되지
+     않는다. 그러면 아래 다크 블록의 재정의가 통째로 무시된다.
+     소비는 shadow-(--window-shadow) 로 — 이 문법만 var() 참조를 유지한다. */
+  --window-shadow:
+    0 1px 2px rgb(30 28 24 / 0.04), 0 12px 32px -8px rgb(30 28 24 / 0.1),
+    0 40px 80px -32px rgb(30 28 24 / 0.12);
+
+  /* sticky 크롬바 아래로 앵커 타깃이 숨지 않게 하는 오프셋 */
+  --chrome-offset: calc(var(--spacing-chrome) + var(--spacing-frame) + 0.5rem);
+
+  color-scheme: light dark;
 }
 
-.hue-blue {
-  --hue-wash: var(--color-blue-wash);
-  --hue-tint: var(--color-blue-tint);
-  --hue-deep: var(--color-blue-deep);
+.hue-mocha {
+  --hue-wash: var(--color-mocha-wash);
+  --hue-tint: var(--color-mocha-tint);
+  --hue-deep: var(--color-mocha-deep);
+}
+.hue-terracotta {
+  --hue-wash: var(--color-terracotta-wash);
+  --hue-tint: var(--color-terracotta-tint);
+  --hue-deep: var(--color-terracotta-deep);
+}
+.hue-wheat {
+  --hue-wash: var(--color-wheat-wash);
+  --hue-tint: var(--color-wheat-tint);
+  --hue-deep: var(--color-wheat-deep);
 }
 .hue-sage {
   --hue-wash: var(--color-sage-wash);
   --hue-tint: var(--color-sage-tint);
   --hue-deep: var(--color-sage-deep);
 }
-.hue-mauve {
-  --hue-wash: var(--color-mauve-wash);
-  --hue-tint: var(--color-mauve-tint);
-  --hue-deep: var(--color-mauve-deep);
-}
-.hue-clay {
-  --hue-wash: var(--color-clay-wash);
-  --hue-tint: var(--color-clay-tint);
-  --hue-deep: var(--color-clay-deep);
+.hue-plum {
+  --hue-wash: var(--color-plum-wash);
+  --hue-tint: var(--color-plum-tint);
+  --hue-deep: var(--color-plum-deep);
 }
 .hue-blush {
   --hue-wash: var(--color-blush-wash);
   --hue-tint: var(--color-blush-tint);
   --hue-deep: var(--color-blush-deep);
 }
-.hue-butter {
-  --hue-wash: var(--color-butter-wash);
-  --hue-tint: var(--color-butter-tint);
-  --hue-deep: var(--color-butter-deep);
+
+/* 창 프레임 치수 — 값만 바꾸면 p-frame / top-frame / h-frame 이 따라온다 */
+@media (min-width: 48rem) {
+  :root {
+    --spacing-frame: 1.5rem; /* 24 */
+    --spacing-chrome: 5.75rem; /* 92 — 크롬 2행 (탭 44 + 주소창 48) */
+  }
+}
+@media (min-width: 64rem) {
+  :root {
+    --spacing-frame: 2.5rem; /* 40 */
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -216,29 +268,38 @@
     --color-rule: #2e2c27;
     --color-rule-strong: #423f38;
 
-    --color-blue-wash: #191f24;
-    --color-blue-tint: #2c3d49;
-    --color-blue-deep: #a8c4d6;
+    --color-mocha-wash: #211b17;
+    --color-mocha-tint: #45352b;
+    --color-mocha-deep: #ceb7ab;
 
-    --color-sage-wash: #1a1f19;
-    --color-sage-tint: #313c2e;
-    --color-sage-deep: #b3c6a8;
+    --color-terracotta-wash: #211817;
+    --color-terracotta-tint: #462e2a;
+    --color-terracotta-deep: #d2b6b1;
 
-    --color-mauve-wash: #1f1b23;
-    --color-mauve-tint: #3a3242;
-    --color-mauve-deep: #c4b4ce;
+    --color-wheat-wash: #221e16;
+    --color-wheat-tint: #473e29;
+    --color-wheat-deep: #c8ba9b;
 
-    --color-clay-wash: #221b17;
-    --color-clay-tint: #40332b;
-    --color-clay-deep: #d4b3a0;
+    --color-sage-wash: #1b1f19;
+    --color-sage-tint: #36412f;
+    --color-sage-deep: #b0c1a7;
 
-    --color-blush-wash: #231a1d;
-    --color-blush-tint: #432e34;
-    --color-blush-deep: #d9afb8;
+    --color-plum-wash: #1f191d;
+    --color-plum-tint: #40303b;
+    --color-plum-deep: #c9b7c3;
 
-    --color-butter-wash: #201d14;
-    --color-butter-tint: #3b3520;
-    --color-butter-deep: #d2c48e;
+    --color-blush-wash: #20181a;
+    --color-blush-tint: #422e32;
+    --color-blush-deep: #cdb6bb;
+
+    /* 창 프레임 — 어두운 지면에서는 드롭섀도우가 읽히지 않는다.
+       깊이를 1px 링으로 역할 교체한다 (§28.7 과 같은 사고). */
+    --color-desk: #0f0e0c;
+    --color-chrome: #1c1b17;
+    --color-omnibox: #232019;
+    --color-accent: #b98d77; /* 어두운 면 위에서 보이도록 한 단계 밝게 */
+    --window-shadow:
+      0 0 0 1px #423f38, 0 24px 60px -24px rgb(0 0 0 / 0.7);
   }
 }
 
@@ -254,29 +315,42 @@
   --color-rule: #2e2c27;
   --color-rule-strong: #423f38;
 
-  --color-blue-wash: #191f24;
-  --color-blue-tint: #2c3d49;
-  --color-blue-deep: #a8c4d6;
+  --color-mocha-wash: #211b17;
+  --color-mocha-tint: #45352b;
+  --color-mocha-deep: #ceb7ab;
 
-  --color-sage-wash: #1a1f19;
-  --color-sage-tint: #313c2e;
-  --color-sage-deep: #b3c6a8;
+  --color-terracotta-wash: #211817;
+  --color-terracotta-tint: #462e2a;
+  --color-terracotta-deep: #d2b6b1;
 
-  --color-mauve-wash: #1f1b23;
-  --color-mauve-tint: #3a3242;
-  --color-mauve-deep: #c4b4ce;
+  --color-wheat-wash: #221e16;
+  --color-wheat-tint: #473e29;
+  --color-wheat-deep: #c8ba9b;
 
-  --color-clay-wash: #221b17;
-  --color-clay-tint: #40332b;
-  --color-clay-deep: #d4b3a0;
+  --color-sage-wash: #1b1f19;
+  --color-sage-tint: #36412f;
+  --color-sage-deep: #b0c1a7;
 
-  --color-blush-wash: #231a1d;
-  --color-blush-tint: #432e34;
-  --color-blush-deep: #d9afb8;
+  --color-plum-wash: #1f191d;
+  --color-plum-tint: #40303b;
+  --color-plum-deep: #c9b7c3;
 
-  --color-butter-wash: #201d14;
-  --color-butter-tint: #3b3520;
-  --color-butter-deep: #d2c48e;
+  --color-blush-wash: #20181a;
+  --color-blush-tint: #422e32;
+  --color-blush-deep: #cdb6bb;
+
+  --color-desk: #0f0e0c;
+  --color-chrome: #1c1b17;
+  --color-omnibox: #232019;
+  --color-accent: #b98d77;
+  --window-shadow: 0 0 0 1px #423f38, 0 24px 60px -24px rgb(0 0 0 / 0.7);
+
+  color-scheme: dark;
+}
+
+/* 명시적 라이트 — 스크롤바·폼 컨트롤이 OS 다크를 따라가지 않게 한다 */
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 /* --------------------------------------------------------------------------
@@ -288,17 +362,18 @@
     word-break: keep-all;
     overflow-wrap: break-word;
     -webkit-text-size-adjust: 100%;
-    /* 단일 페이지 내비게이션용. reduced-motion 에서는 아래에서 auto 로 되돌린다. */
+    /* reduced-motion 에서는 아래에서 auto 로 되돌린다. */
     scroll-behavior: smooth;
-  }
 
-  /* sticky header 아래로 앵커 타깃이 숨지 않게 한다 */
-  [id] {
-    scroll-margin-top: 5.5rem;
+    /* sticky 크롬바 아래로 앵커 타깃이 숨지 않게 한다. 요소마다
+       scroll-margin 을 거는 것보다 여기 한 곳이 낫다 — 탭 전환 후 Next 가
+       일으키는 스크롤에도 같은 오프셋이 적용된다. */
+    scroll-padding-top: var(--chrome-offset);
   }
 
   body {
-    background-color: var(--color-paper);
+    /* 지면은 창 바깥의 데스크다. 창 안쪽 면색은 BrowserFrame 이 칠한다. */
+    background-color: var(--color-desk);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
@@ -379,4 +454,41 @@
       animation-range: entry 0% entry 60%;
     }
   }
+}
+
+/* ==========================================================================
+   7. 테마 토글 아이콘
+
+   ThemeToggle 은 아이콘 셋을 모두 렌더하고, 어느 것을 보일지는 여기서
+   <html> 의 상태를 보고 고른다. React 상태로 고르면 하이드레이션 전까지
+   잘못된 아이콘이 보이거나 토글이 한 프레임 늦게 나타난다.
+   ========================================================================== */
+:root:not([data-theme]) [data-theme-icon="light"],
+:root:not([data-theme]) [data-theme-icon="dark"],
+:root[data-theme="light"] [data-theme-icon="auto"],
+:root[data-theme="light"] [data-theme-icon="dark"],
+:root[data-theme="dark"] [data-theme-icon="auto"],
+:root[data-theme="dark"] [data-theme-icon="light"] {
+  display: none;
+}
+
+/* ==========================================================================
+   8. 탭 전환 힌트
+
+   Link 가 pending 인 동안에만 탭 아래 라인이 뜬다. 100ms 지연을 둬서 빠른
+   전환에서는 아예 나타나지 않게 한다 — 한 프레임 깜빡이는 것이 잠깐 기다리는
+   것보다 거슬린다. 대부분의 전환은 prefetch 덕분에 여기 도달하지 않는다.
+   ========================================================================== */
+@keyframes tab-pending-in {
+  to {
+    opacity: 1;
+  }
+}
+
+[data-tab-pending] {
+  opacity: 0;
+}
+
+[data-tab-pending][data-pending] {
+  animation: tab-pending-in 0s linear 100ms forwards;
 }

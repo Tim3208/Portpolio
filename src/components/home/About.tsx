@@ -1,7 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ABOUT_LEAD, BACKGROUND, PROBLEM_MAP } from "@/data/profile";
-import { SECTION } from "@/lib/sections";
 
 /**
  * About — sticky 2열 + 대조표 (Blueprint 05-02)
@@ -12,13 +11,10 @@ import { SECTION } from "@/lib/sections";
  */
 export function About() {
   return (
-    <section
-      id={SECTION.about}
-      className="hue-blush bg-hue-wash py-section md:py-section-md"
-    >
+    <section className="hue-blush bg-hue-wash py-section md:py-section-md">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-(--chrome-offset) lg:self-start">
             <SectionHeader eyebrow="About" title={ABOUT_LEAD} />
           </div>
 

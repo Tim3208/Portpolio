@@ -1,7 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { TIMELINE } from "@/data/experiences";
-import { SECTION } from "@/lib/sections";
 
 /**
  * Experience — sticky 연도 타임라인 (Blueprint 05-04)
@@ -11,12 +10,11 @@ import { SECTION } from "@/lib/sections";
  */
 export function Experience() {
   return (
-    <section
-      id={SECTION.experience}
-      className="hue-butter bg-hue-wash py-section md:py-section-md"
-    >
+    <section className="hue-wheat bg-hue-wash py-section md:py-section-md">
       <Container>
+        {/* Career 탭의 첫 섹션이라 이 페이지의 h1 이다 */}
         <SectionHeader
+          level={1}
           eyebrow="Experience"
           title="디자인에서 시작해 개발로"
         />
@@ -27,7 +25,7 @@ export function Experience() {
               key={group.year}
               className="grid grid-cols-[3.5rem_1px_minmax(0,1fr)] gap-x-5 sm:grid-cols-[5rem_1px_minmax(0,1fr)] sm:gap-x-8"
             >
-              <p className="sticky top-24 self-start py-6 font-mono text-h3 tabular-nums text-hue-deep">
+              <p className="sticky top-(--chrome-offset) self-start py-6 font-mono text-h3 tabular-nums text-hue-deep">
                 {group.year}
               </p>
 

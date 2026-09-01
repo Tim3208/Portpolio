@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
           >
             <div style={{ display: "flex" }}>{PROFILE.headline[0]}</div>
             <div style={{ display: "flex", gap: 20 }}>
-              <span style={{ color: OG.deep.blue }}>웹으로</span>
+              <span style={{ color: OG.deep.mocha }}>웹으로</span>
               <span>해결합니다.</span>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default async function OpengraphImage() {
           >
             {HERO_METRICS.map((m) => (
               <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ fontSize: 44, fontWeight: 700, color: OG.deep.blue }}>
+                <span style={{ fontSize: 44, fontWeight: 700, color: OG.deep.mocha }}>
                   {m.value}
                 </span>
                 <span style={{ fontSize: 19, color: OG.ink3, marginTop: 4 }}>

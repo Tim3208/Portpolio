@@ -11,7 +11,7 @@ import { COURSEWORK, SKILL_GROUPS } from "@/data/skills";
  */
 export function Skills() {
   return (
-    <section className="hue-clay bg-hue-wash py-section md:py-section-md">
+    <section className="hue-terracotta bg-hue-wash py-section md:py-section-md">
       <Container>
         <SectionHeader
           eyebrow="Skills"

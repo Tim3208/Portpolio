@@ -32,10 +32,10 @@ export function ProjectHero({
     <div className="bg-hue-tint pt-10 pb-12 md:pt-14 md:pb-16">
       <Container>
         <Link
-          href="/#projects"
+          href="/work"
           className="inline-flex min-h-11 items-center gap-2 font-mono text-label uppercase text-hue-deep"
         >
-          <span aria-hidden="true">←</span> Projects
+          <span aria-hidden="true">←</span> Work
         </Link>
 
         <h1 className="mt-4 max-w-[18ch] text-display">{caseStudy.headline}</h1>

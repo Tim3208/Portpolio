@@ -1,7 +1,8 @@
+import Link from "next/link";
+
 import { Container } from "@/components/layout/Container";
 import { Metric } from "@/components/ui/Metric";
 import { HERO_METRICS, PROFILE } from "@/data/profile";
-import { SECTION } from "@/lib/sections";
 
 /**
  * Hero — 비대칭 2열 (Blueprint 05-01)
@@ -15,7 +16,7 @@ export function Hero() {
   const [before, after] = line2.split(PROFILE.headlineAccent);
 
   return (
-    <section className="hue-blue pt-16 pb-section md:pt-24 md:pb-section-md">
+    <section className="hue-mocha pt-16 pb-section md:pt-24 md:pb-section-md">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-16">
           <h1 className="text-display">
@@ -35,12 +36,12 @@ export function Hero() {
               {PROFILE.supporting}
             </p>
             <div className="mt-2 flex flex-wrap gap-2.5">
-              <a
-                href={`#${SECTION.projects}`}
+              <Link
+                href="/work"
                 className="flex min-h-11 items-center rounded-xs bg-hue-deep px-5 text-small text-paper transition-opacity hover:opacity-90"
               >
                 프로젝트 보기
-              </a>
+              </Link>
               <a
                 href={PROFILE.github}
                 target="_blank"

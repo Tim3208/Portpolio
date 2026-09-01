@@ -7,7 +7,6 @@ import { ProjectCover } from "@/components/project/ProjectCover";
 import { Metric } from "@/components/ui/Metric";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FEATURED_PROJECT, SUPPORTING_PROJECTS } from "@/data/projects";
-import { SECTION } from "@/lib/sections";
 
 /** 카드에는 기술을 4개까지만 노출한다 (§35). pill badge 로 만들지 않는다. */
 function TechLine({ items }: { items: readonly string[] }) {
@@ -48,9 +47,11 @@ export function FeaturedProjects() {
   const featured = FEATURED_PROJECT;
 
   return (
-    <section id={SECTION.projects} className="hue-blue py-section md:py-section-md">
+    <section className="hue-mocha py-section md:py-section-md">
       <Container>
+        {/* Work 탭의 첫 섹션이라 이 페이지의 h1 이다 */}
         <SectionHeader
+          level={1}
           eyebrow="Featured Projects"
           title="문제를 정의하고 실제로 배포한 것들"
           lede="네 개 모두 스스로 발견한 불편에서 시작했습니다. 첫 번째는 지금도 사람들이 쓰고 있습니다."

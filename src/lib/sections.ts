@@ -1,30 +1,16 @@
 /**
- * 홈페이지 섹션 앵커 (AGENTS.md §5 / §42 Phase 2)
+ * 페이지 앵커.
  *
- * Header 내비게이션과 실제 섹션이 같은 출처를 쓰도록 여기 한 곳에 둔다.
- * 문자열을 양쪽에 따로 적으면 한쪽만 바뀌었을 때 링크가 조용히 죽는다.
+ * 탭이 라우트로 갈라진 뒤로 섹션 앵커는 하나만 남았다. Contact 는 탭이
+ * 아니라 layout 에 상주하므로 어느 라우트에서든 `#contact` 가 존재하고,
+ * 크롬바의 Contact 링크는 그 사실에 기대어 동작한다.
  *
- * NOTE: 타깃 섹션은 Phase 2 에서 구현된다. 그때 각 섹션에
- *       id={SECTION.projects} 형태로 이 값을 붙인다.
+ * 탭 목록은 여기가 아니라 `@/lib/tabs` 에 있다.
  */
 export const SECTION = {
-  about: "about",
-  projects: "projects",
-  experience: "experience",
   contact: "contact",
 } as const;
 
 export type SectionId = (typeof SECTION)[keyof typeof SECTION];
-
-/**
- * 헤더에 노출되는 항목만 추린다. Teaching · Awards · Skills 는 스크롤로 지나가는
- * 섹션이라 내비게이션에 넣지 않는다 — 항목이 8개가 되면 고르는 비용이 커진다.
- */
-export const NAV: ReadonlyArray<{ id: SectionId; label: string }> = [
-  { id: SECTION.projects, label: "Projects" },
-  { id: SECTION.about, label: "About" },
-  { id: SECTION.experience, label: "Experience" },
-  { id: SECTION.contact, label: "Contact" },
-];
 
 export const GITHUB_URL = "https://github.com/Tim3208";
