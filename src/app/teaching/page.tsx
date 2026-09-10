@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import { Teaching } from "@/components/home/Teaching";
 
 export const metadata: Metadata = {
-  title: "Teaching",
+  title: "교육 경험",
   description:
-    "학생 · 디자이너 · 백엔드에게 같은 내용을 각각 다르게 설명해 온 경험.",
+    "부원 27명의 프론트엔드 교육, 학생 8명의 수학 지도, 캄보디아와 베트남에서 진행한 160시간의 IT 교육.",
   alternates: { canonical: "/teaching" },
   openGraph: {
-    title: "Teaching — 박정우",
+    title: "교육 경험 — 박정우",
     description:
-      "학생 · 디자이너 · 백엔드에게 같은 내용을 각각 다르게 설명해 온 경험.",
+      "부원 27명의 프론트엔드 교육, 학생 8명의 수학 지도, 캄보디아와 베트남에서 진행한 160시간의 IT 교육.",
     url: "/teaching",
   },
 };

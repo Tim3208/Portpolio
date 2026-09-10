@@ -1,69 +1,49 @@
 import Link from "next/link";
-
 import { Container } from "@/components/layout/Container";
-import { Metric } from "@/components/ui/Metric";
-import { HERO_METRICS, PROFILE } from "@/data/profile";
+import { ProjectCover } from "@/components/project/ProjectCover";
+import { PROFILE } from "@/data/profile";
+import { FEATURED_PROJECT } from "@/data/projects";
 
-/**
- * Hero — 비대칭 2열 (Blueprint 05-01)
- *
- * 좌측에 거대한 한글 헤드라인, 우측 하단 정렬로 직무 · 이름 · 보조문 · CTA.
- * 이미지는 쓰지 않는다. 대신 첫 스크롤 전에 실제 수치 4개가 화면에 들어온다.
- * 지면은 Cloud Dancer 순지면 — 색은 수치와 CTA 에만 붙는다.
- */
+/** 이름과 실제 담당 화면을 먼저 보여준다. docs/content.md#hero */
 export function Hero() {
-  const [line1, line2] = PROFILE.headline;
-  const [before, after] = line2.split(PROFILE.headlineAccent);
-
+  const project = FEATURED_PROJECT;
   return (
-    <section className="hue-mocha pt-16 pb-section md:pt-24 md:pb-section-md">
+    <section className="hue-mocha py-10 md:py-16">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-16">
-          <h1 className="text-display">
-            {line1}
-            <br />
-            {before}
-            <span className="text-hue-deep">{PROFILE.headlineAccent}</span>
-            {after}
-          </h1>
-
-          <div className="flex flex-col gap-4">
-            <p className="font-mono text-label uppercase text-ink-3">
-              {PROFILE.role}
-            </p>
-            <p className="text-h3">{PROFILE.name}</p>
-            <p className="max-w-measure text-small text-ink-2">
-              {PROFILE.supporting}
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2.5">
-              <Link
-                href="/work"
-                className="flex min-h-11 items-center rounded-xs bg-hue-deep px-5 text-small text-paper transition-opacity hover:opacity-90"
-              >
-                프로젝트 보기
+        <div className="grid items-center gap-9 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+          <div>
+            <h1 className="text-display">
+              <span className="mb-3 block text-h3 font-normal text-ink-2">{PROFILE.role} </span>
+              {PROFILE.name}
+            </h1>
+            <div className="mt-6 max-w-measure space-y-3 text-body text-ink-2">
+              <p>{PROFILE.supporting}</p>
+              <p>{PROFILE.experience}</p>
+            </div>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <Link href={"/projects/" + project.slug} className="inline-flex min-h-11 items-center rounded-xs bg-hue-deep px-4 text-small text-paper transition-opacity hover:opacity-90">
+                대표 프로젝트 읽기 <span aria-hidden="true" className="ml-2">↗</span>
               </Link>
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="flex min-h-11 items-center rounded-xs border border-rule-strong px-5 text-small text-hue-deep transition-colors hover:bg-hue-tint hover:border-hue-tint"
-              >
-                GitHub
-              </a>
+              <Link href="/work" className="inline-flex min-h-11 items-center text-small text-hue-deep underline underline-offset-4">전체 프로젝트</Link>
+              <a href={PROFILE.github} target="_blank" rel="noreferrer noopener" className="inline-flex min-h-11 items-center text-small text-ink-2 underline underline-offset-4">GitHub</a>
             </div>
           </div>
+          <figure className="min-w-0">
+            <ProjectCover project={project} preload sizes="(min-width: 1280px) 590px, (min-width: 1024px) 48vw, 100vw" />
+            <figcaption className="mt-4">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <Link href={"/projects/" + project.slug} className="inline-flex min-h-11 items-center text-h3 text-ink underline decoration-rule-strong underline-offset-4">{project.name}</Link>
+                <span className="text-small text-ink-2">지원서·운영진 평가 화면 구현</span>
+              </div>
+              <p className="text-small text-ink-2">지원자 한 명의 답변과 점수·코멘트를 탭으로 전환하며 확인합니다.</p>
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-small text-ink-2">
+                {project.metrics?.map((metric) => (
+                  <li key={metric.label}>{metric.label} <strong className="font-mono font-medium text-hue-deep">{metric.value}</strong></li>
+                ))}
+              </ul>
+            </figcaption>
+          </figure>
         </div>
-
-        <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-rule pt-7 sm:grid-cols-4 md:mt-20">
-          {HERO_METRICS.map((m) => (
-            <div key={m.label}>
-              <dt className="sr-only">{m.label}</dt>
-              <dd>
-                <Metric value={m.value} label={m.label} />
-              </dd>
-            </div>
-          ))}
-        </dl>
       </Container>
     </section>
   );

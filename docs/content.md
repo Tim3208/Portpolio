@@ -49,39 +49,30 @@
 
 | 항목 | 기준 |
 | --- | --- |
-| Main copy | `불편을 발견하고` / `웹으로 해결합니다.` |
-| Accent word | `웹으로` 한 단어만 강조 |
-| Role | `Web / Frontend Developer` |
-| Supporting copy | `React · Next.js 기반으로 기획, UI 구현, API 연동, 배포와 운영까지 경험했습니다.` |
-| CTA | 프로젝트 보기, GitHub |
+| 주 제목 | `프론트엔드 개발자 박정우` — 페이지의 유일한 `h1` |
+| 소개 첫 문장 | `동아리 모집·운영 화면과 캠퍼스 지도를 만들었습니다.` |
+| 소개 둘째 문장 | `사용자 화면과 운영진 기능, API 연동부터 배포 이후 수정까지 경험했습니다.` |
+| 대표 작업 | syu-likelion 이름, 담당 역할, 지원서 평가 화면 |
+| 연결된 성과 | syu-likelion 가입 사용자 148명, 모집 당일 최대 조회 200 |
+| 링크 | 대표 프로젝트 상세, 전체 프로젝트, GitHub |
 
-Hero는 방문자가 5초 이내에 누구인지, 어떤 개발자인지, 어떤 문제를 해결해 왔는지 파악하게 해야 한다. 대체 Main copy로는 `불편을 발견하고 개선하는` / `웹 프론트엔드 개발자`를 사용할 수 있지만, 의미는 유지한다.
+이름과 직무를 가장 먼저 읽고 실제로 만든 화면을 확인할 수 있게 한다. 데스크톱에서는 소개 오른쪽에 syu-likelion 지원서 평가 이미지(`syu-likelion-admin2.png`)를 원본 비율로 크게 배치한다. 모바일에서는 소개와 주요 링크 다음에 이미지가 이어진다.
 
-Hero 하단 수치는 확인된 숫자만 쓴다. 현재 구현은 가입 사용자 148, 모집 당일 최대 조회 200, 커뮤니티 스크랩 81, 프론트엔드 교육 인원 27을 노출한다. 필요하면 캠퍼스 장소 데이터 123개, 해외 IT 교육 160시간, 해외 교육 경험 2개국도 후보로 쓸 수 있다. 모든 수치를 반드시 사용할 필요는 없다.
+서로 다른 경험의 수치를 묶은 Hero 숫자 레일은 사용하지 않는다. 스크랩 81은 삼육대 어디야에, 프론트엔드 교육 인원 27은 Teaching에 연결한다. 다른 수치도 해당 경험의 설명 옆에서만 사용하며, 확인 시점과 근거는 [Results](#results)를 따른다. 페이지 제목·설명과 홈 OG 이미지도 이름·직무·실제 작업 중심 소개에 맞추고, 이전 슬로건과 네 숫자 레일을 재사용하지 않는다.
 
 <a id="about"></a>
 
 ## About
 
-About은 이력서 문장을 붙이는 영역이 아니다. 다음 행동 패턴을 보여준다.
+About은 두 문단으로 구성한다. 첫 문단은 선린인터넷고등학교에서 시각디자인·UX/UI·영상편집을 배우고 삼육대학교에서 컴퓨터공학을 전공한 배경을 설명한다. 둘째 문단은 그 배경을 사용자 화면 구현, API 연동, 디자이너·백엔드 개발자와의 협업 경험으로 연결한다.
 
-> 일상에서 반복되는 불편을 발견하면 웹으로 해결할 수 없을까부터 생각합니다.
-
-문제와 프로젝트는 아래처럼 연결한다.
-
-| 발견한 불편 | 연결되는 프로젝트 |
-| --- | --- |
-| 동아리 운영이 Discord · KakaoTalk · Google Form · Excel에 분산됨 | syu-likelion |
-| 교내 건물은 찾을 수 있지만 강의실과 내부 시설 위치는 찾기 어려움 | 삼육대 어디야 |
-| 여러 게임의 이벤트 종료 일정을 사용자가 직접 기억해야 함 | Oshi Calendar |
-
-이 영역의 결론은 "디자인을 배우고 개발을 전공했기 때문에 화면과 구현을 함께 생각한다"다.
+Hero의 소개와 문제 발견 슬로건을 반복하지 않으며, 문제→프로젝트 대응 표는 사용하지 않는다. 자세한 경력은 `/career`, 교육과 설명 경험은 `/teaching`으로 연결한다.
 
 <a id="projects"></a>
 
 ## Projects
 
-대표 프로젝트는 [`src/data/projects.ts`](../src/data/projects.ts)와 [`src/data/caseStudies`](../src/data/caseStudies)에 있다. 현재 라우트 기준으로 대표 프로젝트 목록은 Home이 아니라 `/work`에서 보여준다. Home은 Hero와 About만 담당한다.
+대표 프로젝트는 [`src/data/projects.ts`](../src/data/projects.ts)와 [`src/data/caseStudies`](../src/data/caseStudies)에 있다. Home은 대표 프로젝트를 포함한 Hero와 About을, `/work`는 전체 프로젝트 목록을 보여준다. Work의 주 제목은 `프로젝트`이며, 각 프로젝트 이름은 `h2`다.
 
 우선순위는 다음 순서로 유지한다.
 
@@ -147,25 +138,21 @@ API 협업 경험은 아래 흐름으로 쓴다.
 
 확정 성과는 가입 사용자 148명, 14기 공식 지원자 64명, 모집 기간 당일 최대 조회 수 200, 2026-08-16 기준 공지·세션 자료 30건이다. `64`는 운영자 서류 지원자 목록의 "총 64명" 표시로 확인된 수치다.
 
-현재 상세 페이지 구조는 [`src/data/caseStudies/syu-likelion.ts`](../src/data/caseStudies/syu-likelion.ts)를 기준으로 유지한다.
+상세 Hero에는 프로젝트 이름을 `h1`으로 표시하고 서비스 설명, 역할·팀·기간·성과를 짧게 정리한 뒤 실제 랜딩 화면을 배치한다. [`src/data/caseStudies/syu-likelion.ts`](../src/data/caseStudies/syu-likelion.ts)의 본문은 아래 일곱 섹션으로 구성한다. 번호는 기존 링크 호환을 위한 내부 값이며 화면 제목과 목차에는 표시하지 않는다.
 
-```text
-Hero
-→ Overview
-→ Problem
-→ Existing Workflow
-→ Solution
-→ My Contribution
-→ Applicant Flow
-→ Recruitment Admin Flow
-→ After Recruitment
-→ Frontend / Backend Collaboration
-→ Problems & Improvements
-→ Result
-→ Retrospective
-```
+| 내부 번호 | 제목 | 함께 보존할 기존 앵커 |
+| --- | --- | --- |
+| 01 | 모집과 운영에서 제가 맡은 화면 | `section-05` |
+| 02 | 네 도구에 흩어진 운영을 한곳으로 | `section-03`, `section-04` |
+| 06 | 지원서 작성부터 결과 확인·면접 예약까지 | — |
+| 07 | 지원자 한 명을 평가하는 화면 | `section-10` |
+| 08 | 합격 이후에도 이어지는 과제와 일정 | — |
+| 09 | API 명세와 응답이 달랐을 때 | — |
+| 11 | 운영 결과와 다음에 바꿀 것 | `section-12` |
 
-`Applicant Flow`와 `After Recruitment`는 기존 기준에 추가된 현재 구현 섹션이다. 모집 한 번이 아니라 지원자가 동아리원이 되고 한 학기 운영으로 이어지는 수명주기를 보여주기 위해 유지한다.
+깊게 설명할 판단은 지원 상태 설계, 운영진 평가 화면, API 협업 세 가지다. 지원서 데이터 대조 문제와 개선 이미지는 평가 화면 섹션으로 모은다. 로그인 리다이렉트·숨김 필드·과제 URL 수정은 API 협업과 운영 중 수정 맥락에 정리한다. 다른 기능은 짧은 설명이나 목록으로 압축하되 모집 이후 공지·세션 자료·과제·일정 운영과 팀원 기여 구분은 유지한다.
+
+통합 섹션의 `anchorAliases?: readonly string[]`에는 `section-10`처럼 완성된 ID를 저장한다. 본래 번호를 다시 매기지 않고, 기존 `#section-01`부터 `#section-12`까지 모두 내용이 옮겨진 위치로 연결한다.
 
 <a id="eodiya"></a>
 
@@ -296,9 +283,7 @@ NO IDE
 
 ## Teaching
 
-Teaching은 외부 활동 나열이 아니라 Communication Skill의 근거로 사용한다.
-
-> 같은 개념이라도 상대의 배경지식에 따라 다르게 설명해야 합니다.
+Teaching은 교육 대상, 가르친 내용, 기간, 확인된 결과를 먼저 보여준다. 27명의 동아리원에게 진행한 프론트엔드 교육, 수학 지도, 해외 IT 교육을 각각 해당 경험의 근거와 연결한다. 추상적인 소통 구호 대신 난이도·진도·자료 조정이나 개별 피드백처럼 실제 설명 방식을 쓴다.
 
 고등학생 수학 개인과외는 2022 — 2026.07 기간에 진행했으며 군 복무 기간은 제외한다. 총 8명을 1:1로 지도했고, 대상은 고등학교 1학년, 2학년, 3학년, 재수생이다. 학생별로 설명 방식, 난이도, 진도, 수업 자료를 조정했다. 내신 및 모의고사 7~9등급 수준 학생이 최고 2등급까지 향상한 사례가 있다. 학부모에게 성취도, 학습 태도, 개선점을 정리한 장문 Feedback을 주기적으로 전달했다.
 
@@ -338,6 +323,8 @@ Teaching은 외부 활동 나열이 아니라 Communication Skill의 근거로 �
 
 기술 Stack은 숙련도 그래프, 퍼센트, 아이콘 대량 나열로 표현하지 않는다. 실제 프로젝트에서 의미 있게 사용한 기술만 역할 기반으로 묶는다.
 
+화면 제목은 `프로젝트에서 사용한 기술`이다. 위 작성 규칙이나 "무엇을 할 수 있는가로 묶었습니다" 같은 편집 의도를 방문자에게 설명하지 않는다. 각 기술 묶음에 syu-likelion 화면·API 연동, Oshi Calendar 저장 방식, 삼육대 어디야 배포, Figma 협업 등 확인된 사용 사례를 연결한다.
+
 | 역할 | 기술 |
 | --- | --- |
 | Build | JavaScript, TypeScript, React, Next.js, HTML, CSS, Tailwind CSS, Vite |
@@ -352,21 +339,9 @@ Teaching은 외부 활동 나열이 아니라 Communication Skill의 근거로 �
 
 ## Case Study Writing Rules
 
-프로젝트 상세 페이지는 README처럼 기능을 나열하지 않는다. 기본 구조는 아래 순서를 따른다. 프로젝트에 따라 일부 섹션은 합치거나 생략할 수 있다.
+프로젝트 상세는 프로젝트 이름, 설명, 기여·기간·결과를 먼저 보여주고 구체적인 상황을 제목으로 사용한다. `Problem`, `Solution`, `Result` 같은 일반 제목과 장식 번호를 모든 프로젝트에 반복하지 않는다. 삼육대 어디야·Oshi Calendar·CCTV는 현재 섹션 순서를 유지하면서 각 프로젝트의 검색·저장·편성 등 실제 내용으로 제목을 바꾼다. syu-likelion은 [일곱 섹션 구조](#syu-likelion)를 따른다.
 
-```text
-01. Overview
-02. Problem
-03. Insight
-04. My Role
-05. Solution
-06. Key Decisions
-07. Technical Challenges
-08. Result
-09. Retrospective
-```
-
-가능하면 항상 아래 순서로 쓴다.
+아래 순서는 제목 템플릿이 아니라 각 설명을 쓸 때의 내부 기준이다.
 
 ```text
 Problem
@@ -400,6 +375,8 @@ Decision 섹션은 다음 질문에 답해야 한다.
 - 개발 및 운영 측면에서는 어떤 trade-off가 있었는가?
 
 Oshi Calendar의 Calendar 제거 결정은 대표 Decision 소재다.
+
+판단 블록은 문제, 검토한 선택지, 채택한 결정과 이유를 본문과 목록으로 보존한다. 고정 `Problem / Options / Decision` 라벨과 선택 표시 기호를 반복하지 않는다.
 
 <a id="technical-challenges"></a>
 
@@ -443,7 +420,9 @@ Oshi Calendar의 Calendar 제거 결정은 대표 Decision 소재다.
 
 ## Project Cards
 
-Project Card는 너무 많은 정보를 넣지 않는다. 기본 요소는 Project Name, 한 줄 Problem/Solution, Role, Year, 핵심 Technology 2~4개, 대표 Screenshot, 핵심 Metric 1~2개, View Case Study다.
+Work는 가장 큰 syu-likelion 대표 영역 다음에 이미지와 설명이 나란한 프로젝트 행 세 개를 배치한다. 모바일에서는 이미지와 설명을 세로로 쌓는다. 모든 프로젝트를 동일한 3열 카드로 만들지 않는다.
+
+각 항목은 프로젝트 이름, 설명, 역할, 기간·상태, 실제 이미지 또는 공개 가능한 도식, 확인된 성과 최대 두 개, 상세 링크를 제공한다. 핵심 기술은 짧은 텍스트로 표시한다. syu-likelion은 운영진 화면, 삼육대 어디야는 검색 결과와 지도, Oshi Calendar는 마감·할 일·보상 대시보드, CCTV는 제약·편성·저장 흐름을 중심으로 보여준다. CCTV 도식에는 실제 화면 비공개 사유를 함께 쓰고 실제 제품 화면처럼 보이는 목업은 만들지 않는다.
 
 | 프로젝트 | 카드 핵심 문구 |
 | --- | --- |
@@ -460,6 +439,8 @@ Project Card는 너무 많은 정보를 넣지 않는다. 기본 요소는 Proje
 
 Career 탭은 Experience → Awards → Skills 순서다. 현재 구현은 Resume 전체를 다시 보여주지 않고 Timeline 형태로 핵심 항목만 보여준다.
 
+경력은 타임라인, 수상은 간단한 목록으로 제시한다. 각 영역에 같은 도입문·영문 라벨·슬로건을 반복하지 않는다.
+
 | 연도 | 핵심 항목 |
 | --- | --- |
 | 2018 | 선린인터넷고등학교 멀티미디어과, 교내 웹 전공 동아리 개발자, InterRuze 공동 창설 |
@@ -475,9 +456,7 @@ Career 탭은 Experience → Awards → Skills 순서다. 현재 구현은 Resum
 
 Contact는 탭이 아니다. Contact + Footer는 [`src/app/layout.tsx`](../src/app/layout.tsx)에 상주하고, 크롬바의 Contact 링크는 모든 라우트에 존재하는 `#contact`를 가리킨다.
 
-마지막 CTA는 단순 연락처 목록보다 개발자 정체성을 다시 연결한다.
-
-> 더 나은 사용 경험을 만드는 일을 함께하고 싶습니다.
+Contact는 짧은 연락 안내와 이메일을 중심으로 구성한다. Hero의 정체성 문구나 협업 구호를 다시 반복하지 않는다.
 
 Email은 [`src/data/profile.ts`](../src/data/profile.ts)의 `PROFILE.email`을 단일 출처로 사용한다. 이 문서에는 주소 값을 중복 기록하지 않는다.
 
@@ -517,18 +496,7 @@ syu-likelion의 `final-result-pass.png`는 "위치 : 위치 나오면 수정" pl
 
 기본 콘텐츠는 한국어 중심으로 작성한다. 국내 기업과 국내 채용 담당자가 보는 상황을 우선 고려한다.
 
-다음 표현은 영어를 자연스럽게 사용할 수 있다.
-
-- Web / Frontend Developer
-- Project
-- Case Study
-- GitHub
-- View Project
-- Technical Decision
-- Result
-- Retrospective
-
-UI 전체를 무리하게 영어로 바꾸지 않는다.
+기술명, GitHub, 짧은 직무명처럼 의미가 분명한 영어는 사용할 수 있다. 제목·목차·설명은 한국어를 우선하며 제목 위에 같은 뜻의 영어 라벨을 반복하지 않는다. "불편을 발견하고 웹으로 해결한다"는 내부 정체성을 모든 페이지의 도입문으로 복제하지 않는다. 작성 원칙과 편집 기준은 문서에 두고 방문자에게는 실제 경험을 설명한다.
 
 <a id="priorities"></a>
 

@@ -12,7 +12,7 @@ export function Awards() {
   return (
     <section className="hue-mocha py-section md:py-section-md">
       <Container>
-        <SectionHeader eyebrow="Awards" title="수상" />
+        <SectionHeader title="수상" />
 
         <ol className="mt-10 border-t-2 border-ink">
           {AWARDS.map((award) => (
@@ -38,7 +38,7 @@ export function Awards() {
                 </p>
                 <p className="text-small text-ink-3">{award.host}</p>
                 {award.role ? (
-                  <p className="font-mono text-label uppercase text-ink-3">
+                  <p className="text-small text-ink-3">
                     {award.role}
                   </p>
                 ) : null}
@@ -50,7 +50,7 @@ export function Awards() {
                         href={link.href}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="border-b border-hue-deep text-small text-hue-deep"
+                        className="inline-flex min-h-11 items-center border-b border-hue-deep text-small text-hue-deep"
                       >
                         {link.label}
                       </a>

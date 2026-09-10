@@ -25,7 +25,7 @@ export function Metric({ value, label, onDeep = false }: MetricProps) {
       <span
         className={[
           "text-small",
-          onDeep ? "text-deep-ink-2" : "text-ink-3",
+          onDeep ? "text-deep-ink-2" : "text-ink-2",
         ].join(" ")}
       >
         {label}

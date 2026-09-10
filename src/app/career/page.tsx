@@ -5,12 +5,12 @@ import { Experience } from "@/components/home/Experience";
 import { Skills } from "@/components/home/Skills";
 
 export const metadata: Metadata = {
-  title: "Career",
-  description: "디자인에서 개발로 온 과정, 수상 이력, 실제로 다루는 기술.",
+  title: "경력",
+  description: "디자인 전공부터 프론트엔드 개발까지의 경력, 수상 이력과 프로젝트에서 사용한 기술.",
   alternates: { canonical: "/career" },
   openGraph: {
-    title: "Career — 박정우",
-    description: "디자인에서 개발로 온 과정, 수상 이력, 실제로 다루는 기술.",
+    title: "경력 — 박정우",
+    description: "디자인 전공부터 프론트엔드 개발까지의 경력, 수상 이력과 프로젝트에서 사용한 기술.",
     url: "/career",
   },
 };

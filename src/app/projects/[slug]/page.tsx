@@ -70,9 +70,8 @@ export default async function CaseStudyPage({ params }: Params) {
                 <li key={s.num}>
                   <a
                     href={`#section-${s.num}`}
-                    className="flex gap-2.5 py-1 font-mono text-small text-ink-3 transition-colors hover:text-hue-deep"
+                    className="flex min-h-11 items-center py-2 text-small text-ink-2 transition-colors hover:text-hue-deep"
                   >
-                    <span className="tabular-nums">{s.num}</span>
                     <span>{s.title}</span>
                   </a>
                 </li>
@@ -80,7 +79,7 @@ export default async function CaseStudyPage({ params }: Params) {
             </ol>
           </nav>
 
-          <div className="mx-auto flex w-full max-w-break flex-col gap-16 md:gap-24">
+          <div className="mx-auto flex w-full max-w-break flex-col gap-14 md:gap-20">
             {caseStudy.sections.map((s) => (
               <CaseSection key={s.num} section={s} />
             ))}

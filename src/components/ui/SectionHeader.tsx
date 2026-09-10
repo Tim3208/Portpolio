@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
 type SectionHeaderProps = {
-  /** mono 라벨. 섹션이 무엇인지 한 단어로 */
-  eyebrow: string;
+  /** 제목과 다른 맥락을 보충할 때만 쓰는 선택 라벨. */
+  eyebrow?: string;
   title: ReactNode;
   lede?: ReactNode;
   /**
@@ -13,13 +13,7 @@ type SectionHeaderProps = {
   className?: string;
 };
 
-/**
- * 섹션 헤더.
- *
- * Case Study 와 달리 번호를 붙이지 않는다. Case Study 는 Problem → Decision →
- * Result 로 이어지는 실제 순서라 번호가 정보지만, 이쪽 섹션들은 탭으로 아무
- * 데나 들어올 수 있어 번호가 거짓말이 된다.
- */
+/** 제목 계층을 유지하며 필요한 경우에만 라벨과 도입문을 표시한다. */
 export function SectionHeader({
   eyebrow,
   title,
@@ -34,7 +28,7 @@ export function SectionHeader({
       data-reveal
       className={["flex flex-col gap-3.5", className].filter(Boolean).join(" ")}
     >
-      <p className="font-mono text-label uppercase text-hue-deep">{eyebrow}</p>
+      {eyebrow ? <p className="text-small text-hue-deep">{eyebrow}</p> : null}
       <Heading className="text-h2">{title}</Heading>
       {lede ? (
         <p className="max-w-measure text-ink-2">{lede}</p>

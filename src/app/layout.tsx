@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   // 절대 URL 의 기준. 도메인은 NEXT_PUBLIC_SITE_URL 로 받는다 (§39 — 지어내지 않는다)
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "박정우 — 불편을 발견하고 웹으로 해결합니다",
+    default: SITE.name,
     template: "%s — 박정우",
   },
   description: SITE.description,
@@ -30,12 +30,12 @@ export const metadata: Metadata = {
     locale: SITE.locale,
     siteName: SITE.name,
     url: "/",
-    title: "박정우 — 불편을 발견하고 웹으로 해결합니다",
+    title: SITE.name,
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "박정우 — 불편을 발견하고 웹으로 해결합니다",
+    title: SITE.name,
     description: SITE.description,
   },
   robots: {
@@ -80,7 +80,7 @@ export default function RootLayout({
             블록이라 어느 탭에서 나가든 같은 마무리를 만나야 하고, 이메일이
             모든 화면에서 한 번의 스크롤 거리에 있게 된다. */}
         <BrowserFrame>
-          <main id="content">{children}</main>
+          <main id="content" tabIndex={-1}>{children}</main>
           <Contact />
           <Footer />
         </BrowserFrame>

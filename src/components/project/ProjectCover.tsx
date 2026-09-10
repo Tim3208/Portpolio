@@ -1,64 +1,42 @@
 import Image from "next/image";
-
 import type { Project } from "@/data/projects";
 
 type ProjectCoverProps = {
   project: Project;
-  /** 대표 프로젝트는 16:10, 보조 카드는 3:2 로 조금 낮게 */
+  /** 명시한 비율 → 이미지 데이터 → 기존 3:2 기본값 순서. */
   ratio?: "16/10" | "3/2";
+  sizes?: string;
+  preload?: boolean;
   className?: string;
 };
 
-/**
- * 프로젝트 대표 이미지.
- *
- * 스크린샷이 없으면 목업으로 채우지 않고 (§39) 해당 프로젝트의 tint 면과
- * 사유를 그대로 보여준다. CCTV Scheduler 는 보안상 영구적으로 비공개이고,
- * 나머지는 실제 서비스 캡처를 넣기 전까지의 자리다.
- */
+/** 실제 이미지의 비율과 잘림 위치를 보존한다. docs/design.md#screenshots */
 export function ProjectCover({
   project,
-  ratio = "3/2",
+  ratio,
+  sizes = "(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw",
+  preload = false,
   className,
 }: ProjectCoverProps) {
-  const box = [
-    "relative w-full overflow-hidden rounded-xs bg-hue-tint",
-    ratio === "16/10" ? "aspect-16/10" : "aspect-3/2",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  if (project.cover) {
-    const { src, alt, position } = project.cover;
-    return (
-      <div className={box}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={
-            ratio === "16/10"
-              ? "(min-width: 1024px) 46vw, 100vw"
-              : "(min-width: 768px) 30vw, 100vw"
-          }
-          className="object-cover"
-          // 이미지마다 살릴 영역이 달라 데이터에서 받는다. 색이 아니므로
-          // 하드코딩 금지 규칙(§28.4)의 대상이 아니다.
-          style={{ objectPosition: position ?? "center" }}
-        />
-      </div>
-    );
-  }
-
+  const box = ["relative w-full overflow-hidden rounded-xs bg-hue-tint", className].filter(Boolean).join(" ");
   return (
-    <div className={box}>
-      <div className="absolute inset-0 flex flex-col justify-end gap-1 p-5">
-        <span className="text-h3 text-ink">{project.name}</span>
-        <span className="font-mono text-label uppercase text-hue-deep">
-          {project.coverWithheld ?? "스크린샷 준비 중"}
-        </span>
-      </div>
+    <div className={box} style={{ aspectRatio: ratio ?? project.cover?.aspectRatio ?? "3 / 2" }}>
+      {project.cover ? (
+        <Image
+          src={project.cover.src}
+          alt={project.cover.alt}
+          fill
+          sizes={sizes}
+          preload={preload}
+          className="object-cover"
+          style={{ objectPosition: project.cover.position ?? "center" }}
+        />
+      ) : (
+        <div className="absolute inset-0 flex flex-col justify-end gap-2 p-5">
+          <span className="text-h3 text-ink">{project.name}</span>
+          <span className="text-small text-ink-2">{project.coverWithheld ?? "스크린샷 준비 중"}</span>
+        </div>
+      )}
     </div>
   );
 }

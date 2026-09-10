@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "프로젝트",
   description:
-    "직접 발견한 불편에서 시작해 배포까지 마친 프로젝트와 Case Study.",
+    "동아리 모집·운영 플랫폼, 캠퍼스 지도, 게임 일정 대시보드와 근무 편성 도구의 구현 과정과 담당 역할.",
   alternates: { canonical: "/work" },
   openGraph: {
-    title: "Work — 박정우",
+    title: "프로젝트 — 박정우",
     description:
-      "직접 발견한 불편에서 시작해 배포까지 마친 프로젝트와 Case Study.",
+      "동아리 모집·운영 플랫폼, 캠퍼스 지도, 게임 일정 대시보드와 근무 편성 도구의 구현 과정과 담당 역할.",
     url: "/work",
   },
 };

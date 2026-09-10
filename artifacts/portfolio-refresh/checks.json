@@ -1,0 +1,296 @@
+{
+  "layouts": [
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1440,
+      "h1": "프론트엔드 개발자\n박정우",
+      "height": 1642,
+      "pass": true
+    },
+    {
+      "route": "/work",
+      "theme": "light",
+      "width": 1440,
+      "h1": "프로젝트",
+      "height": 3053,
+      "pass": true
+    },
+    {
+      "route": "/career",
+      "theme": "light",
+      "width": 1440,
+      "h1": "경력",
+      "height": 3213,
+      "pass": true
+    },
+    {
+      "route": "/teaching",
+      "theme": "light",
+      "width": 1440,
+      "h1": "교육 경험",
+      "height": 1985,
+      "pass": true
+    },
+    {
+      "route": "/projects/syu-likelion",
+      "theme": "light",
+      "width": 1440,
+      "h1": "syu-likelion",
+      "height": 10006,
+      "pass": true
+    },
+    {
+      "route": "/projects/eodiya",
+      "theme": "light",
+      "width": 1440,
+      "h1": "삼육대 어디야",
+      "height": 4156,
+      "pass": true
+    },
+    {
+      "route": "/projects/oshi-calendar",
+      "theme": "light",
+      "width": 1440,
+      "h1": "Oshi Calendar",
+      "height": 5923,
+      "pass": true
+    },
+    {
+      "route": "/projects/cctv-scheduler",
+      "theme": "light",
+      "width": 1440,
+      "h1": "CCTV 근무 자동 편성",
+      "height": 3518,
+      "pass": true
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 390,
+      "h1": "프론트엔드 개발자\n박정우",
+      "height": 1762,
+      "pass": true
+    },
+    {
+      "route": "/work",
+      "theme": "light",
+      "width": 390,
+      "h1": "프로젝트",
+      "height": 3824,
+      "pass": true
+    },
+    {
+      "route": "/career",
+      "theme": "light",
+      "width": 390,
+      "h1": "경력",
+      "height": 3835,
+      "pass": true
+    },
+    {
+      "route": "/teaching",
+      "theme": "light",
+      "width": 390,
+      "h1": "교육 경험",
+      "height": 2784,
+      "pass": true
+    },
+    {
+      "route": "/projects/syu-likelion",
+      "theme": "light",
+      "width": 390,
+      "h1": "syu-likelion",
+      "height": 9527,
+      "pass": true
+    },
+    {
+      "route": "/projects/eodiya",
+      "theme": "light",
+      "width": 390,
+      "h1": "삼육대 어디야",
+      "height": 4087,
+      "pass": true
+    },
+    {
+      "route": "/projects/oshi-calendar",
+      "theme": "light",
+      "width": 390,
+      "h1": "Oshi Calendar",
+      "height": 6565,
+      "pass": true
+    },
+    {
+      "route": "/projects/cctv-scheduler",
+      "theme": "light",
+      "width": 390,
+      "h1": "CCTV 근무 자동 편성",
+      "height": 4093,
+      "pass": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "프론트엔드 개발자\n박정우",
+      "height": 1642,
+      "pass": true
+    },
+    {
+      "route": "/work",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "프로젝트",
+      "height": 3053,
+      "pass": true
+    },
+    {
+      "route": "/career",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "경력",
+      "height": 3213,
+      "pass": true
+    },
+    {
+      "route": "/teaching",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "교육 경험",
+      "height": 1985,
+      "pass": true
+    },
+    {
+      "route": "/projects/syu-likelion",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "syu-likelion",
+      "height": 10006,
+      "pass": true
+    },
+    {
+      "route": "/projects/eodiya",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "삼육대 어디야",
+      "height": 4156,
+      "pass": true
+    },
+    {
+      "route": "/projects/oshi-calendar",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "Oshi Calendar",
+      "height": 5923,
+      "pass": true
+    },
+    {
+      "route": "/projects/cctv-scheduler",
+      "theme": "dark",
+      "width": 1440,
+      "h1": "CCTV 근무 자동 편성",
+      "height": 3518,
+      "pass": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 390,
+      "h1": "프론트엔드 개발자\n박정우",
+      "height": 1762,
+      "pass": true
+    },
+    {
+      "route": "/work",
+      "theme": "dark",
+      "width": 390,
+      "h1": "프로젝트",
+      "height": 3824,
+      "pass": true
+    },
+    {
+      "route": "/career",
+      "theme": "dark",
+      "width": 390,
+      "h1": "경력",
+      "height": 3835,
+      "pass": true
+    },
+    {
+      "route": "/teaching",
+      "theme": "dark",
+      "width": 390,
+      "h1": "교육 경험",
+      "height": 2784,
+      "pass": true
+    },
+    {
+      "route": "/projects/syu-likelion",
+      "theme": "dark",
+      "width": 390,
+      "h1": "syu-likelion",
+      "height": 9527,
+      "pass": true
+    },
+    {
+      "route": "/projects/eodiya",
+      "theme": "dark",
+      "width": 390,
+      "h1": "삼육대 어디야",
+      "height": 4087,
+      "pass": true
+    },
+    {
+      "route": "/projects/oshi-calendar",
+      "theme": "dark",
+      "width": 390,
+      "h1": "Oshi Calendar",
+      "height": 6565,
+      "pass": true
+    },
+    {
+      "route": "/projects/cctv-scheduler",
+      "theme": "dark",
+      "width": 390,
+      "h1": "CCTV 근무 자동 편성",
+      "height": 4093,
+      "pass": true
+    }
+  ],
+  "narrowLayouts": 8,
+  "oldSyuAnchors": 12,
+  "themeCycle": true,
+  "systemOS": true,
+  "keyboard": true,
+  "contact": true,
+  "projectNavigation": true,
+  "notFound": 404,
+  "og": [
+    {
+      "route": "/opengraph-image",
+      "status": 200,
+      "bytes": 40006
+    },
+    {
+      "route": "/projects/syu-likelion/opengraph-image",
+      "status": 200,
+      "bytes": 48139
+    },
+    {
+      "route": "/projects/eodiya/opengraph-image",
+      "status": 200,
+      "bytes": 45148
+    },
+    {
+      "route": "/projects/oshi-calendar/opengraph-image",
+      "status": 200,
+      "bytes": 43891
+    },
+    {
+      "route": "/projects/cctv-scheduler/opengraph-image",
+      "status": 200,
+      "bytes": 42835
+    }
+  ],
+  "errors": []
+}

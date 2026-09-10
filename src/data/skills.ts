@@ -16,8 +16,8 @@ export type SkillGroup = {
 
 export const SKILL_GROUPS: readonly SkillGroup[] = [
   {
-    role: "Build",
-    caption: "화면을 만든다",
+    role: "화면 구현",
+    caption: "syu-likelion의 지원서·평가 화면을 Next.js로, Oshi Calendar 대시보드를 React로 구현했습니다.",
     items: [
       "JavaScript",
       "TypeScript",
@@ -30,23 +30,23 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     ],
   },
   {
-    role: "Connect",
-    caption: "데이터를 잇는다",
+    role: "데이터 연동",
+    caption: "syu-likelion의 API를 Axios로 연동하고, Oshi Calendar에서 회원과 비회원의 저장 방식을 나눴습니다.",
     items: ["REST API", "Axios", "Supabase", "LocalStorage"],
   },
   {
-    role: "Ship",
-    caption: "배포하고 운영한다",
+    role: "배포와 운영",
+    caption: "삼육대 어디야를 GitHub Pages에 배포하고 PWA를 적용했습니다. Oshi Calendar는 Vercel에서 미리보기를 제공합니다.",
     items: ["Git", "GitHub", "Vercel", "GitHub Pages", "PWA"],
   },
   {
-    role: "Design & Collaboration",
-    caption: "함께 구체화한다",
+    role: "디자인과 협업",
+    caption: "syu-likelion에서 Figma 시안을 확인하며 디자이너와 화면을 만들고, 백엔드 개발자와 API 응답을 맞췄습니다.",
     items: ["Figma", "Notion"],
   },
 ];
 
 export const COURSEWORK = {
-  label: "Coursework / Additional Experience",
+  label: "수업과 추가 경험",
   items: ["C", "MariaDB"],
 } as const;

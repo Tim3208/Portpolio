@@ -26,6 +26,8 @@ export type Block =
       alt: string;
       caption: string;
       position?: string;
+      /** 미지정 시 기존 16:10 크롭을 유지한다. */
+      aspectRatio?: string;
     }
   /** 확인된 수치만 (§23). */
   | { type: "metrics"; items: readonly { value: string; label: string }[] }
@@ -39,8 +41,10 @@ export type Block =
     };
 
 export type CaseSection = {
-  /** "01" 형태. Case Study 는 실제 순서가 있으므로 번호가 정보다. */
+  /** 기존 section-01 형태의 링크에 쓰는 식별자. 화면 순서와 독립적으로 유지한다. */
   num: string;
+  /** 통합 전 링크를 보존하는 완성된 ID. 예: section-05 */
+  anchorAliases?: readonly string[];
   title: string;
   blocks: readonly Block[];
 };

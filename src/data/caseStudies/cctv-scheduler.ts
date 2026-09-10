@@ -4,12 +4,12 @@ export const cctvScheduler: CaseStudy = {
   slug: "cctv-scheduler",
   headline: "인터넷도 라이브러리도 IDE도 없는 환경에서",
   summary:
-    "군 복무 중 매일 반복되던 CCTV 근무 편성을 자동화한 도구입니다. 이 프로젝트에서 가장 중요한 것은 기술이 아니라 실행 환경이었습니다.",
+    "군 복무 중 매일 반복되던 CCTV 근무 편성을 자동화한 도구입니다. 외부 인터넷과 프로그램 설치가 제한된 폐쇄망에서 HTML, CSS, JavaScript로 개발했습니다.",
 
   sections: [
     {
       num: "01",
-      title: "Problem",
+      title: "휴가와 이전 근무 기록을 매일 대조하는 업무",
       blocks: [
         {
           type: "prose",
@@ -36,11 +36,11 @@ export const cctvScheduler: CaseStudy = {
 
     {
       num: "02",
-      title: "Constraint",
+      title: "메모장과 브라우저로 개발해야 했던 폐쇄망",
       blocks: [
         {
           type: "prose",
-          text: "부대 내부 폐쇄망 환경이었습니다. 이 제약이 기술 선택의 전부를 결정했습니다.",
+          text: "부대 내부 폐쇄망에서는 외부 인터넷에 접속하거나 개발에 필요한 프로그램을 설치할 수 없었습니다.",
         },
         {
           type: "flow",
@@ -54,14 +54,14 @@ export const cctvScheduler: CaseStudy = {
         },
         {
           type: "prose",
-          text: "남은 것은 메모장과 브라우저뿐이었습니다. 그래서 HTML, CSS, Vanilla JavaScript만으로 만들었습니다. 프레임워크를 안 쓴 것이 아니라 쓸 수 없었고, 그 조건에서 동작하는 것이 유일한 요구사항이었습니다.",
+          text: "메모장에서 HTML, CSS, Vanilla JavaScript를 작성하고 브라우저에서 실행하며 구현했습니다. 별도 설치 없이 내부 환경에서 동작하도록 구성했습니다.",
         },
       ],
     },
 
     {
       num: "03",
-      title: "Solution",
+      title: "조건에 맞춰 배정하고 근무 기록을 저장·복원하기",
       blocks: [
         {
           type: "prose",
@@ -97,7 +97,7 @@ export const cctvScheduler: CaseStudy = {
 
     {
       num: "04",
-      title: "Result",
+      title: "담당자에게 프로그램과 사용 방법 전달하기",
       blocks: [
         {
           type: "prose",
@@ -112,15 +112,15 @@ export const cctvScheduler: CaseStudy = {
 
     {
       num: "05",
-      title: "Retrospective",
+      title: "설치 없이 실행하고 기록을 넘길 수 있는 도구",
       blocks: [
         {
           type: "prose",
-          text: "이 프로젝트에서 남은 것은 기술을 많이 쓰는 것과 문제를 푸는 것은 다르다는 감각입니다. 쓸 수 있는 것이 거의 없는 조건에서도 매일 반복되던 일은 실제로 줄었습니다.",
+          text: "실행 환경의 제약 때문에 브라우저만으로 편성과 저장을 처리하고, 백업 파일로 기록을 옮길 수 있게 했습니다. 근무표를 만드는 기능과 함께 담당자가 바뀔 때 기록을 전달하는 방법까지 다뤘습니다.",
         },
         {
           type: "prose",
-          text: "이후 프로젝트에서 라이브러리를 추가할 때마다 이것이 실제 문제를 해결하는가를 먼저 묻게 된 것도 여기서 왔습니다.",
+          text: "이후에는 기술을 고를 때 실행 환경, 설치 가능 여부와 데이터 전달 방법을 먼저 확인합니다.",
         },
       ],
     },

@@ -40,7 +40,7 @@ export function ProjectNav({
                   className="h-10 w-0.75 shrink-0 rounded-xs bg-hue-deep"
                 />
                 <div className="flex min-w-0 flex-col gap-1">
-                  <span className="font-mono text-label uppercase text-ink-3">
+                  <span className="text-small text-ink-3">
                     {dir}
                   </span>
                   <span className="text-h3">{project.name}</span>

@@ -15,8 +15,7 @@ export function Experience() {
         {/* Career 탭의 첫 섹션이라 이 페이지의 h1 이다 */}
         <SectionHeader
           level={1}
-          eyebrow="Experience"
-          title="디자인에서 시작해 개발로"
+          title="경력"
         />
 
         <ol className="mt-12">

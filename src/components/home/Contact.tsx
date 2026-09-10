@@ -2,33 +2,24 @@ import { Container } from "@/components/layout/Container";
 import { CONTACT_STATEMENT, PROFILE } from "@/data/profile";
 import { SECTION } from "@/lib/sections";
 
-/**
- * Contact — full-bleed 반전 블록 (Blueprint 05-08)
- *
- * 사이트에서 유일하게 잉크가 반전되는 자리다. Cloud Dancer 가 지면이 아니라
- * 글자가 되어 Deep Paper 위에 올라온다. 연락처 나열이 아니라 정체성의
- * 재진술이다 (§38). 바로 아래 Footer 와 같은 지면이라 하나의 닫는 블록으로
- * 읽힌다.
- */
+/** 모든 라우트에서 같은 이메일과 GitHub 연락처를 제공한다. */
 export function Contact() {
   return (
     <section
       id={SECTION.contact}
-      className="bg-deep-ground pt-section pb-16 md:pt-section-md md:pb-20"
+      className="bg-deep-ground py-12 md:py-16"
     >
       <Container>
-        <p className="font-mono text-label uppercase text-deep-ink-2">
-          Contact
-        </p>
+        <h2 className="text-h2 text-deep-ink">연락처</h2>
 
-        <p className="mt-6 max-w-[20ch] text-display text-deep-ink sm:max-w-[24ch]">
+        <p className="mt-3 max-w-measure text-body text-deep-ink-2">
           {CONTACT_STATEMENT}
         </p>
 
-        <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-deep-ink-2/30 pt-8">
+        <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-deep-ink-2/30 pt-5">
           <a
             href={`mailto:${PROFILE.email}`}
-            className="flex min-h-11 items-center gap-2 border-b border-deep-ink-2 text-h3 text-deep-ink transition-colors hover:border-deep-ink"
+            className="flex min-h-11 max-w-full items-center gap-2 border-b border-deep-ink-2 text-body text-deep-ink transition-colors hover:border-deep-ink"
           >
             {PROFILE.email}
           </a>
@@ -37,7 +28,7 @@ export function Contact() {
             href={PROFILE.github}
             target="_blank"
             rel="noreferrer noopener"
-            className="flex min-h-11 items-center gap-2 border-b border-deep-ink-2 text-h3 text-deep-ink transition-colors hover:border-deep-ink"
+            className="flex min-h-11 items-center gap-2 border-b border-deep-ink-2 text-body text-deep-ink transition-colors hover:border-deep-ink"
           >
             GitHub
             <span aria-hidden="true" className="text-small">

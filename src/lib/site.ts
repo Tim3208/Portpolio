@@ -24,9 +24,9 @@ function resolveSiteUrl(): string {
 export const SITE_URL = resolveSiteUrl();
 
 export const SITE = {
-  name: "박정우 — Web / Frontend Developer",
+  name: "박정우 — 프론트엔드 개발자",
   shortName: "박정우",
   description:
-    "React · Next.js 기반으로 기획, UI 구현, API 연동, 배포와 운영까지 경험한 웹 프론트엔드 개발자 박정우의 포트폴리오입니다.",
+    "동아리 모집·운영 플랫폼과 캠퍼스 지도를 만든 프론트엔드 개발자 박정우의 포트폴리오. 담당 화면, API 협업, 배포 이후 개선 경험을 소개합니다.",
   locale: "ko_KR",
 } as const;

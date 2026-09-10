@@ -90,11 +90,6 @@ export function OtherProjects() {
           </span>
         </summary>
 
-        <p className="mt-6 max-w-measure text-small text-ink-3">
-          Case Study로 정리하지는 않았지만, 팀 또는 개인으로 실제 만들어 본
-          것들입니다.
-        </p>
-
         <ul className="mt-8 grid gap-x-12 gap-y-8 sm:grid-cols-2">
           {OTHER_PROJECTS.map((project) => (
             <li
@@ -114,13 +109,13 @@ export function OtherProjects() {
                 <ProjectLink name={project.name} links={project.links} />
               </div>
 
-              <p className="text-small text-ink-2">{project.summary}</p>
+              <p className="text-body text-ink-2">{project.summary}</p>
               <p className="text-small text-ink-3">
                 {project.features.join(" · ")}
               </p>
 
               {project.role ? (
-                <p className="mt-1 font-mono text-label uppercase text-ink-3">
+                <p className="mt-1 text-small text-ink-3">
                   {project.role}
                 </p>
               ) : null}

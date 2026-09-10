@@ -39,6 +39,8 @@ export type Project = {
     alt: string;
     /** CSS object-position. 미지정 시 center */
     position?: string;
+    /** 이미지마다 의미 있는 영역을 보존하는 표시 비율. */
+    aspectRatio?: string;
   };
   /** 화면을 공개할 수 없는 경우의 사유. 자리 표시자에 그대로 노출된다. */
   coverWithheld?: string;
@@ -67,9 +69,10 @@ export const PROJECTS: readonly Project[] = [
       figma: "https://www.figma.com/design/ZORVqHx4WTt4ePPM4mIYz4/",
     },
     cover: {
-      src: "/images/projects/syu-likelion.png",
-      alt: "syu-likelion 메인 화면. 14기 모집을 안내하는 랜딩 페이지로, 동아리 마스코트와 사용 기술 태그, 지원하기 버튼이 배치되어 있다.",
-      // 원본 1.48 → 카드 1.6. 위를 기준으로 잘라 헤드라인과 지원 CTA 를 살린다.
+      src: "/images/projects/syu-likelion-admin2.png",
+      aspectRatio: "1205 / 891",
+      alt: "syu-likelion 지원서 상세의 점수 현황 탭. 같은 지원자의 답변, 문항별 점수와 운영진 코멘트를 탭으로 전환하며 확인한다.",
+      // 평가 화면은 전체 비율로 보여준다.
       position: "center top",
     },
   },
@@ -93,6 +96,7 @@ export const PROJECTS: readonly Project[] = [
     },
     cover: {
       src: "/images/projects/eodiya.png",
+      aspectRatio: "1090 / 720",
       alt: "삼육대 어디야 검색 화면. 좌측에 장소 검색창과 건물·건물 내부 필터, 국제교육관의 층별 상세 정보가 있고, 우측 지도에는 교내 장소 마커와 선택한 장소의 InfoWindow가 표시되어 있다.",
       // 원본 1.51 ≈ 카드 1.5. 크롭이 거의 없다.
       position: "center",

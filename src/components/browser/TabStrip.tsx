@@ -47,8 +47,19 @@ export function TabStrip({
   // 좁은 화면에서는 탭이 가로로 넘친다. 활성 탭이 잘려 있으면 지금 어디에
   // 있는지 알 수 없으므로 보이는 자리로 끌어온다.
   useEffect(() => {
-    const active = listRef.current?.querySelector("[data-active]");
-    active?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    const list = listRef.current;
+    const active = list?.querySelector("[data-active]");
+    if (!list || !active) return;
+
+    // scrollIntoView는 키보드 탐색 시작점도 옮긴다. 목록의 가로 스크롤만
+    // 조정해 첫 Tab으로 본문 건너뛰기 링크에 접근할 수 있게 한다.
+    const itemRect = active.getBoundingClientRect();
+    const listRect = list.getBoundingClientRect();
+    if (itemRect.left < listRect.left) {
+      list.scrollBy({ left: itemRect.left - listRect.left });
+    } else if (itemRect.right > listRect.right) {
+      list.scrollBy({ left: itemRect.right - listRect.right });
+    }
   }, [pathname]);
 
   return (
@@ -102,7 +113,7 @@ export function TabStrip({
               <Link
                 href="/work"
                 aria-label={`${openProject.label} 탭 닫기`}
-                className="flex size-7 items-center justify-center rounded-chip text-ink-3 transition-colors hover:bg-paper-sunk hover:text-ink"
+                className="flex size-11 items-center justify-center rounded-chip text-ink-3 transition-colors hover:bg-paper-sunk hover:text-ink"
               >
                 <svg
                   width="10"

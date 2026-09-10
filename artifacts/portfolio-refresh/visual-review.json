@@ -1,0 +1,41 @@
+{
+  "iteration": 3,
+  "verdict": "pass",
+  "scope": "Portfolio refresh final",
+  "method": "Direct screenshot review and Chrome browser assertions; visual-verdict skill was unavailable.",
+  "evidence": [
+    "after/home-1440-light.png",
+    "after/home-390-light.png",
+    "after/work-1440-light.png",
+    "after/work-390-light.png",
+    "after/projects-syu-likelion-1440-light.png",
+    "after/projects-syu-likelion-390-light.png",
+    "after/career-1440-dark.png",
+    "after/teaching-390-light.png",
+    "after/oshi-image-1440.png",
+    "after/syu-evaluation-390.png",
+    "after/home-og.png",
+    "after/syu-og.png",
+    "checks.json"
+  ],
+  "checks": {
+    "desktopIdentityImageAndMetricsAboveFold": true,
+    "mobileImageAfterIntroductionAndLinks": true,
+    "layoutMatrix": 32,
+    "narrowViewportRoutes": 8,
+    "syuSections": 7,
+    "legacyAnchorsPerViewport": 12,
+    "keyboardSkipLinkAndNavigation": true,
+    "themeCycleAndReload": true,
+    "runtimeErrors": 0
+  },
+  "resolved": [
+    "Metric captions now use ink-2 on tint surfaces.",
+    "Tab list scroll preserves the keyboard navigation starting point.",
+    "Skip link transfers focus to main#content."
+  ],
+  "limitations": [
+    "Chrome viewport emulation, not physical mobile devices or cross-browser testing.",
+    "A dedicated eodiya mobile capture remains a follow-up."
+  ]
+}

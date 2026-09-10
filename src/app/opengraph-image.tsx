@@ -1,94 +1,35 @@
 import { ImageResponse } from "next/og";
-
-import { HERO_METRICS, PROFILE } from "@/data/profile";
+import { PROFILE } from "@/data/profile";
 import { OG, OG_CONTENT_TYPE, OG_SIZE, ogFonts } from "@/lib/og";
 
-export const alt = "박정우 — 불편을 발견하고 웹으로 해결합니다";
+export const alt = "프론트엔드 개발자 박정우 — 동아리 모집·운영 플랫폼과 캠퍼스 지도";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 export default async function OpengraphImage() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: OG.paper,
-          fontFamily: "Pretendard",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", padding: "72px 80px 0" }}>
-          <div
-            style={{
-              fontSize: 22,
-              letterSpacing: 4,
-              textTransform: "uppercase",
-              color: OG.ink3,
-            }}
-          >
-            {PROFILE.role}
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: OG.paper, color: OG.ink, fontFamily: "Pretendard" }}>
+      <div style={{ display: "flex", flexDirection: "column", padding: "64px 80px 0" }}>
+        <div style={{ display: "flex", fontSize: 30, color: OG.ink2 }}>{PROFILE.role}</div>
+        <div style={{ display: "flex", marginTop: 12, fontSize: 88, fontWeight: 700, letterSpacing: -3 }}>{PROFILE.name}</div>
+        <div style={{ display: "flex", marginTop: 24, fontSize: 29 }}>{PROFILE.supporting}</div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", gap: 64, margin: "0 80px 52px", paddingTop: 28, borderTop: "1px solid " + OG.rule }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <span style={{ fontSize: 28, color: OG.deep.mocha }}>syu-likelion</span>
+            <span style={{ fontSize: 22, color: OG.ink2 }}>동아리 모집·운영 플랫폼</span>
           </div>
-
-          <div
-            style={{
-              marginTop: 28,
-              fontSize: 76,
-              fontWeight: 700,
-              lineHeight: 1.18,
-              letterSpacing: -3,
-              color: OG.ink,
-              display: "flex",
-              flexDirection: "column",
-              wordBreak: "keep-all",
-            }}
-          >
-            <div style={{ display: "flex" }}>{PROFILE.headline[0]}</div>
-            <div style={{ display: "flex", gap: 20 }}>
-              <span style={{ color: OG.deep.mocha }}>웹으로</span>
-              <span>해결합니다.</span>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 30, fontSize: 28, color: OG.ink2 }}>
-            {PROFILE.name}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <span style={{ fontSize: 28, color: OG.deep.sage }}>삼육대 어디야</span>
+            <span style={{ fontSize: 22, color: OG.ink2 }}>강의실과 교내 시설을 찾는 지도</span>
           </div>
         </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              gap: 56,
-              margin: "0 80px 44px",
-              paddingTop: 32,
-              borderTop: `1px solid ${OG.rule}`,
-            }}
-          >
-            {HERO_METRICS.map((m) => (
-              <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ fontSize: 44, fontWeight: 700, color: OG.deep.mocha }}>
-                  {m.value}
-                </span>
-                <span style={{ fontSize: 19, color: OG.ink3, marginTop: 4 }}>
-                  {m.label}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* 사이트를 닫는 색표본 스트립과 같은 요소 */}
-          <div style={{ display: "flex", height: 14 }}>
-            {OG.strip.map((c) => (
-              <div key={c} style={{ flex: 1, background: c }} />
-            ))}
-          </div>
+        <div style={{ display: "flex", height: 14 }}>
+          {OG.strip.map((color) => <div key={color} style={{ flex: 1, background: color }} />)}
         </div>
       </div>
-    ),
+    </div>,
     { ...size, fonts: await ogFonts() },
   );
 }

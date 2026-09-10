@@ -1,8 +1,8 @@
 # 박정우 포트폴리오
 
-> 불편을 발견하고 웹으로 해결합니다.
+> 프론트엔드 개발자 박정우
 
-사용자의 반복적인 불편을 발견하고, 제품과 UX를 판단하고, 실제 서비스로 구현·운영한 경험을 담은 웹 프론트엔드 개발자 포트폴리오입니다. 대표 프로젝트의 문제·판단·해결·결과를 Case Study로 보여줍니다.
+동아리 모집·운영 화면과 캠퍼스 지도를 만들었습니다. 사용자 화면과 운영진 기능, API 연동부터 배포 이후 수정까지 경험했습니다. 실제 프로젝트 화면과 본인이 맡은 일, 선택한 이유, 확인된 결과를 담은 포트폴리오입니다.
 
 ## 로컬 실행
 
@@ -43,13 +43,15 @@ npm run dev
 
 | 경로 | 콘텐츠 |
 | --- | --- |
-| `/` | Home — Hero, About |
-| `/work` | Work — 대표 프로젝트 4개, 기타 프로젝트 |
-| `/career` | Career — Experience, Awards, Skills |
-| `/teaching` | Teaching — 교육·멘토링·해외 IT 교육 |
-| `/projects/[slug]` | Case Study — 상세 페이지에서 다섯 번째 탭 표시 |
+| `/` | Home — 이름·직무, syu-likelion 평가 화면과 성과, 디자인·개발 배경 |
+| `/work` | Work — 큰 대표 프로젝트와 세 프로젝트 행, 기타 프로젝트 |
+| `/career` | Career — 경력 타임라인, 수상 목록, 실제 사용 사례를 붙인 기술 |
+| `/teaching` | Teaching — 교육 대상·내용·기간·결과, 멘토링·해외 IT 교육 |
+| `/projects/[slug]` | Case Study — 프로젝트별 판단과 실제 화면, 상세 페이지에서 다섯 번째 탭 표시 |
 
 프로젝트 slug는 `syu-likelion`, `eodiya`, `oshi-calendar`, `cctv-scheduler`입니다. Contact와 Footer는 모든 페이지의 공통 마무리로 유지됩니다.
+
+syu-likelion 상세는 일곱 섹션으로 구성하며, 통합 전 `#section-01`부터 `#section-12`까지의 링크를 유지합니다. 수치는 관련 경험 옆에 표시합니다. 홈의 148명·최대 조회 200은 syu-likelion, 스크랩 81은 삼육대 어디야, 교육 인원 27명은 Teaching에 연결합니다.
 
 ## 기술과 구조
 
@@ -76,17 +78,19 @@ artifacts/              기존 콘텐츠 점검 기록과 검토용 캡처
 
 | 수정 내용 | 기준 파일 |
 | --- | --- |
-| 소개, 연락 이메일, Hero 수치 | [profile.ts](src/data/profile.ts) |
+| 소개, 연락 이메일, About | [profile.ts](src/data/profile.ts) |
 | GitHub 공통 주소, 섹션 ID | [sections.ts](src/lib/sections.ts) |
-| 프로젝트 카드, 기본 정보, 대표 이미지 | [projects.ts](src/data/projects.ts) |
-| Case Study 본문·등록·블록 모델 | [caseStudies](src/data/caseStudies), [index.ts](src/data/caseStudies/index.ts), [types.ts](src/data/caseStudies/types.ts) |
+| 프로젝트 목록, 기본 정보·성과, 표지와 이미지 비율 | [projects.ts](src/data/projects.ts) |
+| Case Study 본문·등록·블록 모델·기존 앵커 호환 | [caseStudies](src/data/caseStudies), [index.ts](src/data/caseStudies/index.ts), [types.ts](src/data/caseStudies/types.ts) |
 | 경력, 수상, 기술, 교육 | [experiences.ts](src/data/experiences.ts), [awards.ts](src/data/awards.ts), [skills.ts](src/data/skills.ts), [teaching.ts](src/data/teaching.ts) |
 | 탭 목록 | [tabs.ts](src/lib/tabs.ts) |
 | 색상·타이포·간격·반응형 토큰 | [globals.css](src/app/globals.css), [hue.ts](src/lib/hue.ts) |
 | 시스템·라이트·다크 테마 | [theme.ts](src/lib/theme.ts), [ThemeToggle.tsx](src/components/layout/ThemeToggle.tsx) |
-| 사이트 URL·검색 및 공유 정보 | [site.ts](src/lib/site.ts), [layout.tsx](src/app/layout.tsx), [sitemap.ts](src/app/sitemap.ts), [og.ts](src/lib/og.ts) |
+| 사이트 URL·검색 및 공유 정보 | [site.ts](src/lib/site.ts), [layout.tsx](src/app/layout.tsx), [sitemap.ts](src/app/sitemap.ts), [og.ts](src/lib/og.ts), [홈 OG 이미지](src/app/opengraph-image.tsx) |
 
 프로젝트를 추가할 때는 카드 데이터, 상세 데이터, `caseStudies/index.ts` 등록을 함께 확인합니다. sitemap은 탭과 상세 slug 목록에서 생성됩니다. OG 이미지가 읽는 Pretendard OTF 파일은 [next.config.ts](next.config.ts)의 `outputFileTracingIncludes`에 등록되어 있습니다.
+
+소개를 바꾸면 페이지 제목·설명과 홈 OG 이미지도 함께 갱신합니다. 이미지별 비율은 선택 속성 `aspectRatio`로 지정하며, 미지정 이미지는 기존 잘림을 유지합니다. 실제 화면을 공개할 수 없는 CCTV는 도식과 비공개 사유를 제공합니다.
 
 Resume 다운로드는 PDF 확보 전까지 표시하지 않습니다. 파일이 준비되면 [Contact.tsx](src/components/home/Contact.tsx)와 [Footer.tsx](src/components/layout/Footer.tsx)의 TODO를 함께 처리합니다.
 

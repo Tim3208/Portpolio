@@ -25,7 +25,7 @@ export function Footer() {
     // (창 셸 자체에는 overflow 를 걸 수 없다 — BrowserFrame 주석 참고)
     <footer className="overflow-clip rounded-b-window bg-deep-ground">
       <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-10">
-        <p className="font-mono text-small text-deep-ink-2">
+        <p className="text-small text-deep-ink-2">
           © 2026 박정우 — Web / Frontend Developer
         </p>
 
