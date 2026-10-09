@@ -36,8 +36,8 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
   },
   {
     role: "배포와 운영",
-    caption: "삼육대 어디야를 GitHub Pages에 배포하고 PWA를 적용했습니다. Oshi Calendar는 Vercel에서 미리보기를 제공합니다.",
-    items: ["Git", "GitHub", "Vercel", "GitHub Pages", "PWA"],
+    caption: "삼육대 어디야를 GitHub Actions로 GitHub Pages에 배포했습니다. Oshi Calendar는 Vercel에서 제공합니다.",
+    items: ["Git", "GitHub", "GitHub Actions", "Vercel", "GitHub Pages"],
   },
   {
     role: "디자인과 협업",

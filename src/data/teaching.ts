@@ -1,4 +1,8 @@
 /** 교육 경험과 수치의 근거: docs/content.md#teaching, #volunteer */
+/** 홈 Communication 섹션의 머리 문장 */
+export const COMMUNICATION_LEAD =
+  "디자인과 컴퓨터공학 전공 배경을 바탕으로, 상대의 언어에 맞춰 기술을 설명하고 협업합니다.";
+
 export const TEACHING_LEAD =
   "동아리 부원에게 프론트엔드 개발을, 고등학생과 재수생에게 수학을 가르쳤습니다. 캄보디아와 베트남에서는 영어로 IT 수업을 진행했습니다.";
 

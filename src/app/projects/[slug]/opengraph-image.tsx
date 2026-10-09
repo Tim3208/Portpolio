@@ -21,8 +21,9 @@ export default async function ProjectOpengraphImage({
   const caseStudy = getCaseStudy(slug);
   const project = PROJECTS.find((p) => p.slug === slug);
 
-  const tint = project ? OG.tint[project.hue] : OG.tint.mocha;
-  const deep = project ? OG.deep[project.hue] : OG.deep.mocha;
+  const hue = project?.hue ?? "mocha";
+  const tint = OG.tint[hue];
+  const deep = OG.deep[hue];
 
   return new ImageResponse(
     (

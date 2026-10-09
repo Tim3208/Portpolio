@@ -4,15 +4,29 @@ import { GITHUB_URL } from "@/lib/sections";
 export const PROFILE = {
   name: "박정우",
   role: "프론트엔드 개발자",
-  supporting: "동아리 모집·운영 화면과 캠퍼스 지도를 만들었습니다.",
-  experience: "사용자 화면과 운영진 기능, API 연동부터 배포 이후 수정까지 경험했습니다.",
+  /** 홈 첫 화면과 홈 OG 이미지의 한 줄 소개. 특정 프로젝트를 지칭하지 않는다. */
+  tagline: "사용자의 페인 포인트를 발견하고, 가치 있는 프로덕트로 만드는 개발자",
   github: GITHUB_URL,
   email: "joungou.park@gmail.com",
 } as const;
 
-export const ABOUT_PARAGRAPHS = [
-  "선린인터넷고등학교에서 시각디자인과 UX/UI를 배우고, 삼육대학교에서 컴퓨터공학을 전공하고 있습니다. 화면을 디자인할 때의 의도를 실제 UI와 사용자 상태로 옮기는 일을 해 왔습니다.",
-  "동아리 플랫폼에서는 디자이너·백엔드 개발자와 지원서와 평가 화면을 만들었습니다. API 명세와 실제 응답을 대조하며 동작을 맞췄고, 운영 중 발견한 화면 이동과 정보 표시 문제를 수정했습니다.",
-] as const;
+/** /career 맨 위의 전공 배경. 근거: docs/content.md#profile, #education */
+export const BACKGROUND = {
+  lead: "디자인과 컴퓨터공학을 모두 전공했습니다. 화면의 의도를 이해하고, 그것을 실제로 동작하는 UI로 옮깁니다.",
+  items: [
+    {
+      field: "디자인",
+      school: "선린인터넷고등학교 멀티미디어과",
+      period: "2018.03 — 2021.02",
+      detail: "시각디자인 · UX/UI 디자인 · 영상편집",
+    },
+    {
+      field: "컴퓨터공학",
+      school: "삼육대학교 컴퓨터공학부",
+      period: "2021.03 — 2027.02 졸업 예정",
+      detail: "웹프로그래밍 · 컴퓨터네트워크 · 인공지능 · 확률통계",
+    },
+  ],
+} as const;
 
 export const CONTACT_STATEMENT = "프로젝트나 협업에 관한 이야기를 기다립니다.";

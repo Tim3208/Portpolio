@@ -22,7 +22,8 @@ export type Block =
   /** 스크린샷. caption 은 "무엇이 보이는지"가 아니라 "왜 이렇게 했는지" (§44). */
   | {
       type: "image";
-      src: string;
+      /** 없으면 아직 확보하지 않은 화면이다. alt 에 필요한 화면을 적어 둔다. */
+      src?: string;
       alt: string;
       caption: string;
       position?: string;

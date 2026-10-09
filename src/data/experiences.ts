@@ -60,8 +60,8 @@ export const TIMELINE: readonly TimelineYear[] = [
         detail: "University of Science and Education · 80시간",
       },
       {
-        title: "syu-likelion · 삼육대 어디야 · Oshi Calendar",
-        detail: "운영 · 배포 · 개발 중",
+        title: "syu-likelion · Make A Wish · 삼육대 어디야 · Oshi Calendar",
+        detail: "운영 · 축제 운영 · 배포 · 이용 가능",
       },
     ],
   },

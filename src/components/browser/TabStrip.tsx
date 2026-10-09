@@ -1,142 +1,61 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-
-import { TabPending } from "@/components/browser/TabPending";
-import { HUE_CLASS } from "@/lib/hue";
-import type { Tab } from "@/lib/tabs";
-
-export type ProjectTab = { label: string; hueClass: string };
-
-const BASE =
-  "relative flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-panel px-3 text-small transition-colors";
-
-/** 활성 탭은 창 본문과 같은 면색을 입어 아래 지면과 이어져 보인다. */
-const ACTIVE = "bg-paper text-ink";
-const IDLE = "text-ink-2 hover:bg-paper/55 hover:text-ink";
+import { useBrowser } from "@/components/browser/BrowserProvider";
+import { current } from "@/components/browser/tabStore";
 
 /**
- * 브라우저 탭 스트립.
+ * 창 안의 탭줄.
  *
- * role="tab" / role="tablist" 를 쓰지 않는다. ARIA 의 탭 패턴은 화살표키
- * 로빙 포커스와 tabpanel 을 함께 요구하는데, 이것들은 진짜 페이지 링크다.
- * 링크를 링크라고 말하는 편이 정확하고, 새 탭으로 열기 같은 브라우저 기본
- * 동작도 그대로 살아난다.
- *
- * Case Study 에 들어가면 다섯 번째 탭이 열린 것처럼 보인다. 이때 Work 는
- * 비활성이 되고, 닫기(×)는 버튼이 아니라 /work 로 가는 링크다 — 실제로
- * 하는 일이 그것이기 때문이다.
+ * 탭은 라우트 링크가 아니라 방문자가 연 페이지다. 그래서 링크가 아닌
+ * 버튼으로 두고, 활성 탭에 aria-current 를 붙인다. 마운트 전에는 저장된
+ * 탭을 알 수 없으므로 현재 경로로 탭 하나를 그린다 — 첫 방문과 같은 모양이다.
  */
-export function TabStrip({
-  tabs,
-  projectTabs,
-}: {
-  tabs: readonly Tab[];
-  projectTabs: Record<string, ProjectTab>;
-}) {
-  const pathname = usePathname();
-  const listRef = useRef<HTMLUListElement>(null);
+export function TabStrip() {
+  const { state, pathname, titleOf, switchTo, close, openNewTab } = useBrowser();
 
-  const slug = pathname.startsWith("/projects/")
-    ? pathname.split("/")[2]
-    : undefined;
-  const openProject = slug ? projectTabs[slug] : undefined;
-
-  // 좁은 화면에서는 탭이 가로로 넘친다. 활성 탭이 잘려 있으면 지금 어디에
-  // 있는지 알 수 없으므로 보이는 자리로 끌어온다.
-  useEffect(() => {
-    const list = listRef.current;
-    const active = list?.querySelector("[data-active]");
-    if (!list || !active) return;
-
-    // scrollIntoView는 키보드 탐색 시작점도 옮긴다. 목록의 가로 스크롤만
-    // 조정해 첫 Tab으로 본문 건너뛰기 링크에 접근할 수 있게 한다.
-    const itemRect = active.getBoundingClientRect();
-    const listRect = list.getBoundingClientRect();
-    if (itemRect.left < listRect.left) {
-      list.scrollBy({ left: itemRect.left - listRect.left });
-    } else if (itemRect.right > listRect.right) {
-      list.scrollBy({ left: itemRect.right - listRect.right });
-    }
-  }, [pathname]);
+  const tabs = state
+    ? state.tabs.map((t) => ({ id: t.id, url: current(t), active: t.id === state.activeId }))
+    : [{ id: "initial", url: pathname, active: true }];
 
   return (
-    <nav aria-label="사이트 탭" className="min-w-0 flex-1">
-      <ul
-        ref={listRef}
-        className="flex snap-x items-center gap-1 overflow-x-auto scroll-px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
+    <nav aria-label="열린 탭" className="flex min-w-0 items-end gap-1 px-2 pt-2">
+      <ul className="flex min-w-0 items-end gap-1 overflow-x-auto">
         {tabs.map((tab) => {
-          const active = !openProject && pathname === tab.href;
-
+          const title = titleOf(tab.url);
           return (
-            <li key={tab.href} className="shrink-0">
-              <Link
-                href={tab.href}
-                aria-current={active ? "page" : undefined}
-                data-active={active ? "" : undefined}
-                className={`${BASE} ${active ? ACTIVE : IDLE}`}
+            <li
+              key={tab.id}
+              className={`flex w-48 shrink-0 items-center border border-b-0 ${
+                tab.active ? "border-line-strong bg-paper" : "border-line text-ink-2"
+              }`}
+            >
+              <button
+                type="button"
+                onClick={() => switchTo(tab.id)}
+                aria-current={tab.active ? "page" : undefined}
+                className="min-h-10 min-w-0 flex-1 truncate px-3 text-left text-sm"
               >
-                <span
-                  aria-hidden="true"
-                  className={`${HUE_CLASS[tab.hue]} size-2 shrink-0 rounded-full bg-hue-deep`}
-                />
-                {tab.label}
-                {active ? (
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-accent"
-                  />
-                ) : (
-                  <TabPending />
-                )}
-              </Link>
+                {title}
+              </button>
+              <button
+                type="button"
+                onClick={() => close(tab.id)}
+                aria-label={`${title} 탭 닫기`}
+                className="min-h-10 shrink-0 px-2 text-xs text-ink-2 underline"
+              >
+                닫기
+              </button>
             </li>
           );
         })}
-
-        {openProject ? (
-          <li className="shrink-0">
-            <span
-              aria-current="page"
-              data-active=""
-              className={`${BASE} ${ACTIVE} pr-1.5`}
-            >
-              <span
-                aria-hidden="true"
-                className={`${openProject.hueClass} size-2 shrink-0 rounded-full bg-hue-deep`}
-              />
-              <span className="max-w-40 truncate">{openProject.label}</span>
-
-              <Link
-                href="/work"
-                aria-label={`${openProject.label} 탭 닫기`}
-                className="flex size-11 items-center justify-center rounded-chip text-ink-3 transition-colors hover:bg-paper-sunk hover:text-ink"
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M1.5 1.5l7 7M8.5 1.5l-7 7" />
-                </svg>
-              </Link>
-
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-accent"
-              />
-            </span>
-          </li>
-        ) : null}
       </ul>
+      <button
+        type="button"
+        onClick={openNewTab}
+        className="mb-1 min-h-9 shrink-0 border border-line px-3 text-sm"
+      >
+        새 탭
+      </button>
     </nav>
   );
 }

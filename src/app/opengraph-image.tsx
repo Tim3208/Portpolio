@@ -12,7 +12,7 @@ export default async function OpengraphImage() {
       <div style={{ display: "flex", flexDirection: "column", padding: "64px 80px 0" }}>
         <div style={{ display: "flex", fontSize: 30, color: OG.ink2 }}>{PROFILE.role}</div>
         <div style={{ display: "flex", marginTop: 12, fontSize: 88, fontWeight: 700, letterSpacing: -3 }}>{PROFILE.name}</div>
-        <div style={{ display: "flex", marginTop: 24, fontSize: 29 }}>{PROFILE.supporting}</div>
+        <div style={{ display: "flex", marginTop: 24, fontSize: 29 }}>{PROFILE.tagline}</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", gap: 64, margin: "0 80px 52px", paddingTop: 28, borderTop: "1px solid " + OG.rule }}>

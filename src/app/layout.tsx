@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
-import { BrowserFrame } from "@/components/browser/BrowserFrame";
-import { Contact } from "@/components/home/Contact";
+import { BrowserWindow } from "@/components/browser/BrowserWindow";
+import { Contact } from "@/components/layout/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { PROFILE } from "@/data/profile";
 import { SITE, SITE_URL } from "@/lib/site";
@@ -49,8 +49,8 @@ export const viewport: Viewport = {
   // 브라우저 UI 와 맞닿는 면은 이제 창이 아니라 창 바깥의 데스크다.
   // paper 로 두면 실제 주소창과 사이트 여백 사이에 경계선이 생긴다.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e6e2da" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0e0c" },
+    { media: "(prefers-color-scheme: light)", color: "#e4e4e4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 
@@ -68,29 +68,21 @@ export default function RootLayout({
 
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-xs focus:bg-hue-deep focus:px-4 focus:py-2 focus:text-small focus:text-paper"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:border focus:border-line-strong focus:bg-paper focus:px-4 focus:py-2 focus:text-sm"
         >
           본문으로 건너뛰기
         </a>
 
         {/* main 은 layout 이 소유한다. 그래야 모든 라우트에서 skip link 타깃
             (#content) 이 반드시 존재하고, main 이 중복되지 않는다.
-
-            Contact 는 탭이 아니라 여기 상주한다. Footer 와 함께 하나의 닫는
-            블록이라 어느 탭에서 나가든 같은 마무리를 만나야 하고, 이메일이
-            모든 화면에서 한 번의 스크롤 거리에 있게 된다. */}
-        <BrowserFrame>
-          <main id="content" tabIndex={-1}>{children}</main>
+            Contact 와 Footer 는 어느 페이지에서든 본문 끝에 같은 마무리로 붙는다. */}
+        <BrowserWindow>
+          <main id="content" tabIndex={-1} className="focus:outline-none">
+            {children}
+          </main>
           <Contact />
           <Footer />
-        </BrowserFrame>
-
-        {/* 창 위쪽 여백을 덮는 마스크. 스크롤한 콘텐츠가 sticky 크롬바 위로
-            빠져나와 데스크 여백에 비치는 것을 막는다. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-x-0 top-0 z-50 h-frame bg-desk"
-        />
+        </BrowserWindow>
       </body>
     </html>
   );
