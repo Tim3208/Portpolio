@@ -1,10 +1,17 @@
 /**
  * Case Study 콘텐츠 모델 (AGENTS.md §19 ~ §24)
  *
- * 블록 7종만 둔다. 이보다 늘리면 콘텐츠가 아니라 레이아웃을 편집하게 된다.
- * 각 블록은 본문 폭(720)에 들어갈지 breakout(1080)으로 나갈지가 정해져 있고,
- * 그 판단은 렌더러가 한다 — 콘텐츠 작성자가 폭을 신경 쓰지 않게 한다.
+ * 서술 블록 7종 + 설명용 데모 1종만 둔다. 이보다 늘리면 콘텐츠가 아니라
+ * 레이아웃을 편집하게 된다. 각 블록이 읽기 폭(672)에 들어갈지 섹션 폭을 다
+ * 쓸지는 렌더러가 정한다 — 콘텐츠 작성자가 폭을 신경 쓰지 않게 한다.
+ *
+ * demo 는 디자인 3안에서 추가했다(docs/design.md#option-3). 한 가지 판단을
+ * 조작으로 보여주는 정해진 위젯만 이름으로 고르고, 데모가 없어도 앞뒤 서술만으로
+ * 내용이 성립해야 한다.
  */
+
+/** 등록된 설명용 데모. 구현은 src/components/project/demos 에 있다. */
+export type DemoName = "evaluation-stage" | "approval-reset";
 
 export type Block =
   /** 서술. 대부분의 문장이 여기 들어간다. */
@@ -39,7 +46,9 @@ export type Block =
       options: readonly string[];
       choice: string;
       reason: string;
-    };
+    }
+  /** 합성 데이터로 판단 하나를 보여주는 설명용 데모. 실제 기능을 재현하지 않는다. */
+  | { type: "demo"; name: DemoName };
 
 export type CaseSection = {
   /** 기존 section-01 형태의 링크에 쓰는 식별자. 화면 순서와 독립적으로 유지한다. */

@@ -52,6 +52,7 @@ export const agentflow: CaseStudy = {
           choice: "현재 후보가 승인 당시와 같을 때만 완료",
           reason: "승인은 특정 내용에 대한 판단입니다. 내용이 바뀐 뒤의 완료 근거로 쓰면 검토를 거치지 않은 변경이 완료로 기록됩니다.",
         },
+        { type: "demo", name: "approval-reset" },
         {
           type: "prose",
           text: "QA가 실패하면 복구 개발로 돌아가고, 제품 코드가 바뀌면 기존 QA 승인이 아직 유효한지 다시 검사합니다.",

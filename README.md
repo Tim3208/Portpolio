@@ -39,9 +39,9 @@ npm run dev
 
 ## 페이지 구성
 
-사이트 전체를 화면 가운데의 브라우저 창 하나로 표현합니다. 데스크톱에서는 창이 화면 높이에 고정되고 본문은 창 안에서 스크롤합니다. 크롬은 탭줄(탭 전환·닫기·새 탭), 도구줄(뒤로·앞으로·새로고침·주소창·테마), 북마크바 3행입니다. 모바일에서는 창 연출 없이 일반 페이지로 보입니다.
+사이트 전체를 화면 가운데의 브라우저 창 하나로 표현합니다. 데스크톱에서는 창이 화면 높이에 고정되고 본문은 창 안에서 스크롤합니다. 크롬은 탭줄(탭 전환·닫기·새 탭)과 도구줄(뒤로·앞으로·새로고침·주소창·주요 페이지·테마) 2행입니다. 모바일에서는 창 연출 없이 일반 페이지로 보입니다.
 
-현재는 디자인 **스케치 단계**라 흑백 와이어프레임으로 구조와 스토리라인만 보여줍니다. 이미지 자리는 플레이스홀더입니다.
+이 브랜치(`design/3-claude`)는 디자인 **도색 시안 3안**입니다. 실제 서비스 화면에 번호 주석을 달아 판단을 화면 위에서 짚고, 평가 단계·승인 무효화 같은 판단은 합성 데이터로 만든 설명용 데모로 바꿔 볼 수 있습니다. 기준은 [디자인 기준의 3안](docs/design.md#option-3)입니다.
 
 | 경로 | 콘텐츠 |
 | --- | --- |
@@ -70,8 +70,8 @@ src/
 ├─ components/
 │  ├─ browser/          창, 탭 상태, 탭줄, 도구줄·주소창, 본문 영역
 │  ├─ layout/           Contact, Footer, ThemeToggle
-│  ├─ project/          Case Study 블록 렌더링
-│  └─ sketch/           스케치 단계 공통 요소 (Container, Placeholder)
+│  ├─ project/          대표 프로젝트 행, Case Study 블록 렌더링, 설명용 데모
+│  └─ ui/               공통 요소 (Container, Shot 화면 주석, Switcher 전환, Placeholder)
 ├─ data/                프로필, 프로젝트, 경력, 수상, 기술, 교육, 홈 스토리 요약
 │  └─ caseStudies/      프로젝트별 상세 본문과 블록 타입
 └─ lib/                 주요 페이지 목록, 주소창 해석, 테마, 색맥락, 사이트 URL, OG 공통 설정
@@ -90,9 +90,11 @@ artifacts/              기존 콘텐츠 점검 기록과 검토용 캡처
 | Case Study 본문·등록·블록 모델·기존 앵커 호환 | [caseStudies](src/data/caseStudies), [index.ts](src/data/caseStudies/index.ts), [types.ts](src/data/caseStudies/types.ts) |
 | 경력, 수상, 기술, 교육 | [experiences.ts](src/data/experiences.ts), [awards.ts](src/data/awards.ts), [skills.ts](src/data/skills.ts), [teaching.ts](src/data/teaching.ts) |
 | 프로젝트 층·성격·판단·결과·담당 구분 | [projects.ts](src/data/projects.ts)의 `tier`·`kind`·`decision`·`outcome`·`ownership` |
-| 주요 페이지 목록(북마크·내비·sitemap) | [pages.ts](src/lib/pages.ts) |
+| 주요 페이지 목록(도구줄·모바일 내비·sitemap) | [pages.ts](src/lib/pages.ts) |
+| 스크린샷 위 화면 주석(번호와 설명) | [annotations.ts](src/data/annotations.ts) |
+| 홈 첫 화면에서 고르는 실제 화면 | [projects.ts](src/data/projects.ts)의 `screens` |
 | 창 안 탭·방문 기록·주소창 동작 | [tabStore.ts](src/components/browser/tabStore.ts), [BrowserProvider.tsx](src/components/browser/BrowserProvider.tsx), [address.ts](src/lib/address.ts) |
-| 색상·타이포·간격·반응형 토큰 | [globals.css](src/app/globals.css), [hue.ts](src/lib/hue.ts) (스케치 단계에서는 흑백 토큰만 사용) |
+| 색상·타이포·간격·반응형 토큰 | [globals.css](src/app/globals.css), [hue.ts](src/lib/hue.ts) |
 | 시스템·라이트·다크 테마 | [theme.ts](src/lib/theme.ts), [ThemeToggle.tsx](src/components/layout/ThemeToggle.tsx) |
 | 사이트 URL·검색 및 공유 정보 | [site.ts](src/lib/site.ts), [layout.tsx](src/app/layout.tsx), [sitemap.ts](src/app/sitemap.ts), [og.ts](src/lib/og.ts), [홈 OG 이미지](src/app/opengraph-image.tsx) |
 

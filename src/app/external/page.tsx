@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Container } from "@/components/sketch/Container";
+import { BUTTON } from "@/components/project/ProjectParts";
+import { Container } from "@/components/ui/Container";
 
 export const metadata: Metadata = {
   title: "열 수 없는 주소",
@@ -20,15 +21,15 @@ export default async function ExternalPage({ searchParams }: Props) {
 
   return (
     <Container className="flex flex-col items-start gap-5 py-20 md:py-28">
-      <p className="font-mono text-sm text-ink-2">이 창 밖의 주소</p>
-      <h1 className="text-3xl font-bold">이 창에서는 이 사이트 안의 페이지만 열 수 있습니다</h1>
+      <p className="text-sm font-semibold text-ink-2">이 창 밖의 주소</p>
+      <h1 className="max-w-3xl text-title font-bold">이 창에서는 이 사이트 안의 페이지만 열 수 있습니다</h1>
       {address ? (
-        <p className="max-w-full border border-line px-3 py-2 font-mono text-sm break-all">{address}</p>
+        <p className="max-w-full rounded-chip bg-paper-sunk px-3 py-2 font-mono text-sm break-all">{address}</p>
       ) : null}
       <p className="max-w-measure text-ink-2">
         주소창에 /work 처럼 이 사이트의 경로를 입력하거나, 홈에서 다시 시작하세요.
       </p>
-      <Link href="/" className="flex min-h-11 items-center border border-line-strong px-5">
+      <Link href="/" className={BUTTON}>
         홈으로 돌아가기
       </Link>
     </Container>

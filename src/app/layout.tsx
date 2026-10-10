@@ -46,11 +46,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // 브라우저 UI 와 맞닿는 면은 이제 창이 아니라 창 바깥의 데스크다.
-  // paper 로 두면 실제 주소창과 사이트 여백 사이에 경계선이 생긴다.
+  // 실제 브라우저 UI 와 맞닿는 면. 테마 색을 쓰는 모바일에는 창 연출이 없어
+  // 본문 지면(paper)이 곧 맞닿는 면이다. globals.css 의 --color-paper 와 같은 값.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e4e4e4" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f0eee9" },
+    { media: "(prefers-color-scheme: dark)", color: "#171613" },
   ],
 };
 
@@ -68,7 +68,7 @@ export default function RootLayout({
 
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:border focus:border-line-strong focus:bg-paper focus:px-4 focus:py-2 focus:text-sm"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-chip focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper"
         >
           본문으로 건너뛰기
         </a>

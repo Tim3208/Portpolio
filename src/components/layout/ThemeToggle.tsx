@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
+import { MoonIcon, SunIcon, SystemIcon } from "@/components/browser/icons";
 import { THEME_KEY, type Theme } from "@/lib/theme";
 
 type Mode = "auto" | Theme;
@@ -45,8 +46,8 @@ const LABEL: Record<Mode, string> = {
 /**
  * 테마 토글 — 시스템 → 라이트 → 다크 → 시스템 순환.
  *
- * 스케치 단계라 아이콘 대신 글자로 상태를 보여준다. 세 라벨을 모두 렌더하고
- * 어느 것을 보일지는 CSS 가 <html> 의 속성을 보고 고른다 (globals.css).
+ * 세 아이콘을 모두 렌더하고 어느 것을 보일지는 CSS 가 <html> 의 속성을 보고
+ * 고른다 (globals.css). 상태와 다음 동작은 접근 이름과 툴팁이 글자로 말한다.
  */
 export function ThemeToggle() {
   const mode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -77,11 +78,18 @@ export function ThemeToggle() {
       type="button"
       onClick={cycle}
       aria-label={LABEL[mode]}
-      className="min-h-11 shrink-0 border border-line px-3 text-sm md:min-h-9"
+      title={LABEL[mode]}
+      className="flex size-11 shrink-0 items-center justify-center rounded-chip text-ink-2 transition-colors duration-150 hover:bg-paper-sunk hover:text-ink md:size-8"
     >
-      <span data-theme-label="auto">테마: 시스템</span>
-      <span data-theme-label="light">테마: 라이트</span>
-      <span data-theme-label="dark">테마: 다크</span>
+      <span data-theme-label="auto">
+        <SystemIcon />
+      </span>
+      <span data-theme-label="light">
+        <SunIcon />
+      </span>
+      <span data-theme-label="dark">
+        <MoonIcon />
+      </span>
     </button>
   );
 }

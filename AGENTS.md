@@ -47,13 +47,13 @@
 ## 라우트와 렌더링 계약
 
 - 페이지는 실제 라우트다: `/`, `/work`, `/career`, `/teaching`, `/projects/[slug]`. 연출용 경로로 새 탭 시작 페이지 `/new`, 외부 주소 안내 `/external`, 없는 경로를 받는 `[...missing]`(→ `not-found.tsx`)이 있다. 연출용 경로는 sitemap과 검색에서 제외한다.
-- 주요 페이지 목록은 [src/lib/pages.ts](src/lib/pages.ts) 하나에서 관리한다. 북마크바·모바일 내비·새 탭 시작 페이지·sitemap이 이 목록을 쓴다.
+- 주요 페이지 목록은 [src/lib/pages.ts](src/lib/pages.ts) 하나에서 관리한다. 도구줄의 주요 페이지 링크·모바일 내비·새 탭 시작 페이지·sitemap이 이 목록을 쓴다.
 - 창 안의 탭은 라우트가 아니라 방문자가 열고 닫는 상태다([tabStore.ts](src/components/browser/tabStore.ts)). 실제 URL은 항상 활성 탭의 현재 주소와 같고, 탭 목록은 sessionStorage에 저장되어 새로고침에는 유지되고 실제 브라우저 탭을 닫으면 사라진다. 뒤로·앞으로는 활성 탭의 방문 기록을 따른다.
 - 주소창은 실제 입력창이다. 입력은 [address.ts](src/lib/address.ts)의 `parseAddress`로만 해석하고 그대로 router에 넘기지 않는다. 사이트 안 경로는 이동하고, 없는 경로는 연출된 404, 사이트 밖 주소와 검색어는 `/external` 안내를 보여준다.
 - 본문 링크의 일반 클릭은 현재 탭에서 이동하고, Ctrl/Cmd·휠 클릭은 브라우저 기본 동작(실제 새 탭)을 유지한다. 창 안 새 탭은 "새 탭" 버튼으로만 연다.
 - [layout.tsx](src/app/layout.tsx)가 BrowserWindow, 단일 `main#content`, Contact, Footer를 소유한다. 모든 라우트에서 `#contact`와 본문 건너뛰기 링크가 유효해야 한다.
 - 각 페이지는 `h1`을 정확히 하나 가진다.
-- 데스크톱(`md` 이상)은 화면 높이에 고정된 창과 탭줄·도구줄·북마크바 3행 크롬을 쓰고, 본문은 창 안에서만 스크롤한다. 모바일은 창 연출을 풀고 간단한 상단 내비와 문서 스크롤을 쓴다. 햄버거 메뉴를 추가하지 않는다.
+- 데스크톱(`md` 이상)은 화면 높이에 고정된 창과 탭줄·도구줄 2행 크롬을 쓰고(주요 페이지 링크는 도구줄 오른쪽), 본문은 창 안에서만 스크롤한다. 모바일은 창 연출을 풀고 간단한 상단 내비와 문서 스크롤을 쓴다. 햄버거 메뉴를 추가하지 않는다.
 - 서버 컴포넌트를 기본으로 유지한다. 현재 클라이언트 경계는 `BrowserProvider`, `TabStrip`, `Toolbar`, `Viewport`, `ThemeToggle`이다. 탭 제목에 필요한 경로→이름 표는 서버의 `BrowserWindow`에서 조립해 전달한다.
 - Case Study는 [src/data/caseStudies](src/data/caseStudies)의 정적 TypeScript 데이터다. 표시 정보는 `src/data/projects.ts`, 블록 타입은 `caseStudies/types.ts`에서 관리한다. 문서 정리만을 이유로 MDX나 새 콘텐츠 계층을 도입하지 않는다.
 - 공개 이미지는 루트의 `public/images/projects/`에 둔다. `artifacts/`는 검토 기록이며 앱에서 직접 제공되는 경로가 아니다.
@@ -64,14 +64,14 @@
 
 상세 토큰과 예외는 [디자인 기준](docs/design.md)을 따른다.
 
-> **현재 단계: 스케치.** 디자인은 스케치(기획) → 도색 → 마감 순서로 진행한다. 스케치 단계에서는 흑백 모노톤만 쓰고 색·그라디언트·아이콘·애니메이션·그림자·둥근 모서리를 넣지 않는다. 이미지와 영상 자리는 [Placeholder](src/components/sketch/Placeholder.tsx)로 표시한다. 아래 색·Accent·창 radius 규칙은 도색 단계에서 다시 적용할 기준으로 보존한다. 테마 3상태, 모바일·접근성 규칙은 스케치 단계에도 그대로 지킨다.
+> **현재 단계: 도색 시안 3안(`design/3-claude`).** 디자인은 스케치(기획) → 도색 → 마감 순서로 진행한다. 이 브랜치는 스케치 위에 보존해 둔 아래 색 기준을 되살리고, 실제 스크린샷에 화면 주석을 다는 [3안](docs/design.md#option-3)으로 칠했다. 실제 화면이 없는 자리만 [Placeholder](src/components/ui/Placeholder.tsx)나 담당 범위 도식으로 둔다. 모션은 기능 피드백과 설명용 데모에만 쓴다. 채택 여부는 아직 정하지 않았다.
 
 - Cloud Dancer 지면, Earthen Pastels 6계열, 장식용 Accent를 유지한다. 색을 JSX에 하드코딩하지 않고 기존 토큰과 `Project.hue`를 사용한다.
 - 한 섹션에 한 색 계열을 쓴다. 여섯 색을 모으는 예외는 Contact 하단 색표본과 OG 이미지다. `tint` 위에는 `ink`·`ink-2`·`hue-deep`만 쓴다.
 - Accent는 글자가 닿지 않는 장식면 전용이다. 글자색이나 글자가 있는 버튼 배경으로 사용하지 않는다. 그라디언트·순백·임의 숙련도 그래프를 추가하지 않는다.
-- 창 프레임은 테두리 하나로 표현한다. 도색 단계에서 큰 radius와 그림자를 쓰더라도 창 프레임·크롬 컨트롤에 한정한다. 본문 스크롤은 창 셸이 아니라 `Viewport`가 맡는다.
+- 창 프레임은 `--window-shadow`의 링 하나로 표현한다. 큰 radius와 그림자는 창 프레임·크롬 컨트롤에 한정하고, 창 셸에 `overflow`·`transform`·`filter`를 주지 않는다. 본문 스크롤은 창 셸이 아니라 `Viewport`가 맡는다.
 - 테마는 시스템·라이트·다크 세 상태다. 시스템 상태는 `data-theme` 속성이 없어야 한다. [theme.ts](src/lib/theme.ts)의 동기 초기화 스크립트를 `<body>` 첫 자식에 유지하고, 토글은 DOM을 기준으로 읽는다.
-- 데스크톱 창 바깥 여백(24px, `lg` 40px), 모바일 창 연출 해제, 터치 영역, 가로 넘침 방지, 키보드·포커스·대비·alt·제목 계층·`prefers-reduced-motion`을 함께 확인한다.
+- 데스크톱 창 바깥 여백(12px, `lg` 16px, `2xl` 20px)과 창 최대 폭 1760px, 모바일 창 연출 해제, 터치 영역, 가로 넘침 방지, 키보드·포커스·대비·alt·제목 계층·`prefers-reduced-motion`을 함께 확인한다.
 - 모든 섹션을 같은 둥근 카드나 배지 목록으로 만들지 않는다. 실제 스크린샷, 여백, 타이포, 타임라인, 다이어그램을 메시지에 맞게 사용한다.
 
 <a id="code-quality"></a>

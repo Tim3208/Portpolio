@@ -1,27 +1,66 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   스케치 단계 토큰 — 흑백 와이어프레임
+   디자인 3안 — 주석 단 실물 화면 (docs/design.md#option-3)
 
-   디자인 흐름은 스케치 → 도색 → 마감이다. 지금은 구조와 스토리라인만
-   확인하는 단계라 색, 그라디언트, 아이콘, 애니메이션, 그림자, 둥근 모서리를
-   쓰지 않는다. 회색 단계와 선만으로 위계를 만든다.
+   Cloud Dancer 지면 · Earthen Pastels 6계열 · 장식용 Accent 하나.
+   색은 정보 구조다. 한 섹션에는 .hue-* 하나만 걸고, 선택 상태 · 화면 주석 ·
+   도식의 연결 · 포커스링이 그 색을 공유한다. 실제 스크린샷의 색은 바꾸지 않는다.
 
-   Tailwind 기본 팔레트를 비워 두어 실수로 색 유틸리티를 쓸 수 없게 한다.
-   도색 단계에서 이 파일의 토큰을 다시 정의한다.
+   Tailwind 기본 팔레트는 비워 두어 토큰 밖의 색을 실수로 쓰지 못하게 한다.
    ========================================================================== */
 
 @theme {
   --color-*: initial;
 
-  --color-desk: #e4e4e4; /* 창 바깥 여백 */
-  --color-paper: #fafafa; /* 창 안 본문 */
-  --color-chrome: #efefef; /* 탭줄 · 도구줄 · 북마크바 */
-  --color-sunk: #e9e9e9; /* 이미지 자리 · 비활성 면 */
-  --color-ink: #111111;
-  --color-ink-2: #555555;
-  --color-line: #cccccc;
-  --color-line-strong: #111111;
+  /* 지면 — 창 바깥부터 안쪽 순서 */
+  --color-desk: #e6e2da;
+  --color-chrome: #eae7e0; /* 탭줄 */
+  --color-omnibox: #f2f0ec; /* 활성 탭 · 도구줄 */
+  --color-paper: #f0eee9; /* 본문 지면 (Cloud Dancer) */
+  --color-paper-raised: #f7f6f2;
+  --color-paper-sunk: #e7e4dc;
+  --color-deep-ground: #22201b; /* 연락처 · Footer 반전 블록 */
+
+  /* 잉크 */
+  --color-ink: #1e1c18;
+  --color-ink-2: #57544c;
+  --color-ink-3: #6e6a62; /* 지면 · wash 위에서만. tint · chrome 위에서는 대비가 모자란다 */
+  --color-rule: #dcd8cf;
+  --color-rule-strong: #c6c1b6;
+  --color-deep-ink: #f0eee9; /* deep-ground 위 — 테마와 무관한 상수 */
+  --color-deep-ink-2: #9b968b;
+
+  /* 장식면 전용. 글자색 · 글자가 있는 버튼 배경으로 쓰지 않는다 */
+  --color-accent: #a47864;
+
+  /* Earthen Pastels — wash(섹션 지면) · tint(채운 면) · deep(글자 · 선 · 주석) */
+  --color-mocha-wash: #f2edea;
+  --color-mocha-tint: #e2d5cd;
+  --color-mocha-deep: #6c4d3a;
+  --color-terracotta-wash: #f3ebea;
+  --color-terracotta-tint: #e3cfcc;
+  --color-terracotta-deep: #78463e;
+  --color-wheat-wash: #f3f0ea;
+  --color-wheat-tint: #e3dccc;
+  --color-wheat-deep: #60522f;
+  --color-sage-wash: #eef1ec;
+  --color-sage-tint: #d6dfd0;
+  --color-sage-deep: #46583b;
+  --color-plum-wash: #f1ecef;
+  --color-plum-tint: #ddd2da;
+  --color-plum-deep: #674a5e;
+  --color-blush-wash: #f2ebed;
+  --color-blush-tint: #dfd0d3;
+  --color-blush-deep: #714850;
+
+  /* Footer 색표본 — 여섯 색이 한곳에 모이는 예외. 테마와 무관한 상수 */
+  --color-strip-mocha: #e2d5cd;
+  --color-strip-terracotta: #e3cfcc;
+  --color-strip-wheat: #e3dccc;
+  --color-strip-sage: #d6dfd0;
+  --color-strip-plum: #ddd2da;
+  --color-strip-blush: #dfd0d3;
 
   --font-sans:
     "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
@@ -30,42 +69,153 @@
     "JetBrains Mono Variable", ui-monospace, "Cascadia Mono", "SF Mono",
     Consolas, monospace;
 
-  --container-window: 90rem; /* 1440 — 1920 화면에서 양쪽 240 여백 */
-  --container-content: 70rem; /* 1120 — 창 안 본문 폭 */
-  --container-measure: 42rem; /* 672 — 긴 글 읽기 폭 */
+  /* 큰 제목 데스크톱 52 · 모바일 32, 섹션 제목 26–32, 리드 18 */
+  --text-display: clamp(2rem, 1.35rem + 2.2vw, 3.25rem);
+  --text-display--line-height: 1.18;
+  --text-display--letter-spacing: -0.025em;
+  --text-title: clamp(1.625rem, 1.35rem + 0.9vw, 2rem);
+  --text-title--line-height: 1.32;
+  --text-title--letter-spacing: -0.02em;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.7;
+
+  /* 창은 최대 1760. 본문 전체 폭은 제한하지 않고 긴 문단에만 읽기 폭을 둔다 */
+  --container-window: 110rem;
+  --container-measure: 42rem;
+
+  /* 큰 radius 는 창 프레임과 크롬 컨트롤에만 */
+  --radius-window: 0.75rem;
+  --radius-panel: 0.5rem;
+  --radius-chip: 0.375rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-desk: #0b0b0b;
-    --color-paper: #161616;
-    --color-chrome: #1f1f1f;
-    --color-sunk: #262626;
-    --color-ink: #ededed;
-    --color-ink-2: #a3a3a3;
-    --color-line: #3a3a3a;
-    --color-line-strong: #ededed;
-  }
-}
-
-:root[data-theme="dark"] {
-  --color-desk: #0b0b0b;
-  --color-paper: #161616;
-  --color-chrome: #1f1f1f;
-  --color-sunk: #262626;
-  --color-ink: #ededed;
-  --color-ink-2: #a3a3a3;
-  --color-line: #3a3a3a;
-  --color-line-strong: #ededed;
-  color-scheme: dark;
+/* .hue-* 가 바꾸는 별칭. inline 이어야 유틸리티가 var(--hue-*) 를 직접 읽어서
+   하위 요소의 스코프가 바뀔 때 함께 바뀐다. */
+@theme inline {
+  --color-hue-wash: var(--hue-wash);
+  --color-hue-tint: var(--hue-tint);
+  --color-hue-deep: var(--hue-deep);
 }
 
 :root {
   color-scheme: light dark;
+  /* 시스템 기본 색맥락은 Mocha */
+  --hue-wash: var(--color-mocha-wash);
+  --hue-tint: var(--color-mocha-tint);
+  --hue-deep: var(--color-mocha-deep);
+  /* 그림자는 창 하나에만. 다크 오버라이드가 먹도록 @theme 이 아니라 :root 에 둔다 */
+  --window-shadow:
+    0 0 0 1px rgb(30 28 24 / 0.12), 0 1px 2px rgb(30 28 24 / 0.06),
+    0 18px 44px -22px rgb(30 28 24 / 0.32);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
+}
+
+.hue-mocha {
+  --hue-wash: var(--color-mocha-wash);
+  --hue-tint: var(--color-mocha-tint);
+  --hue-deep: var(--color-mocha-deep);
+}
+.hue-terracotta {
+  --hue-wash: var(--color-terracotta-wash);
+  --hue-tint: var(--color-terracotta-tint);
+  --hue-deep: var(--color-terracotta-deep);
+}
+.hue-wheat {
+  --hue-wash: var(--color-wheat-wash);
+  --hue-tint: var(--color-wheat-tint);
+  --hue-deep: var(--color-wheat-deep);
+}
+.hue-sage {
+  --hue-wash: var(--color-sage-wash);
+  --hue-tint: var(--color-sage-tint);
+  --hue-deep: var(--color-sage-deep);
+}
+.hue-plum {
+  --hue-wash: var(--color-plum-wash);
+  --hue-tint: var(--color-plum-tint);
+  --hue-deep: var(--color-plum-deep);
+}
+.hue-blush {
+  --hue-wash: var(--color-blush-wash);
+  --hue-tint: var(--color-blush-tint);
+  --hue-deep: var(--color-blush-deep);
+}
+
+/* 다크는 반전이 아니라 역할 교체다. 두 블록은 같은 값을 유지한다. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-desk: #0f0e0c;
+    --color-chrome: #1c1b17;
+    --color-omnibox: #232019;
+    --color-paper: #171613;
+    --color-paper-raised: #1f1e1a;
+    --color-paper-sunk: #100f0d;
+    --color-deep-ground: #0c0b09;
+    --color-ink: #f0eee9;
+    --color-ink-2: #a8a398;
+    --color-ink-3: #8b8779;
+    --color-rule: #2e2c27;
+    --color-rule-strong: #423f38;
+    --color-accent: #b98d77;
+    --color-mocha-wash: #211b17;
+    --color-mocha-tint: #45352b;
+    --color-mocha-deep: #ceb7ab;
+    --color-terracotta-wash: #211817;
+    --color-terracotta-tint: #462e2a;
+    --color-terracotta-deep: #d2b6b1;
+    --color-wheat-wash: #221e16;
+    --color-wheat-tint: #473e29;
+    --color-wheat-deep: #c8ba9b;
+    --color-sage-wash: #1b1f19;
+    --color-sage-tint: #36412f;
+    --color-sage-deep: #b0c1a7;
+    --color-plum-wash: #1f191d;
+    --color-plum-tint: #40303b;
+    --color-plum-deep: #c9b7c3;
+    --color-blush-wash: #20181a;
+    --color-blush-tint: #422e32;
+    --color-blush-deep: #cdb6bb;
+    --window-shadow: 0 0 0 1px #423f38, 0 24px 60px -24px rgb(0 0 0 / 0.7);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-desk: #0f0e0c;
+  --color-chrome: #1c1b17;
+  --color-omnibox: #232019;
+  --color-paper: #171613;
+  --color-paper-raised: #1f1e1a;
+  --color-paper-sunk: #100f0d;
+  --color-deep-ground: #0c0b09;
+  --color-ink: #f0eee9;
+  --color-ink-2: #a8a398;
+  --color-ink-3: #8b8779;
+  --color-rule: #2e2c27;
+  --color-rule-strong: #423f38;
+  --color-accent: #b98d77;
+  --color-mocha-wash: #211b17;
+  --color-mocha-tint: #45352b;
+  --color-mocha-deep: #ceb7ab;
+  --color-terracotta-wash: #211817;
+  --color-terracotta-tint: #462e2a;
+  --color-terracotta-deep: #d2b6b1;
+  --color-wheat-wash: #221e16;
+  --color-wheat-tint: #473e29;
+  --color-wheat-deep: #c8ba9b;
+  --color-sage-wash: #1b1f19;
+  --color-sage-tint: #36412f;
+  --color-sage-deep: #b0c1a7;
+  --color-plum-wash: #1f191d;
+  --color-plum-tint: #40303b;
+  --color-plum-deep: #c9b7c3;
+  --color-blush-wash: #20181a;
+  --color-blush-tint: #422e32;
+  --color-blush-deep: #cdb6bb;
+  --window-shadow: 0 0 0 1px #423f38, 0 24px 60px -24px rgb(0 0 0 / 0.7);
 }
 
 @layer base {
@@ -75,11 +225,18 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* 모바일에는 창 연출이 없으므로 문서 지면이 곧 본문 지면이다 */
   body {
-    background-color: var(--color-desk);
+    background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     line-height: 1.7;
+  }
+
+  @media (min-width: 48rem) {
+    body {
+      background-color: var(--color-desk);
+    }
   }
 
   h1,
@@ -93,8 +250,13 @@
     font-variant-numeric: tabular-nums;
   }
 
+  ::selection {
+    background-color: var(--hue-tint);
+    color: var(--color-ink);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-line-strong);
+    outline: 2px solid var(--hue-deep);
     outline-offset: 2px;
   }
 }
@@ -108,4 +270,86 @@
 :root[data-theme="dark"] [data-theme-label="auto"],
 :root[data-theme="dark"] [data-theme-label="light"] {
   display: none;
+}
+
+/* --------------------------------------------------------------------------
+   전환 패널 (Switcher)
+
+   라디오 하나가 패널 하나를 고른다. 서버에서 그린 그대로 JS 없이 동작하고,
+   키보드는 브라우저의 라디오 동작(Tab 으로 진입, 방향키 · Space 로 선택)을 쓴다.
+   패널은 한 칸에 겹쳐 두어 높이가 흔들리지 않고, 숨긴 패널은 visibility 로
+   접근성 트리와 Tab 순서에서도 빠진다. :has 를 모르는 브라우저에서는 첫 패널만 보인다.
+   -------------------------------------------------------------------------- */
+.switch-panels {
+  display: grid;
+}
+
+.switch-panels > [data-panel] {
+  grid-area: 1 / 1;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    visibility 0s linear 180ms;
+}
+
+.switch-panels > [data-panel="0"],
+[data-switch]:has(input[value="1"]:checked) .switch-panels > [data-panel="1"],
+[data-switch]:has(input[value="2"]:checked) .switch-panels > [data-panel="2"],
+[data-switch]:has(input[value="3"]:checked) .switch-panels > [data-panel="3"] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+[data-switch]:has(input:checked:not([value="0"])) .switch-panels > [data-panel="0"] {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    visibility 0s linear 180ms;
+}
+
+/* --------------------------------------------------------------------------
+   화면 주석 (Shot)
+
+   스크린샷 위의 번호와 아래 목록의 번호가 같은 설명을 가리킨다. 목록이 항상
+   보이므로 조작하지 않아도 읽히고, 한쪽에 포인터를 올리면 짝이 함께 강조된다.
+   -------------------------------------------------------------------------- */
+.shot-pin,
+.shot-note-num {
+  transition:
+    scale 140ms ease,
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.shot:has([data-note="1"]:hover) [data-pin="1"],
+.shot:has([data-note="2"]:hover) [data-pin="2"],
+.shot:has([data-note="3"]:hover) [data-pin="3"],
+.shot:has([data-note="4"]:hover) [data-pin="4"],
+.shot:has([data-note="5"]:hover) [data-pin="5"] {
+  scale: 1.3;
+}
+
+.shot:has([data-pin="1"]:hover) [data-note="1"] .shot-note-num,
+.shot:has([data-pin="2"]:hover) [data-note="2"] .shot-note-num,
+.shot:has([data-pin="3"]:hover) [data-note="3"] .shot-note-num,
+.shot:has([data-pin="4"]:hover) [data-note="4"] .shot-note-num,
+.shot:has([data-pin="5"]:hover) [data-note="5"] .shot-note-num {
+  background-color: var(--hue-deep);
+  color: var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
 }

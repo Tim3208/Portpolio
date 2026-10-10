@@ -8,7 +8,7 @@ import { oshiCalendar } from "./oshi-calendar";
 import { syuLikelion } from "./syu-likelion";
 import type { CaseStudy } from "./types";
 
-export type { Block, CaseSection, CaseStudy } from "./types";
+export type { Block, CaseSection, CaseStudy, DemoName } from "./types";
 
 /**
  * 상세 페이지가 있는 프로젝트. 새 Case Study 는 여기에 등록한다.

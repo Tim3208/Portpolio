@@ -45,6 +45,17 @@ export type Metric = {
   asOf?: string;
 };
 
+/**
+ * 실제 화면 한 장. 화면 주석은 src/data/annotations.ts 가 이미지 경로로 찾아 붙인다.
+ * aspectRatio · position 은 이 자리에서 잘라 보여줄 범위다.
+ */
+export type Screen = {
+  src: string;
+  alt: string;
+  aspectRatio?: string;
+  position?: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -93,7 +104,7 @@ export type Project = {
   };
   /**
    * 대표 화면. src 가 없으면 어떤 화면이 필요한지만 적어 둔 상태다.
-   * 스케치 단계에서는 모두 플레이스홀더로 그린다.
+   * 화면이 없으면 목업 대신 담당 범위 도식(ownership)이나 확보할 화면 자리로 그린다.
    */
   cover?: {
     src?: string;
@@ -101,6 +112,14 @@ export type Project = {
     position?: string;
     aspectRatio?: string;
   };
+  /**
+   * 홈 첫 화면에서 고를 수 있는 실제 화면. 대표의 첫 항목만 쓴다.
+   * label 은 그 화면에서 내린 판단을 짧게 부르는 이름이고, 첫 항목이 처음 보인다.
+   * 전환 패널은 최대 4개다(globals.css "전환 패널").
+   */
+  screens?: readonly (Screen & { label: string })[];
+  /** 상세 첫 화면에 둘 공개 화면. 없으면 cover 를 쓴다 */
+  landing?: Screen & { caption: string };
   /** 화면을 공개할 수 없는 사유 */
   coverWithheld?: string;
 };
@@ -144,6 +163,35 @@ export const PROJECTS: readonly Project[] = [
       aspectRatio: "1205 / 891",
       alt: "syu-likelion 지원서 상세의 점수 현황 탭. 같은 지원자의 답변, 문항별 점수와 운영진 코멘트를 탭으로 전환하며 확인한다.",
       position: "center top",
+    },
+    screens: [
+      {
+        label: "운영진 평가",
+        src: "/images/projects/syu-likelion-admin2.png",
+        aspectRatio: "16 / 10",
+        position: "center top",
+        alt: "syu-likelion 지원서 상세의 점수 현황 탭. 왼쪽에는 모집 단계별 지원자 목록, 오른쪽에는 서류 보기·점수 매기기·점수 현황 탭과 리뷰어별 문항 점수, 코멘트가 있다.",
+      },
+      {
+        label: "제출 후 수정",
+        src: "/images/projects/apply/application-submitted.png",
+        aspectRatio: "16 / 10",
+        position: "center",
+        alt: "지원서 제출 완료 화면. 1차 합격 결과 발표일과 2차 면접 기간 안내, 지원서 수정과 지원 취소 버튼, 1차 합격 결과 발표 후에는 수정이 불가능하다는 안내가 있다.",
+      },
+      {
+        label: "면접 예약",
+        src: "/images/projects/apply/first-result-interview.png",
+        aspectRatio: "16 / 10",
+        position: "center 40%",
+        alt: "1차 모집 결과 발표 화면. 1차 합격 안내 아래 면접 시간 영역에서 달력으로 날짜를 고르고 20분 간격의 시간대를 선택한다.",
+      },
+    ],
+    landing: {
+      src: "/images/projects/syu-likelion.png",
+      aspectRatio: "1600 / 1079",
+      alt: "syu-likelion 14기 모집 안내 첫 화면. LIKELION at SYU 14th 문구와 마스코트, 14기 지원하기 버튼이 보인다.",
+      caption: "모집 안내에서 지원서를 작성하고, 합격 후에는 같은 계정으로 동아리 활동을 이어갑니다.",
     },
   },
   {
@@ -242,7 +290,9 @@ export const PROJECTS: readonly Project[] = [
     cover: {
       src: "/images/projects/oshi-calendar.png",
       alt: "Oshi Calendar 대시보드 화면. 종료 임박 일정과 오늘 할 일, 게임별 보상 현황이 한 화면에 모여 있다. 표시된 수치는 목업 데이터다.",
-      position: "center",
+      // 아래쪽 계정 영역(이메일)을 잘라낸다
+      aspectRatio: "1827 / 760",
+      position: "center top",
     },
   },
   {
@@ -362,12 +412,6 @@ export function displayTitle(project: Project) {
 
 export function projectsOfKind(kind: ProjectKind) {
   return PROJECTS.filter((p) => p.kind === kind);
-}
-
-/** 대표 화면 플레이스홀더에 쓰는 설명. 화면 비공개 사유가 있으면 그것을 쓴다. */
-export function coverLabel(project: Project) {
-  if (project.coverWithheld) return `${project.name} 흐름 도식 — ${project.coverWithheld}`;
-  return `${project.name} 화면`;
 }
 
 /**
