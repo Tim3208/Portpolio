@@ -5,6 +5,7 @@ import { BrowserProvider } from "@/components/browser/BrowserProvider";
 import { TabStrip } from "@/components/browser/TabStrip";
 import { Toolbar } from "@/components/browser/Toolbar";
 import { Viewport } from "@/components/browser/Viewport";
+import { SmoothAnchor } from "@/components/ui/SmoothAnchor";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { PROJECTS_WITH_CASE_STUDY } from "@/data/caseStudies";
 import { PROFILE } from "@/data/profile";
@@ -34,6 +35,8 @@ export function BrowserWindow({ children }: { children: ReactNode }) {
   const host = new URL(SITE_URL).host;
   const titles: Record<string, string> = {
     ...Object.fromEntries(PAGES.map((p) => [p.href, p.label])),
+    // 홈 탭은 이 창이 누구의 포트폴리오인지 말한다. 내비 링크의 이름은 그대로 "홈"이다.
+    "/": `${PROFILE.name} 포트폴리오`,
     ...Object.fromEntries(PROJECTS_WITH_CASE_STUDY.map((p) => [`/projects/${p.slug}`, p.name])),
     [NEW_TAB_PATH]: "새 탭",
     [EXTERNAL_PATH]: "열 수 없는 주소",
@@ -53,9 +56,9 @@ export function BrowserWindow({ children }: { children: ReactNode }) {
                     {page.label}
                   </Link>
                 ))}
-                <a href={`#${SECTION.contact}`} className={PAGE_LINK}>
-                  연락처
-                </a>
+                <SmoothAnchor href={`#${SECTION.contact}`} className={PAGE_LINK}>
+                  Contact
+                </SmoothAnchor>
                 {/* 768–1023px 에는 도구줄이 좁아 GitHub 은 본문 · 연락처의 링크에 맡긴다 */}
                 <span aria-hidden="true" className="mx-1 hidden h-4 border-l border-rule-strong lg:block" />
                 <a
@@ -86,9 +89,9 @@ export function BrowserWindow({ children }: { children: ReactNode }) {
                   {page.label}
                 </Link>
               ))}
-              <a href={`#${SECTION.contact}`} className="flex min-h-11 items-center px-2 text-[0.9375rem] text-ink-2">
-                연락처
-              </a>
+              <SmoothAnchor href={`#${SECTION.contact}`} className="flex min-h-11 items-center px-2 text-[0.9375rem] text-ink-2">
+                Contact
+              </SmoothAnchor>
             </nav>
           </header>
 

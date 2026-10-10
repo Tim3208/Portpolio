@@ -4,9 +4,9 @@ import { CoordinateLabel } from "@/components/project/CoordinateLabel";
 import { ApprovalResetDemo } from "@/components/project/demos";
 import { FeaturedRow } from "@/components/project/FeaturedRow";
 import { BUTTON, LINK, Labeled, ProjectLinks } from "@/components/project/ProjectParts";
+import { ProjectIndex } from "@/components/project/ProjectIndex";
 import { Container } from "@/components/ui/Container";
-import { Shot } from "@/components/ui/Shot";
-import { Switcher } from "@/components/ui/Switcher";
+import { SmoothAnchor } from "@/components/ui/SmoothAnchor";
 import { getCaseStudy, hasCaseStudy } from "@/data/caseStudies";
 import { TIMELINE } from "@/data/experiences";
 import { PROFILE } from "@/data/profile";
@@ -28,16 +28,19 @@ const SECTION_TITLE = "text-title font-bold";
 /**
  * 홈 — 스토리형.
  *
- *   소개 + 첫 대표 프로젝트의 실제 화면(한 화면에)
- *   → 나머지 대표 프로젝트 → 일하는 방식 → Communication → Career
+ *   소개(HERO: 정체성 · 작업 방향 + 대표 프로젝트 목록)
+ *   → 대표 프로젝트(첫 항목을 가장 깊게) → 일하는 방식 → Communication → Career
  *   → 그 밖의 프로젝트 → (layout) 연락처
+ *
+ * HERO 는 개발자와 작업의 다양성을, 대표 프로젝트는 개별 사례의 문제 · 판단 ·
+ * 결과를 맡는다. HERO 에서 한 프로젝트를 키우지 않고, 같은 화면을 HERO 와
+ * 대표 프로젝트에 연달아 크게 반복하지 않는다(Project.preview).
  *
  * 모든 섹션이 src/data 에서 목록을 받아 그린다. 프로젝트를 추가·승격해도
  * 이 파일은 바뀌지 않는다. 비어 있는 섹션은 그리지 않는다.
  * 섹션마다 색맥락(.hue-*)은 하나다.
  */
 export default function HomePage() {
-  const [lead, ...rest] = FEATURED_PROJECTS;
   const methods = projectsOfKind("method");
   const teachingTools = projectsOfKind("teaching-tool");
   const shown = new Set([...FEATURED_PROJECTS, ...methods, ...teachingTools].map((p) => p.slug));
@@ -46,41 +49,62 @@ export default function HomePage() {
 
   return (
     <>
-      <Container
-        className={`${lead?.hue ? HUE_CLASS[lead.hue] : ""} grid gap-10 pt-10 pb-14 md:pt-14 md:pb-16 xl:grid-cols-12 xl:gap-12 xl:pb-20`}
-      >
-        <div className="flex flex-col gap-7 xl:col-span-5 xl:pt-16">
-          <div className="flex flex-col gap-5">
+      <Container className="flex flex-col gap-9 pt-8 pb-14 md:gap-10 md:pt-10 md:pb-16">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10 xl:gap-12">
+          <div className="lg:col-span-8 xl:col-span-7">
+            {/* h1 이 이 사이트가 누구의 포트폴리오인지부터 말한다: 직무 · 이름 → 메인 문구 */}
             <h1>
-              <span className="block text-lead font-semibold text-ink-2">{PROFILE.role}</span>{" "}
-              <span className="mt-1 block text-display font-bold">{PROFILE.name}</span>
+              <span className="block text-lg font-semibold tracking-tight md:text-xl">
+                Web Developer {PROFILE.name}
+              </span>{" "}
+              <span className="mt-3 block text-hero font-bold">
+                {PROFILE.headline.map((line, i) => (
+                  <span key={line} className="block">
+                    {line}
+                    {i < PROFILE.headline.length - 1 ? " " : null}
+                  </span>
+                ))}
+              </span>
             </h1>
-            <p className="max-w-[28rem] text-lead text-ink-2">{PROFILE.tagline}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
-            <Link href="/work" className={LINK}>
-              전체 프로젝트
-            </Link>
-            <a href={`#${SECTION.contact}`} className={LINK}>
-              연락처
-            </a>
-            <a href={PROFILE.github} target="_blank" rel="noreferrer noopener" className={LINK}>
-              GitHub (새 창)
-            </a>
+          <div className="flex flex-col gap-5 lg:col-span-4 lg:pb-1.5 xl:col-span-5">
+            <p className="max-w-[30rem] text-lead text-ink-2">{PROFILE.intro}</p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <SmoothAnchor href="#featured" className={BUTTON}>
+                프로젝트 둘러보기
+                <span aria-hidden="true">↓</span>
+              </SmoothAnchor>
+              <a href={PROFILE.github} target="_blank" rel="noreferrer noopener" className={LINK}>
+                GitHub
+                <span aria-hidden="true" className="ml-1">
+                  ↗
+                </span>
+                <span className="sr-only"> (새 창)</span>
+              </a>
+              <SmoothAnchor href={`#${SECTION.contact}`} className={LINK}>
+                Contact
+              </SmoothAnchor>
+            </div>
           </div>
         </div>
-        {lead ? <LeadPreview project={lead} /> : null}
+
+        <nav aria-labelledby="hero-projects" className="flex flex-col gap-3">
+          <p id="hero-projects" className="text-sm font-semibold text-ink-2">
+            대표 프로젝트
+          </p>
+          <ProjectIndex projects={FEATURED_PROJECTS} />
+        </nav>
       </Container>
 
-      {rest.length ? (
-        <section aria-labelledby="featured">
-          <Container className="pt-6 pb-2 md:pt-10">
-            <h2 id="featured" className={SECTION_TITLE}>
+      {FEATURED_PROJECTS.length ? (
+        <section aria-labelledby="featured" className="border-t border-rule">
+          <Container className="pt-14 pb-2 md:pt-20">
+            <h2 id="featured" className={`${SECTION_TITLE} scroll-mt-6`}>
               직접 겪은 불편에서 시작한 서비스
             </h2>
           </Container>
-          {rest.map((project, i) => (
-            <FeaturedRow key={project.slug} project={project} flip={i % 2 === 1} />
+          {FEATURED_PROJECTS.map((project, i) => (
+            <FeaturedRow key={project.slug} project={project} lead={i === 0} flip={i % 2 === 1} />
           ))}
         </section>
       ) : null}
@@ -196,79 +220,6 @@ export default function HomePage() {
         </Container>
       </section>
     </>
-  );
-}
-
-/**
- * 첫 대표 프로젝트 — 소개 옆에서 실제 화면을 고르며 본다.
- * 화면마다 그 자리에서 내린 판단이 주석으로 붙고, 상세 진입은 머리줄에 둔다.
- * 화면 목록이 없으면 대표 화면 하나만 보여준다.
- */
-function LeadPreview({ project }: { project: Project }) {
-  const screens = project.screens?.length
-    ? project.screens
-    : project.cover?.src
-      ? [{ label: "대표 화면", ...project.cover, src: project.cover.src }]
-      : [];
-  const detail = hasCaseStudy(project.slug);
-  const sizes = "(min-width: 1280px) 56vw, 100vw";
-  const notes = "grid gap-x-6 gap-y-2 md:grid-cols-3";
-
-  return (
-    <article aria-labelledby="lead-title" className="flex min-w-0 flex-col gap-5 xl:col-span-7">
-      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-        <div className="flex flex-col gap-0.5">
-          <p className="text-sm text-ink-2">대표 프로젝트{project.status ? ` · ${project.status}` : ""}</p>
-          <h2 id="lead-title" className="text-xl font-bold">
-            {project.name}
-            {project.category ? <span className="ml-2 text-base font-normal text-ink-2">{project.category}</span> : null}
-          </h2>
-        </div>
-        {detail ? (
-          <Link href={`/projects/${project.slug}`} className={BUTTON}>
-            작업 과정 읽기
-            <span aria-hidden="true">→</span>
-          </Link>
-        ) : null}
-      </div>
-
-      {screens.length > 1 ? (
-        <Switcher
-          name="lead-screens"
-          legend={`${project.name} 화면 고르기`}
-          options={screens.map((screen, i) => ({
-            label: screen.label,
-            panel: (
-              <Shot
-                src={screen.src}
-                alt={screen.alt}
-                aspectRatio={screen.aspectRatio}
-                position={screen.position}
-                sizes={sizes}
-                preload={i === 0}
-                notesClassName={notes}
-              />
-            ),
-          }))}
-        />
-      ) : screens[0] ? (
-        <Shot
-          src={screens[0].src}
-          alt={screens[0].alt}
-          aspectRatio={screens[0].aspectRatio}
-          position={screens[0].position}
-          sizes={sizes}
-          preload
-          notesClassName={notes}
-        />
-      ) : null}
-
-      <div className="grid gap-5 border-t border-rule pt-5 md:grid-cols-3 md:gap-6">
-        <Labeled label="The Problem">{project.problem}</Labeled>
-        <Labeled label="Impressive Issue">{project.decision}</Labeled>
-        <Labeled label="Result">{project.outcome}</Labeled>
-      </div>
-    </article>
   );
 }
 

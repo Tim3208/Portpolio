@@ -4,8 +4,13 @@ import { GITHUB_URL } from "@/lib/sections";
 export const PROFILE = {
   name: "박정우",
   role: "프론트엔드 개발자",
-  /** 홈 첫 화면과 홈 OG 이미지의 한 줄 소개. 특정 프로젝트를 지칭하지 않는다. */
-  tagline: "사용자의 페인 포인트를 발견하고, 가치 있는 프로덕트로 만드는 개발자",
+  /**
+   * 홈 첫 화면(HERO)과 홈 OG 이미지의 메인 문구. 줄 단위로 끊어 보여준다.
+   * 특정 프로젝트를 지칭하지 않고 작업의 방향을 말한다.
+   */
+  headline: ["불편을 발견하고,", "웹 서비스로 해결합니다."],
+  /** 메인 문구 아래 한 문장 — 이 포트폴리오에서 무엇을 보게 되는지 */
+  intro: "사용자의 문제를 정의하고, 화면을 구현하고, 실제 사용 경험을 개선한 작업들을 소개합니다.",
   github: GITHUB_URL,
   email: "joungou.park@gmail.com",
 } as const;

@@ -120,6 +120,14 @@ export type Project = {
   screens?: readonly (Screen & { label: string })[];
   /** 상세 첫 화면에 둘 공개 화면. 없으면 cover 를 쓴다 */
   landing?: Screen & { caption: string };
+  /**
+   * 홈 첫 화면(HERO) 프로젝트 목록의 한 칸. 대표(featured) 프로젝트만 쓴다.
+   * label 은 어떤 웹 서비스인지 알려주는 짧은 이름이다.
+   * 화면은 바로 아래 대표 프로젝트 소개와 겹치지 않도록 다른 화면이나 다른 부분을
+   * 잘라 쓰고(position), 칸의 비율이 화면 폭마다 달라도 같은 부분이 남게 고른다.
+   * src 가 없으면 화면을 지어내지 않고 "화면 준비 중" 임시 프리뷰를 그린다.
+   */
+  preview?: { label: string; src?: string; position?: string };
   /** 화면을 공개할 수 없는 사유 */
   coverWithheld?: string;
 };
@@ -187,6 +195,8 @@ export const PROJECTS: readonly Project[] = [
         alt: "1차 모집 결과 발표 화면. 1차 합격 안내 아래 면접 시간 영역에서 달력으로 날짜를 고르고 20분 간격의 시간대를 선택한다.",
       },
     ],
+    // 아래 대표 소개는 운영진 화면을 쓰므로, 첫 화면에는 공개 모집 안내 화면을 둔다
+    preview: { label: "동아리 모집·운영 플랫폼", src: "/images/projects/syu-likelion.png", position: "15% center" },
     landing: {
       src: "/images/projects/syu-likelion.png",
       aspectRatio: "1600 / 1079",
@@ -234,6 +244,8 @@ export const PROJECTS: readonly Project[] = [
     cover: {
       alt: "부스 스탬프 별자리 화면. 받은 스탬프가 부스 분류에 따라 별자리에 표시된다. (샘플 계정)",
     },
+    // TODO: 샘플 계정으로 찍은 스탬프 별자리 · 부스 지도 화면을 확보하면 src 를 채운다.
+    preview: { label: "축제 웹 서비스" },
   },
   {
     slug: "eodiya",
@@ -258,6 +270,8 @@ export const PROJECTS: readonly Project[] = [
       service: "https://tim3208.github.io/eodiya/",
       github: "https://github.com/Tim3208/eodiya",
     },
+    // 아래 대표 소개는 검색 패널까지 전체 화면을 쓰므로, 첫 화면에는 지도 부분을 잘라 둔다
+    preview: { label: "캠퍼스 지도·검색 서비스", src: "/images/projects/eodiya.png", position: "90% center" },
     cover: {
       src: "/images/projects/eodiya.png",
       aspectRatio: "1090 / 720",
@@ -287,6 +301,8 @@ export const PROJECTS: readonly Project[] = [
       service: "https://oshi-calendar-cyan.vercel.app/",
       figma: "https://www.figma.com/design/XCVUGdYiwQYnrsAVrTogcR/",
     },
+    // 종료 임박 일정 · 오늘 할 일 부분. 왼쪽 아래 계정 영역(이메일)은 어느 비율에서도 잘려 나간다
+    preview: { label: "일정·보상 관리 대시보드", src: "/images/projects/oshi-calendar.png", position: "25% center" },
     cover: {
       src: "/images/projects/oshi-calendar.png",
       alt: "Oshi Calendar 대시보드 화면. 종료 임박 일정과 오늘 할 일, 게임별 보상 현황이 한 화면에 모여 있다. 표시된 수치는 목업 데이터다.",

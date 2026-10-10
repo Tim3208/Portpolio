@@ -14,7 +14,7 @@ export function Contact() {
     <section id={SECTION.contact} className="scroll-mt-6 bg-deep-ground text-deep-ink">
       <Container className="grid gap-6 py-14 md:py-20 lg:grid-cols-12 lg:gap-12">
         <div className="flex flex-col gap-3 lg:col-span-5">
-          <h2 className="text-title font-bold">연락처</h2>
+          <h2 className="text-title font-bold">Contact</h2>
           <p className="text-deep-ink-2">{CONTACT_STATEMENT}</p>
         </div>
         <div className="flex flex-col gap-1 lg:col-span-7">
@@ -22,7 +22,11 @@ export function Contact() {
             {PROFILE.email}
           </a>
           <a href={PROFILE.github} target="_blank" rel="noreferrer noopener" className={`${LINK} text-deep-ink-2 hover:text-deep-ink`}>
-            GitHub (새 창)
+            GitHub
+            <span aria-hidden="true" className="ml-1">
+              ↗
+            </span>
+            <span className="sr-only"> (새 창)</span>
           </a>
           {/* TODO: Resume — PDF 확보 후 추가. 그전에는 링크를 만들지 않는다. */}
         </div>

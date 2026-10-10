@@ -73,7 +73,7 @@ export default function WorkPage() {
           </h2>
         </Container>
         {FEATURED_PROJECTS.map((project, i) => (
-          <FeaturedRow key={project.slug} project={project} flip={i % 2 === 1} />
+          <FeaturedRow key={project.slug} project={project} flip={i % 2 === 1} firstScreen={i === 0} />
         ))}
       </section>
 
