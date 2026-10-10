@@ -84,7 +84,7 @@ artifacts/              기존 콘텐츠 점검 기록과 검토용 캡처
 
 | 수정 내용 | 기준 파일 |
 | --- | --- |
-| 한 줄 소개, 연락 이메일, `/career` 전공 배경 | [profile.ts](src/data/profile.ts) |
+| 홈 HERO 메인 문구 · 소개 한 문장, 연락 이메일, `/career` 전공 배경 | [profile.ts](src/data/profile.ts) |
 | GitHub 공통 주소, 섹션 ID | [sections.ts](src/lib/sections.ts) |
 | 프로젝트 목록, 기본 정보·성과, 표지와 이미지 비율 | [projects.ts](src/data/projects.ts) |
 | Case Study 본문·등록·블록 모델·기존 앵커 호환 | [caseStudies](src/data/caseStudies), [index.ts](src/data/caseStudies/index.ts), [types.ts](src/data/caseStudies/types.ts) |
@@ -92,7 +92,8 @@ artifacts/              기존 콘텐츠 점검 기록과 검토용 캡처
 | 프로젝트 층·성격·판단·결과·담당 구분 | [projects.ts](src/data/projects.ts)의 `tier`·`kind`·`decision`·`outcome`·`ownership` |
 | 주요 페이지 목록(도구줄·모바일 내비·sitemap) | [pages.ts](src/lib/pages.ts) |
 | 스크린샷 위 화면 주석(번호와 설명) | [annotations.ts](src/data/annotations.ts) |
-| 홈 첫 화면에서 고르는 실제 화면 | [projects.ts](src/data/projects.ts)의 `screens` |
+| 홈 HERO 프로젝트 칸(서비스 종류 · 잘라 쓸 화면) | [projects.ts](src/data/projects.ts)의 `preview` |
+| 대표 프로젝트 행에서 고르는 실제 화면 | [projects.ts](src/data/projects.ts)의 `screens` |
 | 창 안 탭·방문 기록·주소창 동작 | [tabStore.ts](src/components/browser/tabStore.ts), [BrowserProvider.tsx](src/components/browser/BrowserProvider.tsx), [address.ts](src/lib/address.ts) |
 | 색상·타이포·간격·반응형 토큰 | [globals.css](src/app/globals.css), [hue.ts](src/lib/hue.ts) |
 | 시스템·라이트·다크 테마 | [theme.ts](src/lib/theme.ts), [ThemeToggle.tsx](src/components/layout/ThemeToggle.tsx) |
