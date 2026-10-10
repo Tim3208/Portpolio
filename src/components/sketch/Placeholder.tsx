@@ -1,9 +1,9 @@
 /**
- * 이미지 · 영상 자리.
+ * 아직 붙이지 못한 화면 · 도식 자리.
  *
- * 스케치 단계에서는 실제 이미지를 넣지 않는다. 대신 어떤 화면이 들어갈지
- * 글자로 적고, 실제 이미지의 비율을 유지해 레이아웃이 도색 단계와 같게 한다.
- * 스크린리더에는 실제 이미지의 alt 를 그대로 읽힌다.
+ * 확보하지 못한 화면을 목업으로 대신하지 않는다. 노트에 "붙일 자리"를 비워 두듯
+ * 점선 틀과 어떤 화면이 들어갈지만 적고, 실제 이미지의 비율을 유지한다.
+ * 스크린리더에는 들어갈 화면의 설명(alt)을 읽힌다.
  */
 export function Placeholder({
   kind = "이미지",
@@ -23,10 +23,10 @@ export function Placeholder({
       role="img"
       aria-label={description ?? label}
       style={{ aspectRatio: ratio }}
-      className="flex w-full flex-col items-center justify-center gap-1 border border-dashed border-line-strong bg-sunk p-4 text-center"
+      className="flex w-full flex-col items-center justify-center gap-1.5 border border-dashed border-pen/60 p-6 text-center"
     >
-      <span className="font-mono text-xs text-ink-2">[{kind}]</span>
-      <span className="text-sm">{label}</span>
+      <span className="font-mono text-[0.8125rem] text-pen">{kind === "도식" ? "공개하지 않는 화면" : "붙일 화면"}</span>
+      <span className="max-w-xs text-sm text-ink-2">{label}</span>
     </div>
   );
 }

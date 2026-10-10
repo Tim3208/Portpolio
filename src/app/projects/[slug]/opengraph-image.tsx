@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { CASE_STUDY_SLUGS, getCaseStudy } from "@/data/caseStudies";
 import { PROJECTS } from "@/data/projects";
-import { OG, OG_CONTENT_TYPE, OG_SIZE, ogFonts } from "@/lib/og";
+import { OG, OG_CONTENT_TYPE, OG_PAPER_STYLE, OG_RULE_X, OG_SIZE, ogFonts } from "@/lib/og";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
@@ -21,9 +21,9 @@ export default async function ProjectOpengraphImage({
   const caseStudy = getCaseStudy(slug);
   const project = PROJECTS.find((p) => p.slug === slug);
 
-  const hue = project?.hue ?? "mocha";
-  const tint = OG.tint[hue];
-  const deep = OG.deep[hue];
+  // 프로젝트 색은 사이트처럼 여백의 인덱스 플래그로만 쓴다
+  const flag = project?.hue ? OG.flag[project.hue] : undefined;
+  const padX = OG_RULE_X + 40;
 
   return new ImageResponse(
     (
@@ -34,20 +34,20 @@ export default async function ProjectOpengraphImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          // 홈 카드에서 보던 tint 가 그대로 공유 카드 지면이 된다
-          background: tint,
           fontFamily: "Pretendard",
+          ...OG_PAPER_STYLE,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", padding: "72px 80px 0" }}>
+        {flag ? (
+          <div style={{ position: "absolute", left: OG_RULE_X - 40, top: 74, width: 12, height: 30, background: flag }} />
+        ) : null}
+        <div style={{ display: "flex", flexDirection: "column", padding: `72px 80px 0 ${padX}px` }}>
           {/* satori 는 자식이 둘 이상인 div 에 명시적 display 를 요구한다.
               텍스트와 표현식을 섞지 말고 하나의 문자열로 만든다. */}
           <div
             style={{
-              fontSize: 22,
-              letterSpacing: 4,
-              textTransform: "uppercase",
-              color: deep,
+              fontSize: 24,
+              color: OG.pen,
             }}
           >
             {`Case Study — ${project?.name ?? slug}`}
@@ -61,7 +61,7 @@ export default async function ProjectOpengraphImage({
               lineHeight: 1.22,
               letterSpacing: -2.5,
               color: OG.ink,
-              maxWidth: 1040,
+              maxWidth: 930,
               // satori 는 전역 CSS 를 상속하지 않는다. 명시하지 않으면
               // 플랫폼으로 같은 단어가 플랫폼 / 으로 로 잘린다.
               wordBreak: "keep-all",
@@ -75,7 +75,7 @@ export default async function ProjectOpengraphImage({
               marginTop: 26,
               fontSize: 24,
               color: OG.ink2,
-              maxWidth: 900,
+              maxWidth: 860,
               wordBreak: "keep-all",
             }}
           >
@@ -89,13 +89,15 @@ export default async function ProjectOpengraphImage({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "flex-end",
-              padding: "0 80px 46px",
+              margin: `0 80px 56px ${padX}px`,
+              paddingTop: 24,
+              borderTop: `2px solid ${OG.ink}`,
             }}
           >
             <div style={{ display: "flex", gap: 48 }}>
               {(project?.metrics ?? []).map((m) => (
                 <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: 46, fontWeight: 700, color: deep }}>
+                  <span style={{ fontSize: 46, fontWeight: 700, color: OG.ink }}>
                     {m.value}
                   </span>
                   <span style={{ fontSize: 19, color: OG.ink2, marginTop: 4 }}>
@@ -112,7 +114,6 @@ export default async function ProjectOpengraphImage({
             </div>
           </div>
 
-          <div style={{ display: "flex", height: 14, background: deep }} />
         </div>
       </div>
     ),

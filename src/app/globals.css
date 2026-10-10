@@ -1,67 +1,163 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   스케치 단계 토큰 — 흑백 와이어프레임
+   1안 — 개발 연구 노트
 
-   디자인 흐름은 스케치 → 도색 → 마감이다. 지금은 구조와 스토리라인만
-   확인하는 단계라 색, 그라디언트, 아이콘, 애니메이션, 그림자, 둥근 모서리를
-   쓰지 않는다. 회색 단계와 선만으로 위계를 만든다.
+   사이트 전체가 한 권의 연구 노트로 읽힌다. 차가운 흰 방안지 위에 활자 본문은
+   먹색, 날짜·주석·밑줄은 청색 볼펜 잉크로 쓴다. 왼쪽 붉은 여백선 하나가 모든
+   페이지의 기준선이고, 여백에는 기간과 라벨이 걸린다. 프로젝트 색은 인덱스
+   플래그로만 나타난다 (Project.hue).
 
-   Tailwind 기본 팔레트를 비워 두어 실수로 색 유틸리티를 쓸 수 없게 한다.
-   도색 단계에서 이 파일의 토큰을 다시 정의한다.
+   색은 아래 토큰에서만 온다. JSX 에 hex 를 쓰지 않는다.
    ========================================================================== */
 
 @theme {
   --color-*: initial;
 
-  --color-desk: #e4e4e4; /* 창 바깥 여백 */
-  --color-paper: #fafafa; /* 창 안 본문 */
-  --color-chrome: #efefef; /* 탭줄 · 도구줄 · 북마크바 */
-  --color-sunk: #e9e9e9; /* 이미지 자리 · 비활성 면 */
-  --color-ink: #111111;
-  --color-ink-2: #555555;
-  --color-line: #cccccc;
-  --color-line-strong: #111111;
+  --color-desk: #d5dae1; /* 창 바깥 책상 */
+  --color-chrome: #e3e7ed; /* 탭줄 */
+  --color-tab: #d8dde5; /* 뒤에 놓인 색인 탭 */
+  --color-paper: #f3f5f7; /* 방안지 */
+  --color-paper-raised: #fafbfc; /* 붙여 둔 쪽지 */
+  --color-grid: #e0e6ee; /* 방안 가는 선 */
+  --color-grid-major: #ccd5e1; /* 5칸마다 굵은 선 */
+  --color-ink: #1a1d24; /* 활자 */
+  --color-ink-2: #4e5563; /* 보조 활자 */
+  --color-ink-3: #636b79; /* 메타데이터 */
+  --color-line: #c3cbd6; /* 헤어라인 */
+  --color-line-strong: #1a1d24;
+  --color-pen: #1f3fae; /* 청색 볼펜 */
+  --color-pen-soft: rgb(31 63 174 / 0.2); /* 볼펜 형광 밑줄 */
+  --color-margin: #d9342b; /* 붉은 여백선 — 글자에 쓰지 않는다 */
+
+  /* 인덱스 플래그 — Project.hue 와 1:1. 플래그 위 글자는 ink 만 쓴다. */
+  --color-flag-mocha: #f0a443;
+  --color-flag-terracotta: #ee7458;
+  --color-flag-wheat: #efd04e;
+  --color-flag-sage: #86c788;
+  --color-flag-plum: #ae94e2;
+  --color-flag-blush: #f193b8;
 
   --font-sans:
     "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* 한글은 JetBrains Mono 에 없어 시스템 고정폭 글꼴로 떨어지면 자간이 벌어진다.
+     숫자·영문은 JetBrains Mono, 한글은 Pretendard 로 잇는다. */
   --font-mono:
-    "JetBrains Mono Variable", ui-monospace, "Cascadia Mono", "SF Mono",
-    Consolas, monospace;
+    "JetBrains Mono Variable", "Pretendard Variable", Pretendard, ui-monospace,
+    "Cascadia Mono", "SF Mono", Consolas, monospace;
 
   --container-window: 90rem; /* 1440 — 1920 화면에서 양쪽 240 여백 */
-  --container-content: 70rem; /* 1120 — 창 안 본문 폭 */
-  --container-measure: 42rem; /* 672 — 긴 글 읽기 폭 */
+  --container-main: 64rem; /* 여백선 오른쪽 본문 폭 */
+  --container-measure: 42rem; /* 긴 글 읽기 폭 */
+
+  --text-display: clamp(2.5rem, 5.2vw, 4.25rem);
+  --text-display--line-height: 1.04;
+  --text-title: clamp(2.125rem, 4.2vw, 3.25rem);
+  --text-title--line-height: 1.08;
+  --text-section: clamp(1.5rem, 2.6vw, 2rem);
+  --text-section--line-height: 1.2;
 }
 
+/* 다크 — 밤 책상 위 같은 노트. 반전이 아니라 역할 교체다. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-desk: #0b0b0b;
-    --color-paper: #161616;
-    --color-chrome: #1f1f1f;
-    --color-sunk: #262626;
-    --color-ink: #ededed;
-    --color-ink-2: #a3a3a3;
-    --color-line: #3a3a3a;
-    --color-line-strong: #ededed;
+    --color-desk: #0b0d11;
+    --color-chrome: #181b21;
+    --color-tab: #20242c;
+    --color-paper: #14171c;
+    --color-paper-raised: #1b1f26;
+    --color-grid: #1d2229;
+    --color-grid-major: #283039;
+    --color-ink: #e6e9ef;
+    --color-ink-2: #aab1bd;
+    --color-ink-3: #8c94a2;
+    --color-line: #2e3540;
+    --color-line-strong: #7e8899;
+    --color-pen: #93aaff;
+    --color-pen-soft: rgb(147 170 255 / 0.24);
+    --color-margin: #e0594f;
+    --color-flag-mocha: #d6964a;
+    --color-flag-terracotta: #d8705a;
+    --color-flag-wheat: #d6bd52;
+    --color-flag-sage: #79b47b;
+    --color-flag-plum: #9e88d4;
+    --color-flag-blush: #d987a8;
   }
 }
 
 :root[data-theme="dark"] {
-  --color-desk: #0b0b0b;
-  --color-paper: #161616;
-  --color-chrome: #1f1f1f;
-  --color-sunk: #262626;
-  --color-ink: #ededed;
-  --color-ink-2: #a3a3a3;
-  --color-line: #3a3a3a;
-  --color-line-strong: #ededed;
+  --color-desk: #0b0d11;
+  --color-chrome: #181b21;
+  --color-tab: #20242c;
+  --color-paper: #14171c;
+  --color-paper-raised: #1b1f26;
+  --color-grid: #1d2229;
+  --color-grid-major: #283039;
+  --color-ink: #e6e9ef;
+  --color-ink-2: #aab1bd;
+  --color-ink-3: #8c94a2;
+  --color-line: #2e3540;
+  --color-line-strong: #7e8899;
+  --color-pen: #93aaff;
+  --color-pen-soft: rgb(147 170 255 / 0.24);
+  --color-margin: #e0594f;
+  --color-flag-mocha: #d6964a;
+  --color-flag-terracotta: #d8705a;
+  --color-flag-wheat: #d6bd52;
+  --color-flag-sage: #79b47b;
+  --color-flag-plum: #9e88d4;
+  --color-flag-blush: #d987a8;
   color-scheme: dark;
 }
 
 :root {
   color-scheme: light dark;
+
+  /* 노트 한 면의 가로 기준. 붉은 여백선은 본문 시작선에서 gap 의 절반 왼쪽에 놓인다.
+     모바일에서는 여백 칸 없이 선만 왼쪽 가장자리에 둔다. */
+  --page-pad: 1.25rem;
+  --margin-w: 0rem;
+  --gap: 1.5rem;
+  --content-x: 2.25rem;
+  --rule-x: 0.75rem;
+
+  /* 플래그 위 글자 — 테마와 무관하게 짙은 먹색 */
+  --flag-ink: #15181e;
+
+  --lift:
+    0 1px 1px rgb(26 29 36 / 0.06), 0 14px 28px -18px rgb(26 29 36 / 0.45);
+  --window-shadow:
+    0 1px 2px rgb(26 29 36 / 0.08), 0 30px 60px -36px rgb(26 29 36 / 0.55);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-pad: 1.5rem;
+    --margin-w: 6rem;
+    --gap: 2.5rem;
+    --content-x: calc(var(--page-pad) + var(--margin-w) + var(--gap));
+    --rule-x: calc(var(--content-x) - var(--gap) / 2);
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --margin-w: 8.5rem;
+    --gap: 3rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --lift: 0 1px 1px rgb(0 0 0 / 0.3), 0 14px 28px -16px rgb(0 0 0 / 0.8);
+    --window-shadow: 0 0 0 1px #2e3540, 0 30px 60px -30px rgb(0 0 0 / 0.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  --lift: 0 1px 1px rgb(0 0 0 / 0.3), 0 14px 28px -16px rgb(0 0 0 / 0.8);
+  --window-shadow: 0 0 0 1px #2e3540, 0 30px 60px -30px rgb(0 0 0 / 0.8);
 }
 
 :root[data-theme="light"] {
@@ -79,13 +175,22 @@
     background-color: var(--color-desk);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    line-height: 1.7;
+    line-height: 1.75;
+    caret-color: var(--color-pen);
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,
   h2,
   h3 {
     text-wrap: balance;
+    line-height: 1.25;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
   }
 
   :is(code, kbd, samp, pre) {
@@ -93,9 +198,220 @@
     font-variant-numeric: tabular-nums;
   }
 
+  ::selection {
+    background-color: var(--color-pen-soft);
+    color: var(--color-ink);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-line-strong);
+    outline: 2px solid var(--color-pen);
     outline-offset: 2px;
+  }
+
+  a {
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+
+  a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+@layer components {
+/* --------------------------------------------------------------------------
+   노트 지면 — 방안지 격자와 붉은 여백선. Viewport 안 본문 전체에 깔린다.
+   -------------------------------------------------------------------------- */
+.notebook {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent calc(var(--rule-x) - 0.75px),
+      var(--color-margin) calc(var(--rule-x) - 0.75px),
+      var(--color-margin) calc(var(--rule-x) + 0.75px),
+      transparent calc(var(--rule-x) + 0.75px)
+    ),
+    linear-gradient(var(--color-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    7.5rem 7.5rem,
+    7.5rem 7.5rem,
+    1.5rem 1.5rem,
+    1.5rem 1.5rem;
+  background-position: 0 0, var(--rule-x) 0, var(--rule-x) 0, var(--rule-x) 0, var(--rule-x) 0;
+  /* 창 안에서 스크롤될 때 격자가 글과 함께 움직이도록 */
+  background-attachment: local;
+}
+
+/* 여백 주석. 모바일에서는 본문 위 한 줄, md 이상에서는 붉은 선 왼쪽 여백에
+   매달린다. 부모가 본문 시작선에 붙어 있어야 한다 (.hang). */
+.hang {
+  position: relative;
+}
+
+.margin-note {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-pen);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 48rem) {
+  .margin-note {
+    position: absolute;
+    top: var(--note-top, 0.3rem);
+    right: calc(100% + var(--gap));
+    width: var(--margin-w);
+    margin: 0;
+    text-align: right;
+  }
+}
+
+/* 여백 라벨 — 문단 앞 라벨이 md 이상에서 여백으로 나간다. 날짜를 함께 걸 수 있다. */
+.margin-label {
+  margin-right: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-pen);
+}
+
+.margin-date {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 48rem) {
+  .margin-label {
+    position: absolute;
+    top: 0.2rem;
+    right: calc(100% + var(--gap));
+    width: var(--margin-w);
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    text-align: right;
+  }
+}
+
+/* 인덱스 플래그 — 기록의 높이에서 종이 왼쪽 가장자리에 붙는다 (.hang 안) */
+.edge-flag {
+  position: absolute;
+  top: var(--flag-top, 0.15rem);
+  left: calc(-1 * var(--content-x));
+  width: 0.5rem;
+  height: 2.75rem;
+}
+
+@media (min-width: 48rem) {
+  .edge-flag {
+    width: 0.875rem;
+    height: 3.5rem;
+  }
+}
+
+/* 형광 밑줄 — 제목처럼 정적인 강조 */
+.highlight {
+  background-image: linear-gradient(var(--color-pen-soft), var(--color-pen-soft));
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% 0.42em;
+}
+
+/* 볼펜 밑줄 — 기록의 핵심 판단. 여러 줄이면 첫 줄부터 차례로 그어진다
+   (box-decoration-break 기본값 slice 덕분에 % 가 전체 길이 기준이다). */
+.pen-line {
+  padding-bottom: 0.12em;
+  background-image: linear-gradient(var(--color-pen), var(--color-pen));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1.5px;
+}
+
+/* 타임라인은 밑줄을 품은 블록(.pen-scope)에 둔다. 인라인 상자에는 view
+   타임라인이 잡히지 않는다. 스코프가 없으면 처음부터 그어진 상태로 남는다. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pen-scope {
+      view-timeline: --pen block;
+    }
+
+    .pen-line {
+      animation: pen-draw linear both;
+      animation-timeline: --pen;
+      animation-range: entry 70% cover 42%;
+    }
+  }
+}
+
+@keyframes pen-draw {
+  from {
+    background-size: 0% 1.5px;
+  }
+  to {
+    background-size: 100% 1.5px;
+  }
+}
+
+/* 붙여 둔 화면 — 먹선 하나와 종이가 들뜬 그림자 */
+.pasted {
+  border: 1px solid var(--color-line-strong);
+  background-color: var(--color-paper-raised);
+  box-shadow: var(--lift);
+}
+
+/* 그림 번호 — 기록 안에서 붙인 순서대로 */
+.figures {
+  counter-reset: figure;
+}
+
+.figures figcaption {
+  counter-increment: figure;
+}
+
+.figures figcaption::before {
+  content: "그림 " counter(figure) ".  ";
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-pen);
+  white-space: pre;
+}
+
+/* 인덱스 플래그 색 — 정적 클래스로 둔다 (src/lib/hue.ts FLAG_CLASS) */
+.flag-mocha { background-color: var(--color-flag-mocha); }
+.flag-terracotta { background-color: var(--color-flag-terracotta); }
+.flag-wheat { background-color: var(--color-flag-wheat); }
+.flag-sage { background-color: var(--color-flag-sage); }
+.flag-plum { background-color: var(--color-flag-plum); }
+.flag-blush { background-color: var(--color-flag-blush); }
+
+/* 창 안 본문 스크롤바 */
+.viewport-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

@@ -14,13 +14,18 @@ export const metadata: Metadata = {
  */
 export default function NotFound() {
   return (
-    <Container className="flex flex-col items-start gap-5 py-20 md:py-28">
-      <p className="font-mono text-sm text-ink-2">404</p>
-      <h1 className="text-3xl font-bold">페이지를 찾을 수 없습니다</h1>
+    <Container className="flex flex-col items-start gap-5 pt-16 pb-20 md:pt-24 md:pb-28">
+      <div className="hang flex flex-col">
+        <p className="margin-note">404</p>
+        <h1 className="text-title font-extrabold tracking-[-0.04em]">페이지를 찾을 수 없습니다</h1>
+      </div>
       <p className="max-w-measure text-ink-2">
         주소가 바뀌었거나 없는 페이지입니다. 주소창의 경로를 확인하거나 홈에서 다시 시작하세요.
       </p>
-      <Link href="/" className="flex min-h-11 items-center border border-line-strong px-5">
+      <Link
+        href="/"
+        className="flex min-h-11 items-center border border-line-strong bg-paper-raised px-5 font-semibold hover:border-pen hover:text-pen"
+      >
         홈으로 돌아가기
       </Link>
     </Container>

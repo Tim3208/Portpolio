@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 /**
- * OG 이미지 공통 (Blueprint 10 — Cloud Dancer 지면 + 하단 6색 스트립)
+ * OG 이미지 공통 — 사이트와 같은 연구 노트 지면(방안지 · 붉은 여백선 · 청색 볼펜)
  *
  * satori 는 woff2 를 읽지 못하므로 Pretendard 의 otf 를 쓴다. OG 라우트는
  * 전부 빌드 타임에 정적 생성되므로 폰트를 읽는 비용은 빌드에서 한 번 끝난다.
@@ -38,28 +38,42 @@ export async function ogFonts() {
   ];
 }
 
-/** 라이트 테마 토큰과 같은 값. OG 는 언제나 라이트 지면으로 낸다. */
+/** 라이트 테마 토큰과 같은 값 (globals.css). OG 는 언제나 라이트 지면으로 낸다. */
 export const OG = {
-  paper: "#F0EEE9",
-  ink: "#1E1C18",
-  ink2: "#57544C",
-  ink3: "#6E6A62",
-  rule: "#DCD8CF",
-  strip: ["#E2D5CD", "#E3CFCC", "#E3DCCC", "#D6DFD0", "#DDD2DA", "#DFD0D3"],
-  deep: {
-    mocha: "#6C4D3A",
-    terracotta: "#78463E",
-    wheat: "#60522F",
-    sage: "#46583B",
-    plum: "#674A5E",
-    blush: "#714850",
+  paper: "#F3F5F7",
+  ink: "#1A1D24",
+  ink2: "#4E5563",
+  ink3: "#636B79",
+  rule: "#C3CBD6",
+  pen: "#1F3FAE",
+  penSoft: "rgba(31, 63, 174, 0.2)",
+  margin: "#D9342B",
+  flag: {
+    mocha: "#F0A443",
+    terracotta: "#EE7458",
+    wheat: "#EFD04E",
+    sage: "#86C788",
+    plum: "#AE94E2",
+    blush: "#F193B8",
   },
-  tint: {
-    mocha: "#E2D5CD",
-    terracotta: "#E3CFCC",
-    wheat: "#E3DCCC",
-    sage: "#D6DFD0",
-    plum: "#DDD2DA",
-    blush: "#DFD0D3",
-  },
+} as const;
+
+/** 붉은 여백선의 가로 위치. 본문은 이 선에서 40px 오른쪽에서 시작한다. */
+export const OG_RULE_X = 150;
+
+/**
+ * 방안지 격자 + 붉은 여백선. satori 의 여러 겹 linear-gradient 배경으로 그린다.
+ * 격자는 여백선에서 시작해 사이트 지면과 같은 리듬(24px, 5칸마다 굵은 선)을 쓴다.
+ */
+export const OG_PAPER_STYLE = {
+  backgroundColor: OG.paper,
+  backgroundImage: [
+    `linear-gradient(90deg, transparent ${OG_RULE_X - 1}px, ${OG.margin} ${OG_RULE_X - 1}px, ${OG.margin} ${OG_RULE_X + 1}px, transparent ${OG_RULE_X + 1}px)`,
+    "linear-gradient(#CCD5E1 1px, transparent 1px)",
+    "linear-gradient(90deg, #CCD5E1 1px, transparent 1px)",
+    "linear-gradient(#E0E6EE 1px, transparent 1px)",
+    "linear-gradient(90deg, #E0E6EE 1px, transparent 1px)",
+  ].join(", "),
+  backgroundSize: "100% 100%, 120px 120px, 120px 120px, 24px 24px, 24px 24px",
+  backgroundPosition: `0 0, ${OG_RULE_X}px 0, ${OG_RULE_X}px 0, ${OG_RULE_X}px 0, ${OG_RULE_X}px 0`,
 } as const;

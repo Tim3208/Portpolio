@@ -45,7 +45,7 @@ const LABEL: Record<Mode, string> = {
 /**
  * 테마 토글 — 시스템 → 라이트 → 다크 → 시스템 순환.
  *
- * 스케치 단계라 아이콘 대신 글자로 상태를 보여준다. 세 라벨을 모두 렌더하고
+ * 노트 서식처럼 아이콘 대신 글자로 상태를 보여준다. 세 라벨을 모두 렌더하고
  * 어느 것을 보일지는 CSS 가 <html> 의 속성을 보고 고른다 (globals.css).
  */
 export function ThemeToggle() {
@@ -77,7 +77,7 @@ export function ThemeToggle() {
       type="button"
       onClick={cycle}
       aria-label={LABEL[mode]}
-      className="min-h-11 shrink-0 border border-line px-3 text-sm md:min-h-9"
+      className="min-h-11 shrink-0 border border-line bg-paper-raised px-3 text-sm text-ink-2 hover:border-pen hover:text-pen md:min-h-9"
     >
       <span data-theme-label="auto">테마: 시스템</span>
       <span data-theme-label="light">테마: 라이트</span>

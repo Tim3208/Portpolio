@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
+  DateNote,
+  EdgeFlag,
   LINK,
   Labeled,
   ProjectCover,
@@ -32,6 +34,8 @@ export const metadata: Metadata = {
     url: "/work",
   },
 };
+
+const SECTION_TITLE = "text-section font-extrabold tracking-[-0.03em]";
 
 /**
  * 프로젝트 전체 목록. 층은 데이터의 tier 가 정한다.
@@ -68,29 +72,43 @@ export default function WorkPage() {
   ];
 
   return (
-    <Container className="flex flex-col gap-16 py-14 md:py-20">
-      <h1 className="text-4xl font-bold">프로젝트</h1>
+    <Container className="flex flex-col gap-16 pt-12 pb-16 md:pt-16 md:pb-20">
+      <h1 className="text-title font-extrabold tracking-[-0.04em]">프로젝트</h1>
 
-      <section aria-labelledby="featured" className="flex flex-col gap-6">
-        <h2 id="featured" className="text-2xl font-bold">
+      <section aria-labelledby="featured" className="flex flex-col gap-2">
+        <h2 id="featured" className={SECTION_TITLE}>
           Featured Projects
         </h2>
         <ul className="flex flex-col">
-          {FEATURED_PROJECTS.map((project) => (
+          {FEATURED_PROJECTS.map((project, i) => (
             <li
               key={project.slug}
-              className="grid gap-6 border-t border-line-strong py-10 md:grid-cols-[2fr_3fr] md:gap-10"
+              className="hang grid gap-6 border-t border-line-strong py-10 md:grid-cols-[3fr_2fr] md:gap-10 [--flag-top:2.5rem] [--note-top:3.05rem]"
             >
-              <ProjectCover project={project} />
-              <div className="flex min-w-0 flex-col gap-3">
-                <h3 className="text-2xl font-bold">{displayTitle(project)}</h3>
+              <EdgeFlag project={project} />
+              <DateNote project={project} />
+              <div className="md:col-start-2 md:row-start-1 md:pt-1">
+                <ProjectCover
+                  project={project}
+                  eager={i === 0}
+                  sizes="(min-width: 80rem) 25rem, (min-width: 48rem) 40vw, 100vw"
+                />
+              </div>
+              <div className="flex min-w-0 flex-col gap-3 md:col-start-1 md:row-start-1">
+                <h3 className="text-2xl leading-snug font-extrabold tracking-[-0.025em]">
+                  <span className="highlight">{displayTitle(project)}</span>
+                </h3>
                 <p className="text-lg">{project.headline}</p>
-                <Labeled label="프로젝트 소개">{project.subtitle}</Labeled>
-                <ProjectMeta project={project} />
+                <Labeled label="프로젝트 소개" hang className="text-ink-2">
+                  {project.subtitle}
+                </Labeled>
+                <ProjectMeta project={project} skipDate />
                 {project.technologies ? (
-                  <p className="font-mono text-sm text-ink-2">{project.technologies.join(" · ")}</p>
+                  <p className="font-mono text-[0.8125rem] text-ink-3">{project.technologies.join(" · ")}</p>
                 ) : null}
-                <Labeled label="Impressive Issue">{project.decision}</Labeled>
+                <Labeled label="Impressive Issue" mark="pen" hang arrow>
+                  {project.decision}
+                </Labeled>
                 <ProjectMetrics project={project} />
                 <ProjectLinks project={project} detail={hasCaseStudy(project.slug)} />
               </div>
@@ -102,7 +120,7 @@ export default function WorkPage() {
       {SUPPORTING_PROJECTS.length ? (
         <section aria-labelledby="supporting" className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <h2 id="supporting" className="text-2xl font-bold">
+            <h2 id="supporting" className={SECTION_TITLE}>
               Additional Projects
             </h2>
             <p className="text-ink-2">개발 방식, 개발 중인 서비스, 교육 도구처럼 성격이 다른 작업입니다.</p>
@@ -110,7 +128,7 @@ export default function WorkPage() {
           {/* 넓은 화면에서는 같은 칸끼리 세로로 맞춰 비교하고, 좁은 화면에서는 칸 이름을 붙여 쌓는다. */}
           <div
             aria-hidden="true"
-            className="hidden border-b border-line-strong pb-2 text-sm text-ink-2 lg:grid lg:grid-cols-[12rem_1fr_1fr_1fr] lg:gap-6"
+            className="hidden border-b border-line-strong pb-2 text-sm font-semibold text-pen lg:grid lg:grid-cols-[12rem_1fr_1fr_1fr] lg:gap-6"
           >
             <span>프로젝트</span>
             <span>나의 역할</span>
@@ -121,11 +139,12 @@ export default function WorkPage() {
             {SUPPORTING_PROJECTS.map((project) => (
               <li
                 key={project.slug}
-                className="grid gap-3 border-b border-line py-6 lg:grid-cols-[12rem_1fr_1fr_1fr] lg:gap-6"
+                className="hang grid gap-3 border-b border-line py-6 lg:grid-cols-[12rem_1fr_1fr_1fr] lg:gap-6 [--flag-top:1.5rem]"
               >
+                <EdgeFlag project={project} />
                 <div className="flex flex-col gap-1">
-                  <span className="text-sm text-ink-2">{categoryOf(project)}</span>
-                  <h3 className="text-lg font-bold">{project.name}</h3>
+                  <span className="text-sm text-ink-3">{categoryOf(project)}</span>
+                  <h3 className="text-lg font-extrabold">{project.name}</h3>
                   <p className="text-sm text-ink-2">{project.headline}</p>
                 </div>
                 <Cell label="나의 역할">{project.role}</Cell>
@@ -142,29 +161,29 @@ export default function WorkPage() {
 
       {otherItems.length ? (
         <section aria-labelledby="others" className="flex flex-col gap-6">
-          <h2 id="others" className="text-2xl font-bold">
+          <h2 id="others" className={SECTION_TITLE}>
             그 밖의 프로젝트
           </h2>
           {/* 기본은 접어 둔다. 대표·보조의 무게를 흐리지 않고, 네이티브 details 라
               JS 없이 열리며 키보드·스크린리더 상태 안내도 브라우저가 맡는다. */}
-          <details className="group border-t border-line">
-            <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 pt-4 [&::-webkit-details-marker]:hidden">
-              <span className="underline underline-offset-4 group-open:hidden">기타 프로젝트 펼쳐보기</span>
-              <span className="hidden underline underline-offset-4 group-open:inline">기타 프로젝트 접기</span>
-              <span className="font-mono text-sm text-ink-2">{otherItems.length}</span>
+          <details className="group border-t border-line-strong">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center gap-3 pt-4 font-semibold text-pen [&::-webkit-details-marker]:hidden">
+              <span className="underline decoration-pen/40 underline-offset-[0.3em] group-open:hidden">기타 프로젝트 펼쳐보기</span>
+              <span className="hidden underline decoration-pen/40 underline-offset-[0.3em] group-open:inline">기타 프로젝트 접기</span>
+              <span className="font-mono text-sm font-normal text-ink-3 tabular-nums">{otherItems.length}</span>
             </summary>
             <ul className="mt-6 grid gap-x-10 sm:grid-cols-2">
               {otherItems.map((item) => (
                 <li key={item.key} className="flex flex-col gap-2 border-t border-line py-5">
-                  <h3 className="text-lg font-bold">
+                  <h3 className="text-lg font-extrabold">
                     {item.name}
                     {item.fullName ? (
-                      <span className="ml-2 text-sm font-normal text-ink-2">{item.fullName}</span>
+                      <span className="ml-2 text-sm font-normal text-ink-3">{item.fullName}</span>
                     ) : null}
                   </h3>
                   <p>{item.summary}</p>
                   <p className="text-sm text-ink-2">{item.detail}</p>
-                  {item.role ? <p className="text-sm text-ink-2">{item.role}</p> : null}
+                  {item.role ? <p className="text-sm text-ink-3">{item.role}</p> : null}
                   {item.link?.internal ? (
                     <Link href={item.link.href} className={`${LINK} text-sm`}>
                       작업 과정 읽기
@@ -188,8 +207,8 @@ export default function WorkPage() {
 function Cell({ label, children }: { label: string; children?: string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-sm text-ink-2 lg:sr-only">{label}</span>
-      <p>{children ?? "—"}</p>
+      <span className="text-sm font-semibold text-pen lg:sr-only">{label}</span>
+      <p className="text-ink-2 lg:text-ink">{children ?? "—"}</p>
     </div>
   );
 }

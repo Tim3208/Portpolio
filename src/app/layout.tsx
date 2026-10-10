@@ -46,11 +46,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // 브라우저 UI 와 맞닿는 면은 이제 창이 아니라 창 바깥의 데스크다.
-  // paper 로 두면 실제 주소창과 사이트 여백 사이에 경계선이 생긴다.
+  // 브라우저 UI 와 맞닿는 면은 데스크톱에서는 창 바깥의 책상이다.
+  // 모바일 주소창 색을 칠하는 브라우저는 대부분 창 연출이 없는 좁은 화면이라
+  // 크롬 대신 놓이는 상단 내비(paper)와 같은 색으로 둔다.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e4e4e4" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#14171c" },
   ],
 };
 
@@ -68,7 +69,7 @@ export default function RootLayout({
 
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:border focus:border-line-strong focus:bg-paper focus:px-4 focus:py-2 focus:text-sm"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:border focus:border-pen focus:bg-paper-raised focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-pen"
         >
           본문으로 건너뛰기
         </a>

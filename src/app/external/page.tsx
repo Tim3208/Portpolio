@@ -19,16 +19,25 @@ export default async function ExternalPage({ searchParams }: Props) {
   const address = Array.isArray(to) ? to[0] : to;
 
   return (
-    <Container className="flex flex-col items-start gap-5 py-20 md:py-28">
-      <p className="font-mono text-sm text-ink-2">이 창 밖의 주소</p>
-      <h1 className="text-3xl font-bold">이 창에서는 이 사이트 안의 페이지만 열 수 있습니다</h1>
+    <Container className="flex flex-col items-start gap-5 pt-16 pb-20 md:pt-24 md:pb-28">
+      <div className="hang flex flex-col">
+        <p className="margin-note font-sans">이 창 밖의 주소</p>
+        <h1 className="text-title max-w-[44rem] font-extrabold tracking-[-0.04em]">
+          이 창에서는 이 사이트 안의 페이지만 열 수 있습니다
+        </h1>
+      </div>
       {address ? (
-        <p className="max-w-full border border-line px-3 py-2 font-mono text-sm break-all">{address}</p>
+        <p className="max-w-full border-b border-line-strong px-1 py-2 font-mono text-sm break-all">
+          <span className="highlight">{address}</span>
+        </p>
       ) : null}
       <p className="max-w-measure text-ink-2">
         주소창에 /work 처럼 이 사이트의 경로를 입력하거나, 홈에서 다시 시작하세요.
       </p>
-      <Link href="/" className="flex min-h-11 items-center border border-line-strong px-5">
+      <Link
+        href="/"
+        className="flex min-h-11 items-center border border-line-strong bg-paper-raised px-5 font-semibold hover:border-pen hover:text-pen"
+      >
         홈으로 돌아가기
       </Link>
     </Container>
