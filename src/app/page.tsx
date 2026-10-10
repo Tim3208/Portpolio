@@ -54,7 +54,7 @@ export default function HomePage() {
           <div className="lg:col-span-8 xl:col-span-7">
             {/* h1 이 이 사이트가 누구의 포트폴리오인지부터 말한다: 직무 · 이름 → 메인 문구 */}
             <h1>
-              <span className="block text-lg font-semibold tracking-tight md:text-xl">
+              <span className="block text-lg font-semibold tracking-tight text-ink-2 md:text-xl">
                 Web Developer {PROFILE.name}
               </span>{" "}
               <span className="mt-3 block text-hero font-bold">
